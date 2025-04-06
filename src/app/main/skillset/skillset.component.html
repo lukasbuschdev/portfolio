@@ -1,1 +1,14 @@
-<p>skillset works!</p>
+<div class="section-container column center gap-30">
+    <div class="header-container">
+        <h2>SKILLSET</h2>
+    </div>
+
+    <div class="content-container center row gap-40">
+        @for (skill of skillset; track $index) {
+            <div class="skill column gap-10 center">
+                <img [src]="skill.img">
+                <span>{{ skill.name }}</span>
+            </div>
+        }
+    </div>
+</div>

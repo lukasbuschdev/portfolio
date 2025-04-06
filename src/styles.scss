@@ -1,28 +1,37 @@
 @use 'variables' as *;
 
-/* orbitron-regular - latin */
+/* exo-2-300 - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Orbitron';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../public/fonts/orbitron-v31-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../public/fonts/exo-2-v24-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-/* orbitron-600 - latin */
+
+/* exo-2-regular - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Orbitron';
-    font-style: normal;
-    font-weight: 600;
-    src: url('../public/fonts/orbitron-v31-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../public/fonts/exo-2-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
-/* orbitron-800 - latin */
+/* exo-2-600 - latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Orbitron';
-    font-style: normal;
-    font-weight: 800;
-    src: url('../public/fonts/orbitron-v31-latin-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../public/fonts/exo-2-v24-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+/* exo-2-800 - latin */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../public/fonts/exo-2-v24-latin-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 
@@ -33,15 +42,25 @@
     scroll-behavior: smooth;
 }
 
-html, body {
-  overflow: auto !important;
-  scrollbar-width: thin;
-  scrollbar-color: #b0b0b0 #f0f0f0;
+h1, h2, h3, h4, span, a, p, li {
+  word-spacing: 5px;
+  font-family: $font;
+}
+
+span, li, a, p {
+  font-weight: 300;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 p, a, button {
@@ -51,6 +70,11 @@ p, a, button {
 .center {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.align-center {
+  display: flex;
   align-items: center;
 }
 
@@ -114,58 +138,44 @@ p, a, button {
   gap: 30px;
 }
 
+.gap-40 {
+  gap: 40px;
+}
+
 h1 {
-  font-size: clamp(3rem, 5vw + 1rem, 6rem);
-  font-weight: 800;
+  font-size: clamp(3rem, 5vw + 1rem, 3.5rem);
+  font-weight: 600;
   font-family: $font;
   line-height: 0.8;
-  color: $txt-color;
+  color: $txt-blue;
+  text-align: center;
 }
 
 h2 {
-  font-size: min(13vmin, 4.5rem);
-  font-weight: 700;
+  font-size: min(13vmin, 2.5rem);
+  font-weight: 400;
   font-family: $font;
   line-height: 1;
-  color: $txt-color
+  color: $txt-blue;
+  text-align: center;
 }
 
 h3 {
-  font-size: min(10vmin, 3rem);
-  font-weight: 700;
+  font-size: min(10vmin, 1.5rem);
+  font-weight: 400;
   font-family: $font;
   line-height: 1;
-  color: $txt-color
+  color: $txt-white;
+  text-align: center;
 }
 
 h4 {
-  font-size: min(9vmin, 1.8rem);
-  font-weight: 700;
+  font-size: min(9vmin, 1.2rem);
+  font-weight: 400;
   font-family: $font;
   line-height: 1;
-  color: $txt-color
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #b0b0b0;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  width: 8px !important;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: #8a8a8a;
-  width: 8px !important;
+  color: $txt-blue;
+  text-align: center;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -242,4 +252,16 @@ input[type="number"] {
 .fade-in-bottom {
   opacity: 0;
   animation: fadeInBottom 500ms ease-out forwards;
+}
+
+.section-container {
+  padding: 5vh 20px;
+}
+
+.header-container {
+  width: fit-content;
+  box-shadow: 0px 0px 50px #000000;
+  border-radius: 99px;
+  padding: 20px;
+  background-color: #000000d6;
 }

@@ -20,7 +20,6 @@ export class AppComponent {
     const fps = 30;
     const nextFrame = 1000/fps;
     let timer = 0;
-    // '#0aff0a'
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -60,11 +59,12 @@ export class AppComponent {
   }
 
   private createGradient(ctx: CanvasRenderingContext2D, width: number, height: number): CanvasGradient {
-    const gradient = ctx.createRadialGradient(width/2, height/2, 200, width/2, height/2, 500);
-    gradient.addColorStop(0, 'transparent');
-    gradient.addColorStop(0.5, '#003300');
-    gradient.addColorStop(0.75, '#0aff0a');
-    gradient.addColorStop(1, '#00eeff');
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#00ffe0');
+    gradient.addColorStop(0.3, '#003300');
+    gradient.addColorStop(0.5, 'transparent');
+    gradient.addColorStop(0.7, '#003300');
+    gradient.addColorStop(1, '#00ffe0');
     return gradient;
   }
 }
