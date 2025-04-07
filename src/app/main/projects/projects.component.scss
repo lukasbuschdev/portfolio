@@ -3,43 +3,71 @@
 .content-container {
     width: 100%;
     max-width: 1080px;
+    align-items: flex-start;
     height: fit-content;
+    flex-wrap: wrap;
     overflow: auto;
+    padding: 10px;
 }
 
-.project {
-    width: 100%;
+.card {
+    width: min(90%, 400px);
     justify-content: center;
+    border: 1px solid $blue;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: $dark-blue-opacity;
+    backdrop-filter: blur(2px);
 
     .image-container {
-        width: 50%;
+        width: 100%;
 
         img {
-            width: 30vw;
+            width: 100%;
             object-fit: contain;
         }
     } 
     
 
-    .name-text {
-        width: 50%;
+    .info-container {
+        width: 100%;
 
         span {
             color: $white;
         }
     }
-}
 
-.project:nth-of-type(2),
-.project:nth-of-type(4) {
-    flex-direction: row-reverse;
-    
-    .image-container {
-        justify-content: left;
+    &:hover {
+        cursor: pointer;
+        border-color: $blue-hover;
+        box-shadow: 0 0 10px $blue-hover;
+        transition: $transition;
+        
+        h3 {
+            color: $blue-hover;
+            text-shadow: 0 0 1px $blue-hover;
+            transition: $transition;
+        }
     }
 
-    .name-text {
-        justify-content: right;
+    .name-arrow-container {
+        position: relative;
+        width: 100%;
+
+        img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 15px;
+            height: 25px;
+            width: 25px;
+            object-fit: contain;
+        }
+    }
+
+    .card-content {
+        height: 0;
+        padding: 0 15px 0;
     }
 }
 
@@ -47,30 +75,45 @@
     button {
         width: fit-content;
         font-family: $font;
-        color: $txt-blue;
+        color: $blue;
         font-size: 1rem;
-        border: 1px solid $txt-blue;
+        border: 1px solid $blue;
         border-radius: 10px;
         padding: 10px 15px;
         transition: all 125ms ease-in-out;
         box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.15);
-
+        
         &:hover {
             cursor: pointer;
             color: $dark-blue;
-            background-color: $txt-blue;
+            background-color: $blue;
             transition: all 125ms ease-in-out;
             box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.2);
         }
     }
-
+    
     button:first-of-type {
         color: $dark-blue;
-        background-color: $txt-blue;
-
+        background-color: $blue;
+        
         &:hover {
-            color: $txt-blue;
+            color: $blue;
             background-color: $dark-blue;
         }
+    }
+}
+
+.active {
+    height: 200px !important;
+    padding-bottom: 15px !important;
+}
+
+.arrow-up {
+    rotate: 180deg;
+}
+
+@media(max-width: 1080px) {
+    .content-container {
+        flex-wrap: wrap;
     }
 }

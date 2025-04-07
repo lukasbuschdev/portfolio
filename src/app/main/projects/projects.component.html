@@ -1,22 +1,26 @@
-<div id="skillset" class="section-container column center gap-30">
+<div id="projects" class="section-container column center gap-30">
     <div class="header-container">
         <h2>PROJECTS</h2>
     </div>
 
-    <div class="content-container center column gap-30">
+    <div class="content-container center row gap-40">
         @for (project of getProjects(); track $index) {
-            <div class="project row gap-30">
-                <div class="image-container right">
+            <div class="card column gap-20" (click)="toggleActiveCard($event, project.id)">
+                <div class="image-container">
                     <img [src]="project.img">
                 </div>
-                <div class="name-text column between center left">
-                    <div class="column left">
-                        <h4>{{ project.name }}</h4>
-                        <span>{{ project.description }}</span>
+                <div class="info-container column center gap-20" [class.active-info-container]="activeCardId === project.id">
+                    <div class="name-arrow-container">
+                        <h3>{{ project.name }}</h3>
+                        <img [class.arrow-up]="activeCardId === project.id" src="img/arrow.svg">
                     </div>
-                    <div class="btn-container row gap-15">
-                        <button (click)="openLink(project.link)">Live Test</button>
-                        <button (click)="openLink(project.github)">Github</button>
+
+                    <div class="column gap-10 card-content between" [class.active]="activeCardId === project.id">
+                        <span>{{ project.description }}</span>
+                        <div class="btn-container row gap-15">
+                            <button (click)="openLink(project.link)">Live Test</button>
+                            <button (click)="openLink(project.github)">Github</button>
+                        </div>
                     </div>
                 </div>
             </div>

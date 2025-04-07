@@ -40,6 +40,7 @@
     box-sizing: border-box;
     user-select: none;
     scroll-behavior: smooth;
+    transition: $transition;
 }
 
 h1, h2, h3, h4, span, a, p, li {
@@ -147,7 +148,7 @@ h1 {
   font-weight: 600;
   font-family: $font;
   line-height: 0.8;
-  color: $txt-blue;
+  color: $blue;
   text-align: center;
 }
 
@@ -156,7 +157,7 @@ h2 {
   font-weight: 400;
   font-family: $font;
   line-height: 1;
-  color: $txt-blue;
+  color: $blue;
   text-align: center;
 }
 
@@ -165,7 +166,7 @@ h3 {
   font-weight: 400;
   font-family: $font;
   line-height: 1;
-  color: $txt-white;
+  color: $blue;
   text-align: center;
 }
 
@@ -174,7 +175,7 @@ h4 {
   font-weight: 400;
   font-family: $font;
   line-height: 1;
-  color: $txt-blue;
+  color: $blue;
   text-align: center;
 }
 

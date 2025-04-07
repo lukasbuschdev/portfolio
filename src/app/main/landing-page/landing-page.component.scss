@@ -5,24 +5,34 @@
     width: 100%;
 
     h2 {
-        color: $txt-white;
+        color: $white;
     }
 }
 
 .card {
     height: 150px;
     width: 250px;
-    border: 1px solid $txt-blue;
+    border: 1px solid $blue;
     border-radius: 10px;
     padding: 15px;
-    background-color: $dark-blue;
-
+    background-color: $dark-blue-opacity;
+    backdrop-filter: blur(2px);
+    
     span {
-        color: $txt-white;
+        color: $white;
         text-align: center;
     }
-
+    
     &:hover {
         cursor: pointer;
+        border-color: $blue-hover;
+        box-shadow: 0 0 10px $blue-hover;
+        transition: $transition;
+        
+        h4 {
+            color: $blue-hover;
+            text-shadow: 0 0 2px $blue-hover;
+            transition: $transition;
+        }
     }
 }
