@@ -1,0 +1,76 @@
+@use 'variables' as *;
+
+.content-container {
+    width: 100%;
+    max-width: 1080px;
+    height: fit-content;
+    overflow: auto;
+}
+
+.project {
+    width: 100%;
+    justify-content: center;
+
+    .image-container {
+        width: 50%;
+
+        img {
+            width: 30vw;
+            object-fit: contain;
+        }
+    } 
+    
+
+    .name-text {
+        width: 50%;
+
+        span {
+            color: $white;
+        }
+    }
+}
+
+.project:nth-of-type(2),
+.project:nth-of-type(4) {
+    flex-direction: row-reverse;
+    
+    .image-container {
+        justify-content: left;
+    }
+
+    .name-text {
+        justify-content: right;
+    }
+}
+
+.btn-container {
+    button {
+        width: fit-content;
+        font-family: $font;
+        color: $txt-blue;
+        font-size: 1rem;
+        border: 1px solid $txt-blue;
+        border-radius: 10px;
+        padding: 10px 15px;
+        transition: all 125ms ease-in-out;
+        box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.15);
+
+        &:hover {
+            cursor: pointer;
+            color: $dark-blue;
+            background-color: $txt-blue;
+            transition: all 125ms ease-in-out;
+            box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    button:first-of-type {
+        color: $dark-blue;
+        background-color: $txt-blue;
+
+        &:hover {
+            color: $txt-blue;
+            background-color: $dark-blue;
+        }
+    }
+}

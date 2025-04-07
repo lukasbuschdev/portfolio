@@ -25,8 +25,16 @@ export class SkillsetComponent {
       img: 'img/html.svg'
     },
     {
-      name: 'Scrum',
-      img: 'img/scrum.svg'
+      name: 'CSS/SCSS',
+      img: 'img/css.svg'
+    },
+    {
+      name: 'Node',
+      img: 'img/node.svg'
+    },
+    {
+      name: 'REST-API',
+      img: 'img/api.svg'
     },
     {
       name: 'Supabase',
@@ -37,24 +45,16 @@ export class SkillsetComponent {
       img: 'img/firebase.svg'
     },
     {
-      name: 'Node',
-      img: 'img/node.svg'
-    },
-    {
       name: 'GIT',
       img: 'img/git.svg'
     },
     {
-      name: 'CSS/SCSS',
-      img: 'img/css.svg'
-    },
-    {
-      name: 'REST-API',
-      img: 'img/api.svg'
-    },
-    {
       name: 'Material Design',
       img: 'img/materialdesign.svg'
+    },
+    {
+      name: 'Scrum',
+      img: 'img/scrum.svg'
     },
     {
       name: 'Growth mindset',

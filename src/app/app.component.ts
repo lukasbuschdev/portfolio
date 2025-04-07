@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MainComponent } from "./main/main.component";
 import { FooterComponent } from "./footer/footer.component";
 import { Effect } from './models/effect';
-import { last } from 'rxjs';
 
 @Component({
   selector: 'app-root',
