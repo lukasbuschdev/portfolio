@@ -5,19 +5,19 @@
 
     <div class="content-container center row gap-40">
         @for (project of getProjects(); track $index) {
-            <div class="card column gap-20" (click)="toggleActiveCard($event, project.id)">
+            <div class="card column gap-20" (click)="openLink(project.link)">
                 <div class="image-container">
                     <img [src]="project.img">
                 </div>
-                <div class="info-container column center gap-20" [class.active-info-container]="activeCardId === project.id">
-                    <div class="name-arrow-container">
-                        <h3>{{ project.name }}</h3>
-                        <img [class.arrow-up]="activeCardId === project.id" src="img/arrow.svg">
-                    </div>
+                <div class="info-container column center gap-20">
+                    <h3>{{ project.name }}</h3>
 
-                    <div class="column gap-10 card-content between" [class.active]="activeCardId === project.id">
+                    <div class="line"></div>
+
+                    <div class="column gap-20 card-content between">
+                        <span>{{ project.technologies }}</span>
                         <span>{{ project.description }}</span>
-                        <div class="btn-container row gap-15">
+                        <div class="btn-container row gap-15 center">
                             <button (click)="openLink(project.link)">Live Test</button>
                             <button (click)="openLink(project.github)">Github</button>
                         </div>

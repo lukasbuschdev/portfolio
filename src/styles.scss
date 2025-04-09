@@ -144,7 +144,7 @@ p, a, button {
 }
 
 h1 {
-  font-size: clamp(3rem, 5vw + 1rem, 3.5rem);
+  font-size: clamp(2.5rem, 5vw + 1rem, 3.5rem);
   font-weight: 600;
   font-family: $font;
   line-height: 0.8;
@@ -153,7 +153,7 @@ h1 {
 }
 
 h2 {
-  font-size: min(13vmin, 2.5rem);
+  font-size: clamp(1.5rem, 5vw + 1rem, 2rem);
   font-weight: 400;
   font-family: $font;
   line-height: 1;
@@ -256,7 +256,7 @@ input[type="number"] {
 }
 
 .section-container {
-  padding: 5vh 20px;
+  padding: 10vh 20px;
 }
 
 .header-container {
@@ -264,5 +264,4 @@ input[type="number"] {
   box-shadow: 0px 0px 50px #000000;
   border-radius: 99px;
   padding: 20px;
-  background-color: #000000d6;
 }

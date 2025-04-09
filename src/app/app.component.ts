@@ -59,11 +59,13 @@ export class AppComponent {
 
   private createGradient(ctx: CanvasRenderingContext2D, width: number, height: number): CanvasGradient {
     const gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#00ffe0');
-    gradient.addColorStop(0.3, '#003300');
+    gradient.addColorStop(0, '#00ffc83d');
+    gradient.addColorStop(0.2, '#003300');
+    gradient.addColorStop(0.3, '#1ba5003d');
     gradient.addColorStop(0.5, 'transparent');
-    gradient.addColorStop(0.7, '#003300');
-    gradient.addColorStop(1, '#00ffe0');
+    gradient.addColorStop(0.7, '#1ba5003d');
+    gradient.addColorStop(0.8, '#003300');
+    gradient.addColorStop(1, '#00ffc83d');
     return gradient;
   }
 }

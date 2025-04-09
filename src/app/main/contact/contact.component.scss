@@ -1,0 +1,118 @@
+@use 'variables' as *;
+
+.content-container {
+    width: 100%;
+    max-width: 1080px;
+    padding: 30px;
+}
+
+.contact-text-container {
+    width: 50%;
+
+    h3 {
+        font-weight: 600;
+    }
+
+    h3, span {
+        width: 100%;
+        text-align: left;
+    }
+
+    span:first-of-type {
+        color: $white;
+    }
+
+    span:last-of-type {
+        color: $blue;
+    }
+}
+
+.contact-form-container {
+    width: 50%;
+
+    .input-row {
+        width: 100%;
+
+        input, textarea {
+            width: 100%;
+            background-color: $dark-blue-opacity;
+            color: $white;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border: 1px solid $blue;
+            backdrop-filter: blur(2px);
+            outline: none;
+            resize: none;
+
+            &:focus {
+                border-color: $blue-hover;
+                box-shadow: 0 0 7px $blue-hover;
+                transition: $transition;
+            }
+
+            &::placeholder {
+                color: $blue;
+            }
+        }
+
+        textarea {
+            height: 10rem;
+        }
+    }
+
+    .accept-container {
+        &:hover {
+            cursor: pointer;
+        }
+
+        span {
+            color: $white;    
+
+            .link {
+                color: $blue;
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .button-container button {
+        width: fit-content;
+        font-family: "Exo 2";
+        color: #00ffe0;
+        font-size: 1.2rem;
+        border: 1px solid #00ffe0;
+        padding: 10px 15px;
+        transition: $transition;
+        
+        &:hover {
+            cursor: pointer;
+            color: $dark-blue;
+            background-color: $blue;
+            transition: $transition;
+            box-shadow: 0 0 7px $blue-hover;
+        }
+    }
+}
+
+@media(max-width: 800px) {
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+
+        .contact-text-container, 
+        .contact-form-container {
+            width: 100%;
+
+            h3, span {
+                text-align: center;
+            }
+        }
+
+        .contact-form-container {
+            .input-row textarea {
+                height: 5rem;
+            }
+        }
+    }
+}

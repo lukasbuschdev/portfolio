@@ -11,13 +11,14 @@
 }
 
 .card {
-    width: min(90%, 400px);
+    width: 90%;
+    max-width: 400px;
     justify-content: center;
     border: 1px solid $blue;
-    border-radius: 15px;
     overflow: hidden;
     background-color: $dark-blue-opacity;
     backdrop-filter: blur(2px);
+    transition: $transition;
 
     .image-container {
         width: 100%;
@@ -25,6 +26,7 @@
         img {
             width: 100%;
             object-fit: contain;
+            filter: brightness(0.8);
         }
     } 
     
@@ -40,34 +42,32 @@
     &:hover {
         cursor: pointer;
         border-color: $blue-hover;
-        box-shadow: 0 0 10px $blue-hover;
+        box-shadow: 0 0 7px $blue-hover;
         transition: $transition;
         
-        h3 {
+        h3, .card-content span:first-of-type {
             color: $blue-hover;
             text-shadow: 0 0 1px $blue-hover;
             transition: $transition;
         }
-    }
 
-    .name-arrow-container {
-        position: relative;
-        width: 100%;
+        .line {
+            background-color: $blue-hover;
+        }
 
-        img {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 15px;
-            height: 25px;
-            width: 25px;
-            object-fit: contain;
+        .image-container img {
+            filter: brightness(0.95);
         }
     }
 
     .card-content {
-        height: 0;
-        padding: 0 15px 0;
+        height: 240px;
+        padding: 0 15px 15px;
+
+        span:first-of-type {
+            color: $blue;
+            text-shadow: 0 0 1px $blue;
+        }
     }
 }
 
@@ -78,42 +78,50 @@
         color: $blue;
         font-size: 1rem;
         border: 1px solid $blue;
-        border-radius: 10px;
         padding: 10px 15px;
-        transition: all 125ms ease-in-out;
-        box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.15);
+        transition: $transition;
         
         &:hover {
             cursor: pointer;
             color: $dark-blue;
             background-color: $blue;
-            transition: all 125ms ease-in-out;
-            box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 7px $blue-hover;
+            transition: $transition;
         }
     }
     
     button:first-of-type {
         color: $dark-blue;
         background-color: $blue;
+        transition: $transition;
         
         &:hover {
             color: $blue;
+            box-shadow: 0 0 7px $blue-hover;
             background-color: $dark-blue;
+            transition: $transition;
         }
     }
 }
 
-.active {
-    height: 200px !important;
-    padding-bottom: 15px !important;
-}
-
-.arrow-up {
-    rotate: 180deg;
+.line {
+    height: 1px;
+    width: calc(100% - 30px);
+    background-color: $blue;
 }
 
 @media(max-width: 1080px) {
     .content-container {
         flex-wrap: wrap;
+    }
+}
+
+@media(max-width: 900px) {
+    .card {
+        max-width: 500px;
+    }
+    
+    .card-content {
+        height: fit-content !important;
     }
 }

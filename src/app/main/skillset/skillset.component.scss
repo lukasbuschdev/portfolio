@@ -10,7 +10,6 @@
 .skill {
     height: fit-content;
     width: 70px;
-    margin-bottom: 30px;
 
     img {
         height: 60px;
@@ -22,4 +21,12 @@
         color: $white;
         text-align: center;
     }
+}
+
+@media(max-width: 600px) {
+    .skill {
+        img {
+            height: 15vw;
+        }
+    } 
 }

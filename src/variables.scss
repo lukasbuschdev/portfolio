@@ -5,8 +5,12 @@ $dark-blue: #000807;
 $blue-hover: #63ffd8;
 $blue: #00ffe0;
 
-$background-gradient: linear-gradient(135deg, #00ff66, #003300);
+$background-gradient: radial-gradient(ellipse, white, transparent);
 
 $font: 'Exo 2';
 
-$transition: all 125ms ease-in-out;
+$transition: all 100ms ease-in-out;
+
+$colorStop1: #00ffc83d;
+$colorStop2: #1ba5003d;
+$colorStop3: #003300;

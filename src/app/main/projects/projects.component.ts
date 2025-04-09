@@ -8,21 +8,7 @@ import { LanguageService } from '../../services/language.service';
   styleUrl: './projects.component.scss'
 })
 export class ProjectsComponent {
-  activeCardId: string  = '';
-  
   language = inject(LanguageService);
-
-  toggleActiveCard(event: MouseEvent, id: string): void {
-    event.stopPropagation();
-    console.log(id)
-    if(this.activeCardId === id) return this.closeCard();
-    this.activeCardId = id;
-    console.log(this.activeCardId)
-  }
-
-  closeCard(): void {
-    this.activeCardId= '';
-  }
 
   openLink(link: string): void {
     window.open(link, '_blank');
@@ -34,7 +20,7 @@ export class ProjectsComponent {
         {
           id: '0',
           name: 'Expense Tracker',
-          technologies: 'Angular 19 | TypeScript | HTML | SCSS | Supabase | Node | Express',
+          technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node | Express',
           description: 'Expense Tracker is a full-stack financial management app. Create an account to access a dynamic dashboard that lets you manage expenses, budgets, and settings in one interface.',
           img: 'img/expensetracker.png',
           link: 'https://expensetracker.lukasbusch.dev',
@@ -62,7 +48,7 @@ export class ProjectsComponent {
           id: '3',
           name: 'Notes',
           technologies: 'JavaScript | HTML | CSS | Firebase',
-          description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and available as PWA.',
+          description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.',
           img: 'img/notes.png',
           link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
           github: 'https://github.com/lukasbuschdev/Notes'
@@ -72,7 +58,7 @@ export class ProjectsComponent {
         {
           id: '0',
           name: 'Expense Tracker',
-          technologies: 'Angular 19 | TypeScript | HTML | SCSS | Supabase | Node | Express',
+          technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node | Express',
           description: 'Expense Tracker es una aplicación full-stack que simplifica la gestión financiera. Crea una cuenta para acceder a un panel dinámico con resúmenes gráficos, gestiona tus gastos, presupuestos y categorías, y ajusta tu configuración, todo en una interfaz intuitiva.',
           img: 'img/expensetracker.png',
           link: 'https://expensetracker.lukasbusch.dev',
@@ -110,7 +96,7 @@ export class ProjectsComponent {
         {
           id: '0',
           name: 'Expense Tracker',
-          technologies: 'Angular 19 | TypeScript | HTML | SCSS | Supabase | Node | Express',
+          technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node | Express',
           description: 'Expense Tracker ist eine Full-Stack-Anwendung, die das Finanzmanagement vereinfacht. Erstelle ein Konto, um ein dynamisches Dashboard mit grafischen Übersichten freizuschalten, verwalte deine Ausgaben, Budgets und Kategorien und passe deine Einstellungen in einer intuitiven Benutzeroberfläche an.',
           img: 'img/expensetracker.png',
           link: 'https://expensetracker.lukasbusch.dev',

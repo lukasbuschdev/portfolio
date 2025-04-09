@@ -1,1 +1,41 @@
-<p>contact works!</p>
+<div id="contact" class="section-container column center gap-30">
+    <div class="header-container">
+        <h2>CONTACT</h2>
+    </div>
+
+    <div class="content-container between row gap-40">
+        <div class="contact-text-container column gap-30 left">
+            <h3>Got a problem to solve?</h3>
+            <span>Contact me through this form, I am interested in hearing from you, knowing your ideas and contributing to your projects with my work.</span>
+            <span>Need a Full-Stack Developer? <b>Contact me!</b></span>
+        </div>
+
+        <div class="contact-form-container column gap-30 center">
+            <div class="input-row">
+                <input type="text" placeholder="Your name...">
+
+            </div>
+            <div class="input-row">
+                <input type="text" placeholder="Your email...">
+
+            </div>
+            <div class="input-row">
+                <textarea id="message" placeholder="Your message..."></textarea>
+
+            </div>
+
+            <div class="accept-container row left gap-10 align-center">
+                @if(!isChecked) {
+                    <img src="img/checkbox-unchecked.svg" (click)="toggleChcked()">
+                } @else {
+                    <img src="img/checkbox-checked.svg" (click)="toggleChcked()">
+                }
+                <span (click)="toggleChcked()">I have read and accept the <span class="link">privacy policy.</span></span>
+            </div>
+
+            <div class="button-container">
+                <button>Say hello</button>
+            </div>
+        </div>
+    </div>
+</div>

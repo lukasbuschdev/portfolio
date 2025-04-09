@@ -8,7 +8,7 @@ export class Symbol {
 
     constructor(x: any, y: any, fontSize: number, canvasHeight: any) {
         // this.characters = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        this.characters = '01';
+        this.characters = '01 ';
         this.x = x;
         this.y = y;
         this.fontSize = fontSize;

@@ -6,6 +6,7 @@
 
     h2 {
         color: $white;
+        font-size: default;
     }
 }
 
@@ -13,10 +14,10 @@
     height: 150px;
     width: 250px;
     border: 1px solid $blue;
-    border-radius: 10px;
     padding: 15px;
     background-color: $dark-blue-opacity;
     backdrop-filter: blur(2px);
+    transition: $transition;
     
     span {
         color: $white;
@@ -26,13 +27,38 @@
     &:hover {
         cursor: pointer;
         border-color: $blue-hover;
-        box-shadow: 0 0 10px $blue-hover;
+        box-shadow: 0 0 7px $blue-hover;
         transition: $transition;
         
         h4 {
             color: $blue-hover;
-            text-shadow: 0 0 2px $blue-hover;
+            text-shadow: 0 0 1px $blue-hover;
             transition: $transition;
         }
+    }
+}
+
+@media(max-width: 900px) {
+    h2 {
+        min-width: 300px;
+    }
+
+    .card {
+        width: fit-content;
+        height: fit-content;
+
+        span {
+            display: none;
+        }
+    }
+}
+
+@media(max-width: 500px) {
+    .content-container {
+        gap: 15px;
+    }
+
+    h4 {
+        font-size: 1rem;
     }
 }
