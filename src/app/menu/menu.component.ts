@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { ScrollService } from '../services/scroll.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-legal-notice',
+  selector: 'app-menu',
   imports: [],
-  templateUrl: './legal-notice.component.html',
-  styleUrl: './legal-notice.component.scss'
+  templateUrl: './menu.component.html',
+  styleUrl: './menu.component.scss'
 })
-export class LegalNoticeComponent {
+export class MenuComponent {
   scroll = inject(ScrollService);
 }

@@ -1,17 +1,17 @@
 <footer>
-    <div class="content-container row between align-center">
+    <div class="content-container row between align-center gap-20">
         <div class="logo">
             <img src="img/logo.svg">
         </div>
     
         <div class="column gap-20 center text">
             <span>© Lukas Busch 2025</span>
-            <span>Legal notice</span>
+            <span (click)="scroll.goToSection('legal-notice', 'legal-notice')">Legal notice</span>
         </div>
     
         <div class="row gap-20 links">
             <img (click)="openLink('https://github.com/lukasbuschdev')" src="img/github.svg">
-            <img (click)="scroll.scrollToSection('contact')" src="img/email.svg">
+            <img (click)="scroll.goToSection('main', 'contact', 'name')" src="img/email.svg">
             <img (click)="openLink('https://www.linkedin.com/in/lukas-busch-4192001b5')" src="img/linkedin.svg">
         </div>
     </div>

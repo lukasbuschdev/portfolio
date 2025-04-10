@@ -30,7 +30,7 @@ footer {
 
         &:hover {
             cursor: pointer;
-            filter: brightness(1.5);
+            filter: brightness(0.75);
         }
     }
 }
@@ -43,7 +43,21 @@ footer {
 
         &:hover {
             cursor: pointer;
-            filter: brightness(1.5);
+            filter: brightness(0.75);
         }
+    }
+}
+
+@media(max-width: 600px) {
+    footer {
+        height: fit-content;
+    }
+
+    .content-container {
+        flex-direction: column;
+    }
+
+    .links {
+        margin: 20px 0;
     }
 }

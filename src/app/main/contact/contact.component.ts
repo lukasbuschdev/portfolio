@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ScrollService } from '../../services/scroll.service';
 
 @Component({
   selector: 'app-contact',
@@ -14,6 +15,8 @@ export class ContactComponent {
   nameRegex: RegExp = /^[a-zA-Z ]*$/;
   emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   messageRegex: RegExp = /^[\p{L}\p{N}\s.,:;\-!?/&()]+$/u;
+
+  scroll = inject(ScrollService);
 
   toggleChecked(): void {
     this.isChecked = !this.isChecked;

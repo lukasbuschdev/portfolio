@@ -13,7 +13,7 @@
         <div class="column gap-20 center form-button-wrapper">
             <div class="contact-form-container column gap-10 center">
                 <div class="input-row column gap-10">
-                    <input #name type="text" pattern="^(?=.*[a-zA-Z])[a-zA-Z ]*$" placeholder="Your name...">
+                    <input id="name" #name type="text" pattern="^(?=.*[a-zA-Z])[a-zA-Z ]*$" placeholder="Your name...">
                     @if(isSubmitAttempted && !name.value.length) {
                         <span class="error-message">{{ 'Enter your name!' }}</span>
                     } @else if(isSubmitAttempted && !nameRegex.test(name.value)) {
@@ -51,7 +51,7 @@
                     } @else {
                         <img src="img/checkbox-checked.svg" (click)="toggleChecked()">
                     }
-                    <span (click)="toggleChecked()">I have read and accept the <span class="link">privacy policy.</span></span>
+                    <span (click)="toggleChecked()">I have read and accept the <span class="link" (click)="scroll.goToSection('privacy-policy', 'privacy-policy')">privacy policy.</span></span>
                 </div>
                 @if(isSubmitAttempted && !isChecked) {
                     <span class="error-message">{{ 'You must accept the privacy policy!' }}</span>

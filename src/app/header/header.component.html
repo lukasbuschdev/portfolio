@@ -5,9 +5,10 @@
         </div>
 
         <div class="links row gap-15">
-            <span (click)="scroll.scrollToSection('profile')">PROFILE</span>
-            <span (click)="scroll.scrollToSection('projects')">PROJECTS</span>
-            <span (click)="scroll.scrollToSection('contact')">CONTACT</span>
+            <span (click)="scroll.goToSection('main', 'profile')">PROFILE</span>
+            <span (click)="scroll.goToSection('main', 'projects')">PROJECTS</span>
+            <span (click)="scroll.goToSection('main', 'contact', 'name')">CONTACT</span>
+            <img src="img/menu.svg" (click)="toggleMenu()">
         </div>
     </div>
 </header>

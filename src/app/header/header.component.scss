@@ -55,5 +55,33 @@ header {
                 }
             }
         }
+
+        img {
+            display: none;
+        }
+    }
+}
+
+@media(max-width: 600px) {
+    .content-container {
+        padding: 10px 5%;
+
+        .links {
+            span {
+                display: none;
+            }
+    
+            img {
+                display: block;
+                height: 30px;
+                width: 30px;
+                object-fit: contain;
+
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.75);
+                }
+            }
+        }
     }
 }

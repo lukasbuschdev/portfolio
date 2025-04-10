@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FooterComponent } from "./footer/footer.component";
 import { Effect } from './models/effect';
 import { HeaderComponent } from "./header/header.component";
-import { RouterModule } from '@angular/router';
-import { MainComponent } from "./main/main.component";
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [FooterComponent, HeaderComponent, RouterModule, MainComponent],
+  imports: [FooterComponent, HeaderComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Lukas Busch';
-
+  router = inject(Router);
+  
   ngAfterViewInit(): void {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
