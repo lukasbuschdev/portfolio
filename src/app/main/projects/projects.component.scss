@@ -1,72 +1,124 @@
 @use 'variables' as *;
 
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .content-container {
     width: 100%;
     max-width: 1080px;
     align-items: flex-start;
     height: fit-content;
     flex-wrap: wrap;
-    overflow: auto;
-    padding: 10px;
+    padding: 25px 10px;
+    justify-content: center;
+    display: flex;
 }
 
 .card {
+    position: relative;
     width: 90%;
     max-width: 400px;
     justify-content: center;
     border: 1px solid $blue;
-    overflow: hidden;
-    background-color: $dark-blue-opacity;
     backdrop-filter: blur(2px);
-    transition: $transition;
+    background-color: $dark-blue-opacity;
+
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        box-sizing: content-box;
+        padding: 2px;
+        z-index: -1;
+        opacity: 0;
+        transition: $transition;
+        background-image: none;
+    }
 
     .image-container {
         width: 100%;
+        position: relative;
+        z-index: 1;
 
         img {
             width: 100%;
             object-fit: contain;
             filter: brightness(0.8);
+            display: block;
         }
-    } 
-    
+    }
+
 
     .info-container {
         width: 100%;
+        position: relative;
+        z-index: 2;
+        gap: 20px;
 
         span {
             color: $white;
+            position: relative;
+            z-index: 1;
+        }
+
+        h3 {
+            position: relative;
+            z-index: 1;
+            transition: $transition;
         }
     }
 
     &:hover {
         cursor: pointer;
-        border-color: $blue-hover;
-        box-shadow: 0 0 7px $blue-hover;
-        transition: $transition;
-        
+        background-color: $dark-blue;
+        backdrop-filter: unset;
+
+        &::after, &::before {
+            background-image: conic-gradient(from var(--angle), transparent 50%, $blue-hover);
+            opacity: 1;
+            animation: 2s spin linear infinite;
+            transition: $transition;
+        }
+
+        &::before {
+            filter: blur(1rem);
+            opacity: 0.5;
+            transition: $transition;
+        }
+
         h3, .card-content span:first-of-type {
             color: $blue-hover;
             text-shadow: 0 0 1px $blue-hover;
-            transition: $transition;
         }
 
         .line {
             background-color: $blue-hover;
-        }
-
-        .image-container img {
-            filter: brightness(0.95);
+            transition: $transition;
         }
     }
 
     .card-content {
         height: 240px;
         padding: 0 15px 15px;
+        width: calc(100% - 30px);
+        box-sizing: border-box;
+
+        span {
+           position: relative;
+           z-index: 1;
+        }
 
         span:first-of-type {
             color: $blue;
             text-shadow: 0 0 1px $blue;
+            transition: $transition;
         }
     }
 }
@@ -80,26 +132,23 @@
         border: 1px solid $blue;
         padding: 10px 15px;
         transition: $transition;
-        
+
         &:hover {
             cursor: pointer;
             color: $dark-blue;
             background-color: $blue;
             box-shadow: 0 0 7px $blue-hover;
-            transition: $transition;
         }
     }
-    
+
     button:first-of-type {
         color: $dark-blue;
         background-color: $blue;
-        transition: $transition;
-        
+
         &:hover {
             color: $blue;
             box-shadow: 0 0 7px $blue-hover;
             background-color: $dark-blue;
-            transition: $transition;
         }
     }
 }
@@ -108,11 +157,23 @@
     height: 1px;
     width: calc(100% - 30px);
     background-color: $blue;
+    position: relative;
+    z-index: 1;
+    transition: $transition;
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
 }
 
 @media(max-width: 1080px) {
     .content-container {
-        flex-wrap: wrap;
+        justify-content: center;
     }
 }
 
@@ -120,7 +181,7 @@
     .card {
         max-width: 500px;
     }
-    
+
     .card-content {
         height: fit-content !important;
     }

@@ -10,31 +10,58 @@
             <span>Need a Full-Stack Developer? <b>Contact me!</b></span>
         </div>
 
-        <div class="contact-form-container column gap-30 center">
-            <div class="input-row">
-                <input type="text" placeholder="Your name...">
-
+        <div class="column gap-20 center form-button-wrapper">
+            <div class="contact-form-container column gap-10 center">
+                <div class="input-row column gap-10">
+                    <input #name type="text" pattern="^(?=.*[a-zA-Z])[a-zA-Z ]*$" placeholder="Your name...">
+                    @if(isSubmitAttempted && !name.value.length) {
+                        <span class="error-message">{{ 'Enter your name!' }}</span>
+                    } @else if(isSubmitAttempted && !nameRegex.test(name.value)) {
+                        <span class="error-message">{{ 'Invalid name!' }}</span>
+                    } @else {
+                        <span class="error-message"></span>
+                    }
+                </div>
+                <div class="input-row column gap-10">
+                    <input #email type="text" placeholder="Your email...">
+                    @if(isSubmitAttempted && !email.value.length) {
+                        <span class="error-message">{{ 'Enter your email!' }}</span>
+                    } @else if(isSubmitAttempted && !emailRegex.test(email.value)) {
+                        <span class="error-message">{{ 'Invalid email!' }}</span>
+                    } @else {
+                        <span class="error-message"></span>
+                    }
+                </div>
+                <div class="input-row column gap-10">
+                    <textarea #message id="message" placeholder="Your message..."></textarea>
+                    @if(isSubmitAttempted && !message.value.length) {
+                        <span class="error-message">{{ 'Enter your message!' }}</span>
+                    } @else if(isSubmitAttempted && !messageRegex.test(message.value)) {
+                        <span class="error-message">{{ 'Invalid message content!' }}</span>
+                    } @else {
+                        <span class="error-message"></span>
+                    }
+                </div>
             </div>
-            <div class="input-row">
-                <input type="text" placeholder="Your email...">
 
-            </div>
-            <div class="input-row">
-                <textarea id="message" placeholder="Your message..."></textarea>
-
-            </div>
-
-            <div class="accept-container row left gap-10 align-center">
-                @if(!isChecked) {
-                    <img src="img/checkbox-unchecked.svg" (click)="toggleChcked()">
+            <div class="column gap-5 center">
+                <div class="accept-container row left gap-10 align-center">
+                    @if(!isChecked) {
+                        <img src="img/checkbox-unchecked.svg" (click)="toggleChecked()">
+                    } @else {
+                        <img src="img/checkbox-checked.svg" (click)="toggleChecked()">
+                    }
+                    <span (click)="toggleChecked()">I have read and accept the <span class="link">privacy policy.</span></span>
+                </div>
+                @if(isSubmitAttempted && !isChecked) {
+                    <span class="error-message">{{ 'You must accept the privacy policy!' }}</span>
                 } @else {
-                    <img src="img/checkbox-checked.svg" (click)="toggleChcked()">
+                    <span class="error-message"></span>
                 }
-                <span (click)="toggleChcked()">I have read and accept the <span class="link">privacy policy.</span></span>
             </div>
 
             <div class="button-container">
-                <button>Say hello</button>
+                <button (click)="submit(name.value, email.value, message.value)">Say hello</button>
             </div>
         </div>
     </div>

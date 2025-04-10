@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ScrollService } from '../services/scroll.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
+  scroll = inject(ScrollService);
 
+  openLink(link: string): void {
+    window.open(link, '_blank');
+  }
 }

@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
-import { MainComponent } from "./main/main.component";
 import { FooterComponent } from "./footer/footer.component";
 import { Effect } from './models/effect';
+import { HeaderComponent } from "./header/header.component";
+import { RouterModule } from '@angular/router';
+import { MainComponent } from "./main/main.component";
 
 @Component({
   selector: 'app-root',
-  imports: [MainComponent, FooterComponent],
+  imports: [FooterComponent, HeaderComponent, RouterModule, MainComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'portfolio';
+  title = 'Lukas Busch';
 
   ngAfterViewInit(): void {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;

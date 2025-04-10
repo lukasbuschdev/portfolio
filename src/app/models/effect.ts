@@ -18,7 +18,8 @@ export class Effect {
 
     #initialize(): void {
         for(let i = 0; i < this.columns; i++) {
-            this.symbols[i] = new Symbol(i, 0, this.fontSize, this.canvasHeight);
+            const randomY = Math.floor(Math.random() * (this.canvasHeight / this.fontSize));
+            this.symbols[i] = new Symbol(i, randomY, this.fontSize, this.canvasHeight);
         }
     }
 
