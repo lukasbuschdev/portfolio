@@ -8,11 +8,10 @@
 
 .content-container {
     width: 100%;
-    max-width: 1080px;
+    max-width: 1440px;
     align-items: flex-start;
     height: fit-content;
     flex-wrap: wrap;
-    padding: 25px 10px;
     justify-content: center;
     display: flex;
 }
@@ -149,6 +148,20 @@
             color: $blue;
             box-shadow: 0 0 7px $blue-hover;
             background-color: $dark-blue;
+        }
+    }
+}
+
+.arrow-container {
+    padding: 2vh 0;
+
+    img {
+        height: 30px;
+        object-fit: contain;
+        
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.75);
         }
     }
 }

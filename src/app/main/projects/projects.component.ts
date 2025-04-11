@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { ScrollService } from '../../services/scroll.service';
 
 @Component({
   selector: 'app-projects',
@@ -10,6 +11,7 @@ import { TranslatePipe } from '../../pipe/translate.pipe';
 })
 export class ProjectsComponent {
   language = inject(LanguageService);
+  scroll = inject(ScrollService);
 
   openLink(link: string): void {
     window.open(link, '_blank');

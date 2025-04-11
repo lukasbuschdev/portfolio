@@ -26,7 +26,8 @@
 }
 
 .page {
-    max-width: 1080px;
+    max-width: 1440px;
+    position: relative;
 
     .container {
         h1, h2, h3, h4, h5, h6 {
@@ -49,8 +50,32 @@
                 filter: brightness(0.75);
             }
         }
-} 
+    }
 
+}
+
+.arrow-container {
+    display: none;
+    position: fixed;
+    bottom: 5vh;
+    right: 4vw;
+
+    img {
+        max-height: 50px;
+        height: 10vw;
+        min-height: 40px;
+        object-fit: contain;
+        transform: rotate(180deg);
+        
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.75);
+        }
+    }
+}
+
+.scrolled {
+    display: block !important;
 }
 
 @media(max-width: 400px) {

@@ -14,4 +14,18 @@ import { PrivacyPolicyDeComponent } from './privacy-policy-de/privacy-policy-de.
 export class PrivacyPolicyComponent {
   scroll = inject(ScrollService);
   language = inject(LanguageService);
+
+  isScrolled: boolean = false;
+
+  private scrollListener = (event: Event): void => {
+    this.isScrolled = window.scrollY > 300; 
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('scroll', this.scrollListener);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.scrollListener);
+  } 
 }

@@ -1,8 +1,16 @@
 @use 'variables' as *;
 
+.section-container {
+    width: 100%;
+    
+    .wrapper {
+        width: 100%;
+        max-width: 1440px;
+    }
+}
+
 .content-container {
     width: 100%;
-    max-width: 1080px;
 }
 
 .text-container {
@@ -15,5 +23,30 @@
 
     span {
         color: $white;
+    }
+}
+
+.arrow-container {
+    padding: 2vh 0;
+
+    img {
+        height: 30px;
+        object-fit: contain;
+        
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.75);
+        }
+    }
+}
+
+@media(max-width: 500px) {
+    .section-container {
+        height: 100vh;
+
+        .wrapper {
+            height: 100%;
+            justify-content: space-between;
+        }
     }
 }

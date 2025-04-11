@@ -1,4 +1,4 @@
-<div id="projects" class="section-container column center gap-30">
+<div id="projects" class="section-container column center gap-50">
     <div class="header-container">
         <h2>{{ 'projects' | translate }}</h2>
     </div>
@@ -25,6 +25,10 @@
                 </div>
             </div>
         }
+    </div>
+
+    <div class="arrow-container">
+        <img (click)="scroll.goToSection('main', 'contact')" src="img/arrow-single.svg">
     </div>
 </div>
 

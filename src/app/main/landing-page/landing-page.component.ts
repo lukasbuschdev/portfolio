@@ -10,4 +10,8 @@ import { TranslatePipe } from '../../pipe/translate.pipe';
 })
 export class LandingPageComponent {
   scroll = inject(ScrollService);
+
+  openLink(link: string): void {
+    window.open(link, '_blank');
+  }
 }

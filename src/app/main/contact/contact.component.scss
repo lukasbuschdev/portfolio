@@ -2,8 +2,7 @@
 
 .content-container {
     width: 100%;
-    max-width: 1080px;
-    padding: 30px;
+    max-width: 1440px;
 }
 
 .form-button-wrapper {
@@ -128,6 +127,25 @@ select:-webkit-autofill:focus {
 .bold {
     font-weight: 600;
     color: $blue !important;
+}
+
+.arrow-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    img {
+        max-height: 50px;
+        height: 10vw;
+        min-height: 40px;
+        object-fit: contain;
+        transform: rotate(180deg);
+        
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.75);
+        }
+    }
 }
 
 @media(max-width: 800px) {

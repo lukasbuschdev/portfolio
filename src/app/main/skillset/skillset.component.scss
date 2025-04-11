@@ -2,7 +2,7 @@
 
 .content-container {
     width: 100%;
-    max-width: 1080px;
+    max-width: 1440px;
     padding: 10px 30px;
     flex-wrap: wrap;
 }
@@ -23,10 +23,29 @@
     }
 }
 
-@media(max-width: 600px) {
+.arrow-container {
+    padding: 2vh 0;
+
+    img {
+        height: 30px;
+        object-fit: contain;
+        
+        &:hover {
+            cursor: pointer;
+            filter: brightness(0.75);
+        }
+    }
+}
+
+@media(max-width: 550px) {
+    .content-container {
+        gap: 25px;
+        padding: 10px 5vw;
+    }
+
     .skill {
         img {
-            height: 15vw;
+            height: 12vw;
         }
     } 
 }

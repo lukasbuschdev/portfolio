@@ -10,4 +10,8 @@
     } @else {
         <app-privacy-policy-de></app-privacy-policy-de>
     }
+
+    <div class="arrow-container" [class.scrolled]="isScrolled">
+        <img (click)="scroll.goToSection('privacy-policy', 'privacy-policy')" src="img/arrows.svg">
+    </div>
 </div>

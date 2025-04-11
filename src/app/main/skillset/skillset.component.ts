@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { ScrollService } from '../../services/scroll.service';
 
 @Component({
   selector: 'app-skillset',
@@ -8,6 +9,8 @@ import { TranslatePipe } from '../../pipe/translate.pipe';
   styleUrl: './skillset.component.scss'
 })
 export class SkillsetComponent {
+  scroll = inject(ScrollService);
+
   skillset = [
     {
       name: 'Angular',

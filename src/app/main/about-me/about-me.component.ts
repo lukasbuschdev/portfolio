@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '../../pipe/translate.pipe';
+import { ScrollService } from '../../services/scroll.service';
 
 @Component({
   selector: 'app-about-me',
@@ -8,5 +9,5 @@ import { TranslatePipe } from '../../pipe/translate.pipe';
   styleUrl: './about-me.component.scss'
 })
 export class AboutMeComponent {
-
+  scroll = inject(ScrollService);
 }

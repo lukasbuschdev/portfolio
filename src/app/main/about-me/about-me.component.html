@@ -1,11 +1,17 @@
-<div id="profile" class="section-container column center">
-    <div class="header-container">
-        <h2>{{ 'profile' | translate }}</h2>
-    </div>
-
-    <div class="content-container center">
-        <div class="text-container">
-            <span>{{ 'profile-text' | translate }}</span>
+<div id="profile" class="section-container center">
+    <div class="wrapper column center">
+        <div class="header-container">
+            <h2>{{ 'profile' | translate }}</h2>
+        </div>
+    
+        <div class="content-container center">
+            <div class="text-container">
+                <span>{{ 'profile-text' | translate }}</span>
+            </div>
+        </div>
+    
+        <div class="arrow-container">
+            <img (click)="scroll.goToSection('main', 'skillset')" src="img/arrow-single.svg">
         </div>
     </div>
 </div>
