@@ -5,7 +5,7 @@ import { ScrollService } from '../../services/scroll.service';
   selector: 'app-privacy-policy-es',
   imports: [],
   templateUrl: './privacy-policy-es.component.html',
-  styleUrl: './privacy-policy-es.component.scss'
+  styleUrls: ['./privacy-policy-es.component.scss', '../privacy-policy.component.scss']
 })
 export class PrivacyPolicyEsComponent {
   scroll = inject(ScrollService);
