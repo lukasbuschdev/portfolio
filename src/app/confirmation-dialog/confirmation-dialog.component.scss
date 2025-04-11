@@ -1,0 +1,24 @@
+@use 'variables' as *;
+
+.backdrop {
+    height: calc(100vh - 150px);
+    width: 100%;
+    position: relative;
+    z-index: 5;
+}
+
+.card {
+    min-height: 300px;
+    height: fit-content;
+    max-width: 500px;
+    width: 90%;
+    background-color: $dark-blue-opacity;
+    border: 1px solid $blue;
+    box-shadow: 0 0 7px $blue-hover;
+    backdrop-filter: blur(2px);
+    margin-top: 80px;
+
+    h4 {
+        color: $white;
+    }
+}

@@ -81,7 +81,7 @@
         backdrop-filter: unset;
 
         &::after, &::before {
-            background-image: conic-gradient(from var(--angle), transparent 50%, $blue-hover);
+            background-image: conic-gradient(from var(--angle), transparent 25%, $blue-hover, transparent 75%, $blue-hover);
             opacity: 1;
             animation: 2s spin linear infinite;
             transition: $transition;

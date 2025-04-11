@@ -1,14 +1,24 @@
-<header>
+<header class="center">
     <div class="content-container row between align-center">
         <div class="logo">
             <img src="img/logo.svg">
         </div>
 
-        <div class="links row gap-15">
-            <span (click)="scroll.goToSection('main', 'profile')">PROFILE</span>
-            <span (click)="scroll.goToSection('main', 'projects')">PROJECTS</span>
-            <span (click)="scroll.goToSection('main', 'contact', 'name')">CONTACT</span>
-            <img src="img/menu.svg" (click)="toggleMenu()">
+        <div class="row gap-40 section-language-container">
+            <div class="links row gap-15">
+                <span (click)="scroll.goToSection('main', 'profile')">{{ 'profile' | translate }}</span>
+                <span (click)="scroll.goToSection('main', 'projects')">{{ 'projects' | translate }}</span>
+                <span (click)="scroll.goToSection('main', 'contact', 'name')">{{ 'contact' | translate}}</span>
+                <img src="img/menu.svg" (click)="toggleMenu()">
+            </div>
+    
+            <div class="row gap-5 languages">
+                <span [class.active]="language.currentLanguage === 'en'" (click)="language.changeLanguage('en')">EN</span>
+                <span>|</span>
+                <span [class.active]="language.currentLanguage === 'es'" (click)="language.changeLanguage('es')">ES</span>
+                <span>|</span>
+                <span [class.active]="language.currentLanguage === 'de'" (click)="language.changeLanguage('de')">DE</span>
+            </div>
         </div>
     </div>
 </header>

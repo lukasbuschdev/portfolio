@@ -1,43 +1,50 @@
 <div id="contact" class="section-container column center gap-30">
     <div class="header-container">
-        <h2>CONTACT</h2>
+        <h2>{{ 'contact' | translate }}</h2>
     </div>
 
     <div class="content-container between row gap-40">
         <div class="contact-text-container column gap-30 left">
-            <h3>Got a problem to solve?</h3>
-            <span>Contact me through this form, I am interested in hearing from you, knowing your ideas and contributing to your projects with my work.</span>
-            <span>Need a Full-Stack Developer? <b>Contact me!</b></span>
+            <h3>{{ 'got-a-problem' | translate }}</h3>
+            <span>{{ 'contact-me-text' | translate }}</span>
+            <div>
+                <span>{{ 'need-a-developer' | translate }} </span>
+                <span class="bold">{{ 'contact-me' | translate }}</span>
+            </div>
         </div>
 
         <div class="column gap-20 center form-button-wrapper">
             <div class="contact-form-container column gap-10 center">
                 <div class="input-row column gap-10">
-                    <input id="name" #name type="text" pattern="^(?=.*[a-zA-Z])[a-zA-Z ]*$" placeholder="Your name...">
-                    @if(isSubmitAttempted && !name.value.length) {
-                        <span class="error-message">{{ 'Enter your name!' }}</span>
-                    } @else if(isSubmitAttempted && !nameRegex.test(name.value)) {
-                        <span class="error-message">{{ 'Invalid name!' }}</span>
+                    <input id="name" [(ngModel)]="name" type="text" pattern="^(?=.*[a-zA-Z])[a-zA-Z ]*$" [placeholder]="'placeholder-name' | translate">
+                    @if(isSubmitAttempted && !name.length) {
+                        <span class="error-message">{{ 'error-enter-name' | translate }}</span>
+                    } @else if(isSubmitAttempted && name.length < 3) {
+                        <span class="error-message">{{ 'error-name-too-short' | translate }}</span>
+                    } @else if(isSubmitAttempted && !nameRegex.test(name)) {
+                        <span class="error-message">{{ 'error-invalid-name' | translate }}</span>
                     } @else {
                         <span class="error-message"></span>
                     }
                 </div>
                 <div class="input-row column gap-10">
-                    <input #email type="text" placeholder="Your email...">
-                    @if(isSubmitAttempted && !email.value.length) {
-                        <span class="error-message">{{ 'Enter your email!' }}</span>
-                    } @else if(isSubmitAttempted && !emailRegex.test(email.value)) {
-                        <span class="error-message">{{ 'Invalid email!' }}</span>
+                    <input [(ngModel)]="email" type="text" [placeholder]="'placeholder-email' | translate">
+                    @if(isSubmitAttempted && !email.length) {
+                        <span class="error-message">{{ 'error-enter-email' | translate }}</span>
+                    } @else if(isSubmitAttempted && !emailRegex.test(email)) {
+                        <span class="error-message">{{ 'error-invalid-email' | translate }}</span>
                     } @else {
                         <span class="error-message"></span>
                     }
                 </div>
                 <div class="input-row column gap-10">
-                    <textarea #message id="message" placeholder="Your message..."></textarea>
-                    @if(isSubmitAttempted && !message.value.length) {
-                        <span class="error-message">{{ 'Enter your message!' }}</span>
-                    } @else if(isSubmitAttempted && !messageRegex.test(message.value)) {
-                        <span class="error-message">{{ 'Invalid message content!' }}</span>
+                    <textarea [(ngModel)]="message" id="message" [placeholder]="'placeholder-message' | translate"></textarea>
+                    @if(isSubmitAttempted && !message.length) {
+                        <span class="error-message">{{ 'error-enter-message' | translate }}</span>
+                    } @else if(isSubmitAttempted && message.length < 10) {
+                        <span class="error-message">{{ 'error-message-too-short' | translate }}</span>
+                    } @else if(isSubmitAttempted && !messageRegex.test(message)) {
+                        <span class="error-message">{{ 'error-invild-message' | translate }}</span>
                     } @else {
                         <span class="error-message"></span>
                     }
@@ -51,17 +58,17 @@
                     } @else {
                         <img src="img/checkbox-checked.svg" (click)="toggleChecked()">
                     }
-                    <span (click)="toggleChecked()">I have read and accept the <span class="link" (click)="scroll.goToSection('privacy-policy', 'privacy-policy')">privacy policy.</span></span>
+                    <span>{{ 'accept-privacy-policy' | translate }} <span class="link" (click)="scroll.goToSection('privacy-policy', 'privacy-policy')">{{ 'privacy-policy' | translate }}</span>.</span>
                 </div>
                 @if(isSubmitAttempted && !isChecked) {
-                    <span class="error-message">{{ 'You must accept the privacy policy!' }}</span>
+                    <span class="error-message">{{ 'must-accept-privacy-policy' | translate }}</span>
                 } @else {
                     <span class="error-message"></span>
                 }
             </div>
 
             <div class="button-container">
-                <button (click)="submit(name.value, email.value, message.value)">Say hello</button>
+                <button (click)="submit(name, email, message)">{{ 'say-hello' | translate}}</button>
             </div>
         </div>
     </div>

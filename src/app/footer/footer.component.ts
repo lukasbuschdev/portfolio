@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ScrollService } from '../services/scroll.service';
+import { TranslatePipe } from '../pipe/translate.pipe';
 
 @Component({
   selector: 'app-footer',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })

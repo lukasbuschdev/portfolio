@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { TranslatePipe } from '../../pipe/translate.pipe';
 
 @Component({
   selector: 'app-skillset',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './skillset.component.html',
   styleUrl: './skillset.component.scss'
 })

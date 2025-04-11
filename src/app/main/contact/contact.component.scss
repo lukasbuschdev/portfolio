@@ -12,6 +12,7 @@
 
 .contact-text-container {
     width: 50%;
+    align-items: flex-start;
 
     h3 {
         font-weight: 600;
@@ -22,12 +23,8 @@
         text-align: left;
     }
 
-    span:first-of-type {
+    span {
         color: $white;
-    }
-
-    span:last-of-type {
-        color: $blue;
     }
 }
 
@@ -85,12 +82,12 @@ select:-webkit-autofill:focus {
 }
 
 .accept-container {
-    &:hover {
+    img:hover {
         cursor: pointer;
     }
 
     span {
-        color: $white;    
+        color: $white;
 
         .link {
             color: $blue;
@@ -128,6 +125,11 @@ select:-webkit-autofill:focus {
     text-align: center;
 }
 
+.bold {
+    font-weight: 600;
+    color: $blue !important;
+}
+
 @media(max-width: 800px) {
     .content-container {
         flex-direction: column;
@@ -140,6 +142,7 @@ select:-webkit-autofill:focus {
         .contact-text-container, 
         .contact-form-container {
             width: 100%;
+            align-items: center;
 
             h3, span {
                 text-align: center;

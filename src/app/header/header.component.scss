@@ -13,6 +13,7 @@ header {
 .content-container {
     height: 100%;
     width: 100%;
+    max-width: 1440px;
     padding: 10px 30px;
 
     .logo {
@@ -23,7 +24,7 @@ header {
         }
     }
 
-    .links {
+    .links, .languages {
         span {
             cursor: pointer;
             position: relative;
@@ -62,6 +63,10 @@ header {
     }
 }
 
+.active {
+    font-weight: 600;
+}
+
 @media(max-width: 600px) {
     .content-container {
         padding: 10px 5%;
@@ -81,6 +86,15 @@ header {
                     cursor: pointer;
                     filter: brightness(0.75);
                 }
+            }
+        }
+
+        .section-language-container {
+            flex-direction: row-reverse;
+            gap: 5vw;
+
+            .languages {
+                align-items: center;
             }
         }
     }

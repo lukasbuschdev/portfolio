@@ -1,5 +1,9 @@
-<app-landing-page></app-landing-page>
-<app-about-me></app-about-me>
-<app-skillset></app-skillset>
-<app-projects></app-projects>
-<app-contact></app-contact>
+@if(!dialog.isVisible) {
+    <app-landing-page></app-landing-page>
+    <app-about-me></app-about-me>
+    <app-skillset></app-skillset>
+    <app-projects></app-projects>
+    <app-contact></app-contact>
+} @else {
+    <app-confirmation-dialog></app-confirmation-dialog>
+}

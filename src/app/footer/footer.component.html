@@ -1,4 +1,4 @@
-<footer>
+<footer class="center">
     <div class="content-container row between align-center gap-20">
         <div class="logo">
             <img src="img/logo.svg">
@@ -6,7 +6,7 @@
     
         <div class="column gap-20 center text">
             <span>© Lukas Busch 2025</span>
-            <span (click)="scroll.goToSection('legal-notice', 'legal-notice')">Legal notice</span>
+            <span (click)="scroll.goToSection('legal-notice', 'legal-notice')">{{ 'legal-notice' | translate }}</span>
         </div>
     
         <div class="row gap-20 links">
