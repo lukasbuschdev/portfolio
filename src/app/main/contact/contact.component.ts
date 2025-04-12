@@ -19,7 +19,7 @@ export class ContactComponent {
   isValidEmail: boolean = false;
   nameRegex: RegExp = /^[a-zA-Z ]*$/;
   emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  messageRegex: RegExp = /^[\p{L}\p{N}\s.,:;\-!?/&()]+$/u;
+  messageRegex: RegExp = /^[\p{L}\p{N}\s.,:;'\-!?/&()]+$/u;
   name: string = '';
   email: string = '';
   message: string = '';
