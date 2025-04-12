@@ -44,7 +44,7 @@
                     } @else if(isSubmitAttempted && message.length < 10) {
                         <span class="error-message">{{ 'error-message-too-short' | translate }}</span>
                     } @else if(isSubmitAttempted && !messageRegex.test(message)) {
-                        <span class="error-message">{{ 'error-invild-message' | translate }}</span>
+                        <span class="error-message">{{ 'error-invalid-message' | translate }}</span>
                     } @else {
                         <span class="error-message"></span>
                     }
