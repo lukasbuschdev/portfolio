@@ -31,12 +31,14 @@
         padding: 10px 15px;
         transition: $transition;
 
-        &:hover {
-            cursor: pointer;
-            color: #000807;
-            background-color: #00ffe0;
-            box-shadow: 0 0 7px #63ffd8;
-            transition: $transition;
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                color: #000807;
+                background-color: #00ffe0;
+                box-shadow: 0 0 7px #63ffd8;
+                transition: $transition;
+            }
         }
     }
 }
@@ -54,9 +56,12 @@
         min-height: 25px;
         object-fit: contain;
 
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 }
@@ -71,9 +76,11 @@
         width: 0;
         transform: rotate(-90deg);
 
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 
@@ -83,9 +90,11 @@
         min-height: 40px;
         object-fit: contain;
         
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 }

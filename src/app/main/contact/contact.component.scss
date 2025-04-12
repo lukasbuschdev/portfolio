@@ -81,8 +81,10 @@ select:-webkit-autofill:focus {
 }
 
 .accept-container {
-    img:hover {
-        cursor: pointer;
+    @media(hover: hover) {
+        img:hover {
+            cursor: pointer;
+        }
     }
 
     span {
@@ -91,9 +93,11 @@ select:-webkit-autofill:focus {
         .link {
             color: $blue;
             
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.75);
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.75);
+                }
             }
         }
     }
@@ -108,12 +112,14 @@ select:-webkit-autofill:focus {
     padding: 10px 15px;
     transition: $transition;
     
-    &:hover {
-        cursor: pointer;
-        color: $dark-blue;
-        background-color: $blue;
-        transition: $transition;
-        box-shadow: 0 0 7px $blue-hover;
+    @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+            color: $dark-blue;
+            background-color: $blue;
+            transition: $transition;
+            box-shadow: 0 0 7px $blue-hover;
+        }
     }
 }
 
@@ -141,9 +147,11 @@ select:-webkit-autofill:focus {
         object-fit: contain;
         transform: rotate(180deg);
         
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 }

@@ -48,11 +48,13 @@ header {
                 z-index: 99;
             }
 
-            &:hover {
-                color: $blue-hover;
-
-                &::after {
-                    transform: scaleX(1);
+            @media(hover: hover) {
+                &:hover {
+                    color: $blue-hover;
+    
+                    &::after {
+                        transform: scaleX(1);
+                    }
                 }
             }
         }
@@ -82,9 +84,11 @@ header {
                 width: 30px;
                 object-fit: contain;
 
-                &:hover {
-                    cursor: pointer;
-                    filter: brightness(0.75);
+                @media(hover: hover) {
+                    &:hover {
+                        cursor: pointer;
+                        filter: brightness(0.75);
+                    }
                 }
             }
         }

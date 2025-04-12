@@ -14,9 +14,11 @@
         font-weight: 400;
         color: $blue;
 
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 
@@ -32,9 +34,11 @@
             width: 25px;
             object-fit: contain;
     
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.75);
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.75);
+                }
             }
         }
     }

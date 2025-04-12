@@ -74,32 +74,34 @@
         }
     }
 
-    &:hover {
-        cursor: pointer;
-        background-color: $dark-blue;
-        backdrop-filter: unset;
-
-        &::after, &::before {
-            background-image: conic-gradient(from var(--angle), transparent 25%, $blue-hover, transparent 75%, $blue-hover);
-            opacity: 1;
-            animation: 2s spin linear infinite;
-            transition: $transition;
-        }
-
-        &::before {
-            filter: blur(1rem);
-            opacity: 0.5;
-            transition: $transition;
-        }
-
-        h3, .card-content span:first-of-type {
-            color: $blue-hover;
-            text-shadow: 0 0 1px $blue-hover;
-        }
-
-        .line {
-            background-color: $blue-hover;
-            transition: $transition;
+    @media(hover: hover) {
+        &:hover {
+            cursor: pointer;
+            background-color: $dark-blue;
+            backdrop-filter: unset;
+    
+            &::after, &::before {
+                background-image: conic-gradient(from var(--angle), transparent 25%, $blue-hover, transparent 75%, $blue-hover);
+                opacity: 1;
+                animation: 2s spin linear infinite;
+                transition: $transition;
+            }
+    
+            &::before {
+                filter: blur(1rem);
+                opacity: 0.5;
+                transition: $transition;
+            }
+    
+            h3, .card-content span:first-of-type {
+                color: $blue-hover;
+                text-shadow: 0 0 1px $blue-hover;
+            }
+    
+            .line {
+                background-color: $blue-hover;
+                transition: $transition;
+            }
         }
     }
 
@@ -132,11 +134,13 @@
         padding: 10px 15px;
         transition: $transition;
 
-        &:hover {
-            cursor: pointer;
-            color: $dark-blue;
-            background-color: $blue;
-            box-shadow: 0 0 7px $blue-hover;
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                color: $dark-blue;
+                background-color: $blue;
+                box-shadow: 0 0 7px $blue-hover;
+            }
         }
     }
 
@@ -144,10 +148,12 @@
         color: $dark-blue;
         background-color: $blue;
 
-        &:hover {
-            color: $blue;
-            box-shadow: 0 0 7px $blue-hover;
-            background-color: $dark-blue;
+        @media(hover: hover) {
+            &:hover {
+                color: $blue;
+                box-shadow: 0 0 7px $blue-hover;
+                background-color: $dark-blue;
+            }
         }
     }
 }
@@ -159,9 +165,11 @@
         height: 30px;
         object-fit: contain;
         
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 }

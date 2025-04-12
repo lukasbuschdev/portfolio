@@ -15,9 +15,11 @@
             width: 25px;
             object-fit: contain;
     
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.75);
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.75);
+                }
             }
         }
     }
@@ -45,9 +47,11 @@
         a {
             color: $blue;
     
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.75);
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.75);
+                }
             }
         }
     }
@@ -67,9 +71,11 @@
         object-fit: contain;
         transform: rotate(180deg);
         
-        &:hover {
-            cursor: pointer;
-            filter: brightness(0.75);
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
         }
     }
 }
