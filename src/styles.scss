@@ -147,7 +147,7 @@ p, a, button {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw + 1rem, 3.5rem);
+  font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
   font-weight: 600;
   font-family: $font;
   line-height: 0.8;
@@ -156,7 +156,7 @@ h1 {
 }
 
 h2 {
-  font-size: clamp(1.5rem, 5vw + 1rem, 2rem);
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
   font-weight: 400;
   font-family: $font;
   line-height: 1;
@@ -211,7 +211,6 @@ input[type="number"] {
   animation: fadeInBottom 500ms ease-out forwards;
 }
 
-// Fade in from the bottom
 @keyframes fadeInBottom {
   0% {
     opacity: 0;
@@ -242,13 +241,6 @@ input[type="number"] {
 
 .section-container {
   padding: 10vh 30px;
-}
-
-.header-container {
-  width: fit-content;
-  box-shadow: 0px 0px 50px #000000;
-  border-radius: 99px;
-  padding: 20px;
 }
 
 @media(max-width: 600px) {

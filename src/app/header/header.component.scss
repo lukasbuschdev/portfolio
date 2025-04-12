@@ -8,13 +8,13 @@ header {
     height: 80px;
     background-color: $dark-opacity;
     backdrop-filter: blur(4px);
+    padding: 10px 30px;
 }
 
 .content-container {
     height: 100%;
     width: 100%;
     max-width: 1440px;
-    padding: 10px 30px;
 
     .logo {
         img {
@@ -70,9 +70,11 @@ header {
 }
 
 @media(max-width: 600px) {
-    .content-container {
+    header {
         padding: 10px 5%;
+    }
 
+    .content-container {
         .links {
             span {
                 display: none;

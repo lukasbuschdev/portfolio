@@ -5,13 +5,13 @@ footer {
     height: 150px;
     background-color: $dark-opacity;
     backdrop-filter: blur(4px);
+    padding: 10px 30px;
 }
 
 .content-container {
     height: 100%;
     width: 100%;
     max-width: 1440px;
-    padding: 20px 40px;
 }
 
 .logo {
@@ -55,6 +55,7 @@ footer {
 @media(max-width: 600px) {
     footer {
         height: fit-content;
+        padding: 3vh 0;
     }
 
     .content-container {
