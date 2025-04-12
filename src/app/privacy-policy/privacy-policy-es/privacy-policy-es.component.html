@@ -34,7 +34,7 @@
         <h3>RESUMEN DE PUNTOS CLAVE</h3>
         <p>
           <strong><em>En resumen:</em></strong> Este resumen ofrece los puntos clave de nuestro Aviso de Privacidad. Para obtener más detalles sobre cualquier tema, haga clic en el enlace que sigue a cada punto clave o utilice la 
-          <a href="#toc"><strong><em>tabla de contenidos</em></strong></a> a continuación.
+          <a (click)="scroll.goToSection('privacy-policy', 'toc')"><strong><em>tabla de contenidos</em></strong></a> a continuación.
         </p>
       </div>
 
@@ -107,7 +107,7 @@
         <ul>
           <li>
             <strong>Consentimiento.</strong> Podemos procesar su información si usted nos ha dado permiso para un fin específico. Puede retirar su consentimiento en cualquier momento. 
-            <a href="#withdrawconsent">Más información sobre cómo retirar su consentimiento</a>.
+            <a (click)="scroll.goToSection('privacy-policy', 'withdrawconsent')">Más información sobre cómo retirar su consentimiento</a>.
           </li>
           <li>
             <strong>Obligaciones Legales.</strong> Podemos procesar su información para cumplir con nuestras obligaciones legales.

@@ -34,7 +34,7 @@
         <h3>ZUSAMMENFASSUNG DER WICHTIGEN PUNKTE</h3>
         <p>
           <strong><em>Kurz gesagt:</em></strong> Diese Zusammenfassung fasst die wichtigsten Punkte unserer Datenschutzerklärung zusammen. Für weitere Details zu einzelnen Themen klicken Sie bitte auf den entsprechenden Link oder nutzen Sie die 
-          <a href="#toc"><strong><em>Inhaltsübersicht</em></strong></a> unten.
+          <a (click)="scroll.goToSection('privacy-policy', 'toc')"><strong><em>Inhaltsübersicht</em></strong></a> unten.
         </p>
       </div>
 
@@ -107,7 +107,7 @@
         <ul>
           <li>
             <strong>Zustimmung.</strong> Wir verarbeiten Ihre Daten, wenn Sie uns ausdrücklich für einen bestimmten Zweck Ihre Zustimmung erteilt haben. Sie können diese Zustimmung jederzeit widerrufen. 
-            <a href="#withdrawconsent">Weitere Informationen zum Widerruf Ihrer Zustimmung</a>.
+            <a (click)="scroll.goToSection('privacy-policy', 'withdrawconsent')">Weitere Informationen zum Widerruf Ihrer Zustimmung</a>.
           </li>
           <li>
             <strong>Gesetzliche Verpflichtungen.</strong> Wir verarbeiten Ihre Daten, um unseren gesetzlichen Verpflichtungen nachzukommen.
