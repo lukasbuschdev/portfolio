@@ -1,0 +1,65 @@
+<div id="cmd" class="section-container center">
+    <div class="terminal column">
+        <div class="header">
+            <img (click)="scroll.goToSection('main', 'landing-page')" src="img/close.svg">
+        </div>
+        
+        <div class="content-container ">
+            @if(executedCommands.length) {
+                <div class="executed-commands-container">
+                    @for(executedCommand of executedCommands; track $index) {
+                        <div class="row executed-command-line gap-5">
+                            <span class="bold">root&#64;root:~{{ executedCommand.path }}$</span>
+                            <span>{{ executedCommand.command }}</span>
+                        </div>
+                        @if(isCommandSent) {
+                            @if(executedCommand.command !== 'help' && executedCommand.command !== 'ls') {
+                                <span>{{ executedCommand.output }}</span>
+                            } @else if(executedCommand.command === 'help') {
+                                <span>Available commands:</span><br><br>
+                                @for(availableCommand of availableCommands; track $index) {
+                                    <div class="row gap-50 align-center help-commands">
+                                        <span class="command">{{ availableCommand.command }}</span>
+                                        <span class="description">{{ availableCommand.description }}</span>
+                                    </div><br>
+                                }
+                            } 
+                            @else if(executedCommand.command === 'ls') {
+                                @if(executedCommand.snapshot?.subdirectories?.length) {
+                                    @for(item of executedCommand.snapshot?.subdirectories; track $index) {
+                                        <div class="row align-center">
+                                            <span>{{ item.directory }}</span>
+                                        </div>
+                                    }
+                                } @else if(executedCommand.snapshot?.data) {
+                                    @if(executedCommand.snapshot?.data) {
+                                        @if(executedCommand.snapshot?.directory === 'profile') {
+                                            <span>Name: {{ executedCommand.snapshot?.data?.name }}</span><br><br>
+                                            <span>Profession: {{ executedCommand.snapshot?.data?.profession }}</span><br><br>
+                                            <span>Experience: {{ executedCommand.snapshot?.data?.experience }}</span><br><br>
+                                            <span>Location: {{ executedCommand.snapshot?.data?.location }}</span><br><br>
+                                            <span>About me: {{ executedCommand.snapshot?.data?.description }}</span><br><br>
+                                        } @else if(executedCommand.snapshot?.directory === 'contact') {
+                                            <span>{{ executedCommand.snapshot?.data.name }}</span><br><br>
+                                            <span>{{ executedCommand.snapshot?.data.email }}</span><br><br>
+                                        } @else {
+                                            <span>{{ executedCommand.snapshot?.data.name }}</span><br><br>
+                                            <span>{{ executedCommand.snapshot?.data.technologies }}</span><br><br>
+                                            <span>{{ executedCommand.snapshot?.data.description }}</span><br><br>
+                                        }
+                                    }
+                                } @else {
+                                    <span></span>
+                                }
+                            }
+                        }
+                    }
+                </div>
+            }
+            <div class="input-line row gap-5" id="input-line">
+                <span class="bold">root&#64;root:~{{ currentPathString }}$</span>
+                <textarea [(ngModel)]="command" (keydown.enter)="$event.preventDefault(); executeCommand(command)"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,9 @@
 @use 'variables' as *;
 
+.section-container {
+    padding: 10vh 30px 2vh;
+}
+
 .content-container {
     width: 100%;
     max-width: 1440px;
@@ -139,10 +143,22 @@ select:-webkit-autofill:focus {
 .arrow-container {
     width: 100%;
     max-width: 1440px;
-    display: flex;
-    justify-content: flex-end;
+    align-items: flex-end;
 
-    img {
+    img:first-of-type {
+        height: 20px;
+        width: 20px;
+        object-fit: contain;
+
+        @media(hover: hover) {
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
+        }
+    }
+
+    img:last-of-type {
         max-height: 50px;
         height: 10vw;
         min-height: 40px;
