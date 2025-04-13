@@ -48,7 +48,7 @@ export class AppComponent {
       ctx.textAlign = 'center'
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = gradient;
-      ctx.font = effect.fontSize + 'px monospace';
+      ctx.font = effect.fontSize + 'px "OCRAbyBT", monospace';
       effect.symbols.forEach(symbol => symbol.draw(ctx));
       timer = 0;
     } else {
