@@ -72,6 +72,8 @@ header {
 @media(max-width: 600px) {
     header {
         padding: 10px 5%;
+        backdrop-filter: none;
+        background-color: $dark-blue;
     }
 
     .content-container {

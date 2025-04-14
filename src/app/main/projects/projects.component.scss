@@ -54,7 +54,6 @@
         }
     }
 
-
     .info-container {
         width: 100%;
         position: relative;
@@ -74,7 +73,7 @@
         }
     }
 
-    @media(hover: hover) {
+    @media (hover: hover) {
         &:hover {
             cursor: pointer;
             background-color: $dark-blue;
@@ -93,7 +92,8 @@
                 transition: $transition;
             }
     
-            h3, .card-content span:first-of-type {
+            h3,
+            .card-content span:first-of-type {
                 color: $blue-hover;
                 text-shadow: 0 0 1px $blue-hover;
             }
@@ -112,8 +112,8 @@
         box-sizing: border-box;
 
         span {
-           position: relative;
-           z-index: 1;
+            position: relative;
+            z-index: 1;
         }
 
         span:first-of-type {
@@ -134,7 +134,7 @@
         padding: 10px 15px;
         transition: $transition;
 
-        @media(hover: hover) {
+        @media (hover: hover) {
             &:hover {
                 cursor: pointer;
                 color: $dark-blue;
@@ -148,7 +148,7 @@
         color: $dark-blue;
         background-color: $blue;
 
-        @media(hover: hover) {
+        @media (hover: hover) {
             &:hover {
                 color: $blue;
                 box-shadow: 0 0 7px $blue-hover;
@@ -165,7 +165,7 @@
         height: 30px;
         object-fit: contain;
         
-        @media(hover: hover) {
+        @media (hover: hover) {
             &:hover {
                 cursor: pointer;
                 filter: brightness(0.75);
@@ -192,18 +192,37 @@
     }
 }
 
-@media(max-width: 1080px) {
+@media (max-width: 1080px) {
     .content-container {
         justify-content: center;
     }
 }
 
-@media(max-width: 900px) {
+@media (max-width: 900px) {
     .card {
         max-width: 500px;
     }
 
     .card-content {
         height: fit-content !important;
+    }
+}
+
+@media(max-width: 500px) {
+    .card {
+        width: 100%;
+        max-width: 100%;
+        backdrop-filter: none;
+        background-color: $dark-blue;
+
+        &::before,
+        &::after {
+            display: none;
+        }
+
+        .card-content {
+            height: auto !important;
+            padding: 10px;
+        }
     }
 }

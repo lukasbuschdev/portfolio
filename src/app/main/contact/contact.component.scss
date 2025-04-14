@@ -209,4 +209,11 @@ select:-webkit-autofill:focus {
             display: none;
         }
     }
+
+    .contact-form-container .input-row {
+        input, textarea {
+            backdrop-filter: none;
+            background-color: $dark-blue;
+        }
+    }
 }

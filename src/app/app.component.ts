@@ -17,8 +17,8 @@ export class AppComponent {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
     let lastTime = 0;
-    const fps = 30;
-    const nextFrame = 1000/fps;
+    let fps = window.innerWidth <= 600 ? 15 : 30;
+    let nextFrame = 1000/fps;
     let timer = 0;
 
     canvas.width = window.innerWidth;
@@ -29,6 +29,9 @@ export class AppComponent {
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      fps = window.innerWidth <= 600 ? 15 : 30;
+      nextFrame = 1000 / fps;
 
       effect.resize(canvas.width, canvas.height);
       gradient = this.createGradient(ctx, canvas.width, canvas.height);
