@@ -56,20 +56,13 @@
 
     .executed-commands-container {
         height: fit-content;
-
-        .help-commands {
-            .command {
-                width: 30%;
-            }
-
-            .description {
-                width: 70%;
-            }
+        
+        span {
+            white-space: pre-wrap;
         }
     }
 
     .input-line {
-        
         textarea {
             height: 1.5rem;
             width: 100%;
@@ -81,6 +74,11 @@
             background-color: transparent;
             resize: none;
             outline: none;
+
+            &::selection, &::-moz-selection {
+                background-color: $white;
+                color: $dark-blue;
+            }
         }
     }
 }

@@ -1,0 +1,28 @@
+@if(executedCommand.snapshot?.subdirectories?.length) {
+    <div class="row gap-15">
+        @for(item of executedCommand.snapshot?.subdirectories; track $index) {
+            <div class="row align-center">
+                <span>{{ item.directory }}</span>
+            </div>
+        }
+    </div>
+} @else if(executedCommand.snapshot?.data) {
+    @if(executedCommand.snapshot?.data) {
+        @if(executedCommand.snapshot?.directory === 'profile') {
+            <span>Name: {{ executedCommand.snapshot?.data?.name }}</span><br><br>
+            <span>Profession: {{ executedCommand.snapshot?.data?.profession }}</span><br><br>
+            <span>Experience: {{ executedCommand.snapshot?.data?.experience }}</span><br><br>
+            <span>Location: {{ executedCommand.snapshot?.data?.location }}</span><br><br>
+            <span>About me: {{ executedCommand.snapshot?.data?.description }}</span><br><br>
+        } @else if(executedCommand.snapshot?.directory === 'contact') {
+            <span>{{ executedCommand.snapshot?.data.name }}</span><br><br>
+            <span>{{ executedCommand.snapshot?.data.email }}</span><br><br>
+        } @else {
+            <span>{{ executedCommand.snapshot?.data.name }}</span><br><br>
+            <span>{{ executedCommand.snapshot?.data.technologies }}</span><br><br>
+            <span>{{ executedCommand.snapshot?.data.description }}</span><br><br>
+        }
+    }
+} @else {
+    <span></span>
+}

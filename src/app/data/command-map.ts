@@ -7,4 +7,6 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'ipconfig': 'ipconfig',
     'cd': 'cd',
     'ls': 'ls',
+    'curl': 'curl',
+    'ping': 'ping',
 }

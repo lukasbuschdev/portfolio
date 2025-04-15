@@ -1,6 +1,6 @@
 import { typeCommandList } from "../types/types";
 
-export const AVAIABLE_COMMANDS: typeCommandList[] = [
+export const AVAILABLE_COMMANDS: typeCommandList[] = [
     {
       command: 'help',
       description: "Shows all avaiable commands"
@@ -24,5 +24,13 @@ export const AVAIABLE_COMMANDS: typeCommandList[] = [
     {
       command: 'ls',
       description: "Outputs list of all files and folders in current directory"
+    },
+    {
+      command: 'curl',
+      description: "Curls an url or IP address"
+    },
+    {
+      command: 'ping',
+      description: "Pings an url or IP address"
     },
 ];

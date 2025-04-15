@@ -1,0 +1,18 @@
+@use 'variables' as *;
+
+span {
+    font-family: 'OCRAbyBT', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: $white;
+}
+
+.help-commands {
+    .command {
+        width: 30%;
+    }
+
+    .description {
+        width: 70%;
+    }
+}
