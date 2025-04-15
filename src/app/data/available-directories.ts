@@ -25,7 +25,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                 data: {
                                     name: 'Expense Tracker',
                                     technologies: 'Angular, TypeScript, SCSS, HTML, Supabase, Node.js, Express',
-                                    description: 'Expense Tracker is a full-stack financial management app. Create an account to access a dynamic dashboard that lets you manage expenses, budgets, and settings in one interface.'
+                                    description: 'Expense Tracker is a full-stack financial management app. Create an account to access a dynamic dashboard that lets you manage expenses, budgets, and settings in one interface.',
+                                    url: 'https://expensetracker.lukasbusch.dev'
                                 }
                             },
                             {
@@ -33,7 +34,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                 data: {
                                     name: 'Join',
                                     technologies: 'JavaScript, HTML, CSS, Firebase',
-                                    description: 'Task Manager, inspired by the Kanban system, lets you create and organize tasks with drag-and-drop ease. Assign users and categories to manage your workflow and improve task tracking.'
+                                    description: 'Task Manager, inspired by the Kanban system, lets you create and organize tasks with drag-and-drop ease. Assign users and categories to manage your workflow and improve task tracking.',
+                                    url: 'https://lukasbusch.dev/Join/init/login/login.html'
                                 }
                             },
                             {
@@ -41,7 +43,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                 data: {
                                     name: 'Pollo Loco',
                                     technologies: 'JavaScript, HTML, CSS',
-                                    description: 'Jump, run, and throw game built with an object-oriented approach. Help Pepe find coins and tabasco salsa to battle the crazy hen in an exciting quest.'
+                                    description: 'Jump, run, and throw game built with an object-oriented approach. Help Pepe find coins and tabasco salsa to battle the crazy hen in an exciting quest.',
+                                    url: 'https://lukasbusch.dev/PolloLoco/index.html'
                                 }
                             },
                             {
@@ -49,7 +52,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                 data: {
                                     name: 'Notes',
                                     technologies: 'JavaScript, HTML, CSS, Firebase',
-                                    description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.'
+                                    description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.',
+                                    url: 'https://lukasbusch.dev/Notes/index.html'
                                 }
                             },
                         ]

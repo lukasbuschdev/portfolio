@@ -25,7 +25,7 @@
                     }
                 </div>
             }
-            <div class="input-line row gap-5" id="input-line">
+            <div class="input-line row gap-5" [class.isPinging]="isPinging" id="input-line">
                 <span class="bold">root&#64;root:~{{ currentPathString }}$</span>
                 <textarea [(ngModel)]="command" (keydown.enter)="$event.preventDefault(); executeCommand(command)" (keydown)="selectCommand($event)"></textarea>
             </div>

@@ -4,9 +4,13 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'clear': 'clear',
     'whoami': 'whoami',
     'help': 'help',
-    'ipconfig': 'ipconfig',
+    'ipaddr': 'ipaddr',
     'cd': 'cd',
     'ls': 'ls',
+    'exit': 'exit',
     'curl': 'curl',
     'ping': 'ping',
+    'dig': 'dig',
+    'nslookup': 'nslookup',
+    'history': 'history'
 }

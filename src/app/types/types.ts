@@ -19,3 +19,15 @@ export type typeDirectory<T = any> = {
     data?: T;
     subdirectories?: typeDirectory<T>[];
 }
+
+export type typeDnsResponse = {
+    Status: number;
+    Answer: typeDnsResponseAnswer[];
+}
+
+export type typeDnsResponseAnswer = {
+    TTL: number;
+    data: string;
+    name: string;
+    type: number;
+}
