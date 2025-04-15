@@ -71,8 +71,8 @@ export class CmdComponent {
   scrollDown(): void {
     setTimeout(() => {
       const inputLineElement = document.getElementById('input-line');
-      if(inputLineElement) inputLineElement.scrollIntoView({ behavior: 'smooth' });
-    });
+      if(inputLineElement) inputLineElement.scrollIntoView();
+    }, 10);
   }
 
   checkInputs(command: string): void {
