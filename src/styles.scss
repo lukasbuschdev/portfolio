@@ -39,7 +39,7 @@
   font-display: swap;
   font-family: 'OCRAbyBT';  // This is the name you'll use in your CSS.
   font-style: normal;
-  font-weight: 400;        // Adjust the weight if needed.
+  font-weight: 400;
   src: local('OCRAbyBT Regular'), url('/media/OCRAbyBT-Regular.ttf') format('truetype');
 }
 
@@ -59,12 +59,7 @@ h1, h2, h3, h4, span, a, p, li {
 
 span, li, a, p, button {
   font-weight: 300;
-  // font-family: 'OCRAbyBT', sans-serif !important;
 }
-
-// span, li, a, p {
-//   line-height: 1.4rem;
-// }
 
 body {
   display: flex;

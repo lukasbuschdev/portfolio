@@ -32,4 +32,22 @@ export class UtilsService {
   
     return `${dayOfWeek} ${month} ${day} ${hours}:${minutes}:${seconds} ${timezone} ${year}`;
   }
+
+  formatTime(timestamp: number, timezoneOffset: number): string {
+    const localDate = new Date((timestamp + timezoneOffset) * 1000);
+    const hours = localDate.getUTCHours().toString();
+    const minutes = localDate.getUTCMinutes().toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
+
+  formatCoordinates(lat: number, lon: number): string {
+    const latDirection = lat >= 0 ? 'N' : 'S';
+    const lonDirection = lon >= 0 ? 'E' : 'W';
+
+    const absLat = Math.abs(lat).toFixed(4);
+    const absLon = Math.abs(lon).toFixed(4);
+  
+    return `${absLat}° ${latDirection}, ${absLon}° ${lonDirection}`;
+  }
 }

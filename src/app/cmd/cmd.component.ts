@@ -1,16 +1,16 @@
 import { Component, inject, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { typeCommand, typeCommandList, typeDirectory, typeDnsResponse } from '../types/types';
+import { typeCommand, typeCommandList, typeDirectory } from '../types/types';
 import { ScrollService } from '../services/scroll.service';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
 import { AVAILABLE_COMMANDS } from '../data/available-commands';
 import { COMMAND_CONFIG } from '../data/command-map';
 import { AVAILABLE_DIRECTORIES } from '../data/available-directories';
 import { LsComponent } from './ls/ls.component';
 import { HelpComponent } from "./help/help.component";
 import { UtilsService } from '../services/utils.service';
-import { forkJoin } from 'rxjs';
+import { HttpRequestsService } from '../services/http-requests.service';
+import { LocalRequestsService } from '../services/local-requests.service';
 
 @Component({
   selector: 'app-cmd',
@@ -22,7 +22,6 @@ export class CmdComponent {
   command: string = '';
 
   isCommandSent: boolean = false;
-  isPinging: boolean = false;
 
   executedCommands: typeCommand[] = [];
   count: number = 0;
@@ -31,7 +30,6 @@ export class CmdComponent {
   avaiableDirectories: typeDirectory[] = AVAILABLE_DIRECTORIES;
 
   currentDirectoryPath: typeDirectory[] = [this.avaiableDirectories[0]];
-  currentPingInterval: any = null;
 
   private commandMap: { [key: string]: (cmd: string) => void } = {};
 
@@ -56,6 +54,8 @@ export class CmdComponent {
   http = inject(HttpClient);
   ngZone = inject(NgZone);
   utils = inject(UtilsService);
+  httpRequests = inject(HttpRequestsService);
+  localRequests = inject(LocalRequestsService);
 
 
   executeCommand(inputCommand: string): void {
@@ -83,7 +83,7 @@ export class CmdComponent {
     fn ? fn(command) : this.executedCommands.push({ command, output: 'Command not found!', path: this.currentPathString });
   }
 
-  selectCommand(event: KeyboardEvent): void {
+  selectCommand(event: KeyboardEvent, command: string): void {
     if(event.key === 'ArrowUp') {
       event.preventDefault();
       this.selectCommandUp();
@@ -91,6 +91,11 @@ export class CmdComponent {
     if(event.key === 'ArrowDown') {
       event.preventDefault();
       this.selectCommandDown();
+    }
+    if(event.key === 'Enter') {
+      event.preventDefault();
+      if(this.httpRequests.isFetching) return;
+      this.executeCommand(command);
     }
     if(event.ctrlKey && event.key.toLowerCase() === 'c') {
       event.preventDefault();
@@ -120,305 +125,84 @@ export class CmdComponent {
     }
   }
 
-
-
-
-
-  // COMMANDS
-
-  clear(): void {
-    this.executedCommands = [];
+  focusInput(event: MouseEvent): void {
+    const inputField = document.querySelector('textarea');
+    if(inputField) (inputField as HTMLElement).focus({ preventScroll: true });
+    if(event.detail === 1) return;
+    this.scrollDown();
   }
 
+
+  // LOCAL REQUESTS
+
+  clear(): void {
+    this.localRequests.clear(this.executedCommands);
+  }
+  
   whoami(command: string): void {
-    this.executedCommands.push({ command, output: 'root', path: this.currentPathString });
+    this.localRequests.whoami(command, this.executedCommands, this.currentPathString);
   }
 
   help(command: string): void {
-    const output = 'Available command: ' + this.availableCommands.join(' ');
-    this.executedCommands.push({ command, output, path: this.currentPathString });
+    this.localRequests.help(command, this.executedCommands, this.currentPathString, this.availableCommands);
   }
 
   cd(command: string): void {
-    const tokens = command.trim().split(' ');
-    const snapshotPath = this.currentPathString;
-    const snapshot = JSON.parse(JSON.stringify(this.currentDirectory));
-
-    if(tokens.length < 2) {
-      this.executedCommands.push({ command: command, output: 'No such file or directory', path: snapshotPath, snapshot: snapshot });
-      return;
-    }
-
-    const targetDirectory = tokens[1];
-
-    if(targetDirectory === '..') {
-      if(this.currentDirectoryPath.length > 1) {
-        this.currentDirectoryPath.pop();
-        this.executedCommands.push({ command, path: snapshotPath, snapshot: snapshot });
-        return;
-      } else {
-        this.executedCommands.push({ command, output: 'Already in root directory', path: snapshotPath, snapshot: snapshot });
-        return;
-      }
-    } 
-    
-    if(this.currentDirectory.subdirectories && this.currentDirectory.subdirectories.length) {
-      const found = this.currentDirectory.subdirectories.find(dir => dir.directory.toLowerCase() === targetDirectory);
-     
-      if(found) {
-        this.currentDirectoryPath.push(found);
-        this.executedCommands.push({ command, path: snapshotPath, snapshot: snapshot });
-      } else {
-        this.executedCommands.push({ command: command, output: 'No such file or directory', path: snapshotPath, snapshot: snapshot });
-      }
-    }
+    this.localRequests.cd(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.currentDirectoryPath);
   }
-  
+
   ls(command: string): void {
-    const snapshot = JSON.parse(JSON.stringify(this.currentDirectory));
-    this.executedCommands.push({ command, path: this.currentPathString, snapshot: snapshot })
+    this.localRequests.ls(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   exit(): void {
-    this.scroll.goToSection('main', 'landing-page');
+    this.localRequests.exit();
   }
   
   history(command: string): void {
-    const commandHistory = this.getCommandHistory();
-    this.executedCommands.push({ command, output: commandHistory, path: this.currentPathString })
-  }
-
-  getCommandHistory(): string {
-    let allCommands = '';
-    let count = 0;
-
-    this.executedCommands.forEach(command => {
-      count++;
-      allCommands += `${count}\t${command.command}\n`
-    });
-
-    return allCommands;
+    this.localRequests.history(command, this.executedCommands, this.currentPathString);
   }
 
 
+  // HTTP REQUESTS
 
-
-
-
-
-  // GET IP
-
-  async ipaddr(command: string): Promise<void>{
-    try {
-      const ip = await this.getPublicIP();
-      this.executedCommands.push({ command, output: ip, path: this.currentPathString });
-      this.scrollDown();
-    } catch (error) {
-      this.executedCommands.push({ command, output: 'Error fetching IP address.', path: this.currentPathString });
-      this.scrollDown();
-    }
+  async ipaddr(command: string): Promise<void> {
+    return this.httpRequests.ipaddr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
-
-  getPublicIP(): Promise<string> {
-    return firstValueFrom(
-      this.http.get<{ ip: string }>('https://api.ipify.org?format=json')
-    ).then(response => response.ip);
-  }
-
-
-
-  //CURL
 
   curl(command: string): void {
-    const tokens = command.trim().split(' ');
-
-    if(tokens.length < 2) {
-      this.executedCommands.push({ command, output: 'Did you mean: curl <url>?', path: this.currentPathString });
-      this.scrollDown();
-      return;
-    }
-
-    const urlTokens = tokens[1];
-
-    this.http.get(urlTokens, { responseType: 'text' }).subscribe(
-      response => {
-        this.executedCommands.push({ command, output: response, path: this.currentPathString });
-        this.scrollDown();
-      },
-      error => {
-        this.executedCommands.push({ command, output: `Error: ${error.message}`, path: this.currentPathString });
-        this.scrollDown();
-      }
-    );
+    this.httpRequests.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
-
-
-  // PING
 
   ping(command: string): void {
-    const tokens = command.trim().split(' ');
-    const url = tokens[1];
-
-    this.checkPingValidation(command, tokens);
-    this.isPinging = true;
-    
-    this.executedCommands.push({ command, output: `ping ${url}`, path: this.currentPathString });
-    const pingIndex = this.executedCommands.length - 1;
-
-    this.currentPingInterval = setInterval(() => {
-      const startTime = performance.now();
-
-      this.ngZone.run(() => {
-        this.http.head(url, { observe: 'response' }).subscribe(
-          response => {
-            console.log(response)
-            const latency = performance.now() - startTime;
-            this.executedCommands[pingIndex].output += `\nPING ${url} status: ${response.status} time: ${latency.toFixed(2)}ms`;
-            this.scrollDown();
-          },
-          error => {
-            const rtt = performance.now() - startTime;
-            this.executedCommands[pingIndex].output += `\nPing to ${url} failed (error: ${error.message}). RTT: ${rtt.toFixed(2)} ms`;
-            this.scrollDown();
-          }
-        );
-      });
-
-    }, 1000);
-  }
-
-  checkPingValidation(command: string, tokens: string[]): void {
-    if(tokens[1] === undefined) {
-      this.executedCommands.push({ command, output: 'ping: usage error: Destination address required', path: this.currentPathString });
-      this.scrollDown();
-      return;
-    }
-    
-    if(!tokens[1].includes('.')) {
-      this.executedCommands.push({ command, output: `ping: ${tokens[1]}: Name or service not known`, path: this.currentPathString });
-      this.scrollDown();
-      return;
-    }
-
-    if(this.currentPingInterval) {
-      clearInterval(this.currentPingInterval);
-      this.currentPingInterval = null;
-    }
+    this.httpRequests.ping(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.scrollDown();
   }
 
   stopPing(): void {
-    if(this.currentPingInterval) {
-      clearInterval(this.currentPingInterval);
-      this.currentPingInterval = null;
+    if(this.httpRequests.currentPingInterval) {
+      clearInterval(this.httpRequests.currentPingInterval);
+      this.httpRequests.currentPingInterval = null;
       this.executedCommands.push({ command: '^C', path: this.currentPathString });
-      this.isPinging = false;
+      this.httpRequests.isFetching = false;
+      this.command = '';
       this.scrollDown();
     }
   }
-
-
-  // DIG
 
   dig(command: string): void {
-    const tokens = command.trim().split(' ');
-
-    if(tokens[1] === undefined) {
-      this.executedCommands.push({ command, output: '', path: this.currentPathString });
-      this.scrollDown();
-      return;
-    }
-
-    const hostname = tokens[1];
-    const url = `https://dns.google/resolve?name=${hostname}&type=A`;
-    const startTime = performance.now();
-
-    this.http.get(url).subscribe(
-      (response: any) => {
-        const data = this.getDigResponseData(response, hostname, startTime);
-        this.executedCommands.push({ command, output: data, path: this.currentPathString });
-        this.scrollDown();
-      },
-      error => {
-        this.executedCommands.push({ command, output: `Error: ${error.message}`, path: this.currentPathString });
-        this.scrollDown();
-      }
-    );
-
+    this.httpRequests.dig(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
-
-  getDigResponseData(response: any, hostname: string, startTime: number): string {
-    const domain = response.Question && response.Question.length > 0 ? response.Question[0].name : hostname + '.';
-    const answer = response.Answer && response.Answer.length > 0 ? response.Answer[0] : null;
-    const statusText = response.Status === 0 ? 'NOERROR' : response.Status;
-    const id = this.utils.generateRandomId();
-    const queryTime = Math.round(performance.now() - startTime) + ' msec';
-    const msgSize = answer ? 59 : 36;
-    return `\n; <<>> DiG 9.18.30-0ubuntu0.22.04.2-Ubuntu <<>> ${domain.replace(/\.$/, '')}\n;; global options: +cmd\n;; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: ${statusText}, id: ${id}\n;; flags: qr rd ra; QUERY: 1, ANSWER: ${answer ? 1 : 0}, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 65494\n;; QUESTION SECTION:\n;${domain}\t\tIN\tA\n\n;; ANSWER SECTION:\n${answer ? `${answer.name}\t\t${answer.TTL}\tIN\tA\t${answer.data}` : ''}\n\n;; Query time: ${queryTime}\n;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)\n;; WHEN: ${this.utils.formatTimestamp(new Date())}\n;; MSG SIZE  rcvd: ${msgSize}\n`;
-  }
-
-
-  // NSLOOKUP
 
   nslookup(command: string): void {
-    const tokens = command.trim().split(' ');
-
-    if(tokens[1] === undefined) {
-      this.executedCommands.push({ command, output: `nslookup: usage error: Destination address required` });
-      this.scrollDown();
-      return;
-    }
-
-    const hostname = tokens[1];
-    const urlA = `https://dns.google/resolve?name=${hostname}&type=A`;
-    const urlAAAA = `https://dns.google/resolve?name=${hostname}&type=AAAA`;
-
-    forkJoin({
-      a: this.http.get(urlA),
-      aaaa: this.http.get(urlAAAA)
-    }).subscribe(
-      (response: { a: any, aaaa: any }) =>  {
-        const finalResponse = this.getFinalResponse(response); 
-        const data = this.getNslookupResponseData(finalResponse, hostname);
-        this.executedCommands.push({ command, output: data, path: this.currentPathString });
-        this.scrollDown();
-      },
-      error => {
-        this.executedCommands.push({ command, output: `Error: ${error.message}`, path: this.currentPathString });
-        this.scrollDown();
-      }
-    );
-
+    this.httpRequests.nslookup(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
-  getFinalResponse(response: { a: any, aaaa: any }): any {
-    const combinedAnswer: any[] = [];
-
-    if(response.a && response.a.Answer) {
-      combinedAnswer.push(...response.a.Answer);
-    }
-    if(response.aaaa && response.aaaa.Answer) {
-      combinedAnswer.push(...response.aaaa.Answer);
-    }
-
-    return {
-      Status: (response.a.Status === 0 || response.aaaa.Status === 0) ? 0 : response.a.Status,
-      Answer: combinedAnswer
-    }
+  traceroute(command: string): void {
+    this.httpRequests.traceroute(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
-  getNslookupResponseData(response: typeDnsResponse, hostname: string): string {
-    const serverInfo = `Server:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\n`;
-
-    if(response.Status !== 0 || !response.Answer[0] || response.Answer.length === 0) return serverInfo + `** server can't find ${hostname}: NXDOMAIN\n`;
-
-    let answerSection = `Non-authoritative answer:\n`;
-
-    response.Answer.forEach((answer: any) => {
-      const answerName = answer.name.endsWith('.') ? answer.name.slice(0, -1) : answer.name;
-      answerSection += `Name:\t\t${answerName}\n`;
-      answerSection += `Address:\t${answer.data}\n`;
-    });
-
-    return serverInfo + answerSection;
+  weather(command: string): void {
+    this.httpRequests.weather(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 }

@@ -12,5 +12,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'ping': 'ping',
     'dig': 'dig',
     'nslookup': 'nslookup',
-    'history': 'history'
+    'traceroute': 'traceroute',
+    'history': 'history',
+    'weather': 'weather'
 }

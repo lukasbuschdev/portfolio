@@ -4,7 +4,7 @@
             <img (click)="scroll.goToSection('main', 'landing-page')" src="img/close.svg">
         </div>
         
-        <div class="content-container ">
+        <div class="content-container" (click)="focusInput($event)">
             @if(executedCommands.length) {
                 <div class="executed-commands-container">
                     @for(executedCommand of executedCommands; track $index) {
@@ -14,7 +14,7 @@
                         </div>
                         @if(isCommandSent) {
                             @if(executedCommand.command !== 'help' && executedCommand.command !== 'ls') {
-                                <span>{{ executedCommand.output }}</span>
+                                <pre>{{ executedCommand.output }}</pre>
                             } @else if(executedCommand.command === 'help') {
                                 <app-help [availableCommands]="availableCommands"></app-help>
                             } 
@@ -25,9 +25,9 @@
                     }
                 </div>
             }
-            <div class="input-line row gap-5" [class.isPinging]="isPinging" id="input-line">
+            <div class="input-line row gap-5" [class.isFetching]="httpRequests.isFetching" id="input-line">
                 <span class="bold">root&#64;root:~{{ currentPathString }}$</span>
-                <textarea [(ngModel)]="command" (keydown.enter)="$event.preventDefault(); executeCommand(command)" (keydown)="selectCommand($event)"></textarea>
+                <textarea [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
             </div>
         </div>
     </div>

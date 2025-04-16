@@ -47,11 +47,17 @@
     padding: 5px;
     overflow: auto;
 
-    span {
+    span, pre {
         font-family: 'OCRAbyBT', sans-serif;
         font-size: 1.1rem;
         font-weight: 400;
         color: $white;
+    }
+
+    pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-x: auto;
     }
 
     .executed-commands-container {
@@ -74,11 +80,6 @@
             background-color: transparent;
             resize: none;
             outline: none;
-
-            &::selection, &::-moz-selection {
-                background-color: $white;
-                color: $dark-blue;
-            }
         }
     }
 }
@@ -88,7 +89,7 @@
     color: $blue !important;
 }
 
-.isPinging {
+.isFetching {
     gap: 0;
     
     span {

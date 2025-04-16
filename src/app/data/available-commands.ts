@@ -46,7 +46,15 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Queries DNS servers to resolve a domain name into its associated IP addresses and other DNS details"
   },
   {
+    command: "traceroute",
+    description: "Displays the network path and latency to a specified destination"
+  },
+  {
     command: "history",
     description: "Displays the list of all commands executed during the current terminal session"
-  }
+  },
+  {
+    command: "weather",
+    description: "Fetches and displays current weather details for the specified city—including temperature, humidity, pressure, wind speed, visibility (in meters), and local sunrise/sunset times."
+  },
 ];
