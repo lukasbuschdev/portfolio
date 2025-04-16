@@ -85,11 +85,14 @@ export class HttpRequestsService {
     const tokens = command.trim().split(' ');
     if(!this.checkDigInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
 
+    executedCommands.push({ command, output: '', path: currentPathString });
+    const digIndex = executedCommands.length - 1;
+
     const hostname = tokens[1];
     const url = `https://dns.google/resolve?name=${hostname}&type=A`;
     const startTime = performance.now();
 
-    this.httpRequestDig(command, executedCommands, currentPathString, scrollDown, hostname, url, startTime);
+    this.httpRequestDig(executedCommands, scrollDown, digIndex, hostname, url, startTime);
   }
 
   checkDigInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {
@@ -112,15 +115,15 @@ export class HttpRequestsService {
     return `\n; <<>> DiG 9.18.30-0ubuntu0.22.04.2-Ubuntu <<>> ${domain.replace(/\.$/, '')}\n;; global options: +cmd\n;; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: ${statusText}, id: ${id}\n;; flags: qr rd ra; QUERY: 1, ANSWER: ${answer ? 1 : 0}, AUTHORITY: 0, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 65494\n;; QUESTION SECTION:\n;${domain}\t\tIN\tA\n\n;; ANSWER SECTION:\n${answer ? `${answer.name}\t\t${answer.TTL}\tIN\tA\t${answer.data}` : ''}\n\n;; Query time: ${queryTime}\n;; SERVER: 127.0.0.53#53(127.0.0.53) (UDP)\n;; WHEN: ${this.utils.formatTimestamp(new Date())}\n;; MSG SIZE  rcvd: ${msgSize}\n`;
   }
 
-  httpRequestDig(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostname: string, url: string, startTime: number): void {
+  httpRequestDig(executedCommands: typeCommand[], scrollDown: () => void, digIndex: number, hostname: string, url: string, startTime: number): void {
     this.http.get(url).subscribe(
       (response: any) => {
         const data = this.getDigResponseData(response, hostname, startTime);
-        executedCommands.push({ command, output: data, path: currentPathString });
+        executedCommands[digIndex].output += data;
         scrollDown();
       },
       error => {
-        executedCommands.push({ command, output: `Error: ${error.message}`, path: currentPathString });
+        executedCommands[digIndex].output += `Error: ${error.message}`;
         scrollDown();
       }
     );
@@ -133,11 +136,14 @@ export class HttpRequestsService {
     const tokens = command.trim().split(' ');
     if(!this.checkNslookupInput(command, tokens, executedCommands, scrollDown)) return;
 
+    executedCommands.push({ command, output: '', path: currentPathString });
+    const lookupIndex = executedCommands.length - 1;
+
     const hostname = tokens[1];
     const urlA = `https://dns.google/resolve?name=${hostname}&type=A`;
     const urlAAAA = `https://dns.google/resolve?name=${hostname}&type=AAAA`;
 
-    this.httpRequestNslookup(command, executedCommands, currentPathString, scrollDown, hostname, urlA, urlAAAA);
+    this.httpRequestNslookup(executedCommands, scrollDown, lookupIndex, hostname, urlA, urlAAAA);
   }
 
   checkNslookupInput(command: string, tokens: string[], executedCommands: typeCommand[], scrollDown: () => void): boolean {
@@ -182,7 +188,7 @@ export class HttpRequestsService {
     return serverInfo + answerSection;
   }
 
-  httpRequestNslookup(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostname: string, urlA: string, urlAAAA: string): void {
+  httpRequestNslookup(executedCommands: typeCommand[], scrollDown: () => void, lookupIndex: number, hostname: string, urlA: string, urlAAAA: string): void {
     forkJoin({
       a: this.http.get(urlA),
       aaaa: this.http.get(urlAAAA)
@@ -190,11 +196,11 @@ export class HttpRequestsService {
       (response: { a: any, aaaa: any }) =>  {
         const finalResponse = this.getFinalResponse(response); 
         const data = this.getNslookupResponseData(finalResponse, hostname);
-        executedCommands.push({ command, output: data, path: currentPathString });
+        executedCommands[lookupIndex].output += data;
         scrollDown();
       },
       error => {
-        executedCommands.push({ command, output: `Error: ${error.message}`, path: currentPathString });
+        executedCommands[lookupIndex].output += `Error: ${error.message}`;
         scrollDown();
       }
     );
@@ -214,7 +220,7 @@ export class HttpRequestsService {
       this.isFetching = false;
       scrollDown();
     } catch (error) {
-      executedCommands.push({ command, output: 'Error fetching IP address.', path: currentPathString });
+      executedCommands[ipIndex].output += 'Error fetching IP address.';
       this.isFetching = false;
       scrollDown();
     }
@@ -286,7 +292,7 @@ export class HttpRequestsService {
     const apiKey = '7d26c786a81c9012fcfc6acf74d9cc56';
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
 
-    this.httpRequestWeather(command, executedCommands, currentPathString, scrollDown, city, url, weatherIndex);
+    this.httpRequestWeather(executedCommands, scrollDown, url, weatherIndex);
   }
 
   checkWeatherInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {
@@ -299,7 +305,7 @@ export class HttpRequestsService {
     return true;
   }
 
-  httpRequestWeather(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, city: string, url: string, weatherIndex: number): void {
+  httpRequestWeather(executedCommands: typeCommand[], scrollDown: () => void, url: string, weatherIndex: number): void {
     this.http.get(url).subscribe(
       (response: any) => {
         const fetchOutput = `Weather in ${response.name}, ${response.sys.country}:\n\nSky:\t\t${response.weather[0].main}\nTemperature:\t${response.main.temp.toFixed(1)}°C\nHumidity:\t ${response.main.humidity}%\nPressure:\t${response.main.pressure}\nWind:\t\t${response.wind.speed.toFixed(0)}km/h FROM ${response.wind.deg}°\nVisibility:\t${response.visibility}m\nSunrise:\t${this.utils.formatTime(response.sys.sunrise, response.timezone)} AM\nSunset:\t\t${this.utils.formatTime(response.sys.sunset, response.timezone)} PM\nCoordinates:\t${this.utils.formatCoordinates(response.coord.lat, response.coord.lon)}\n`;
@@ -308,7 +314,7 @@ export class HttpRequestsService {
         scrollDown();
       },
       error => {
-        executedCommands.push({ command, output: `Error: ${error.message}`, path: currentPathString });
+        executedCommands[weatherIndex].output += `Error: ${error.message}`;
         this.isFetching = false;
         scrollDown();
       }
@@ -330,7 +336,7 @@ export class HttpRequestsService {
 
     const fetchUrl = `https://api.lukasbusch.dev/traceroute?q=${encodeURIComponent(tokens[1])}`;
 
-    this.httpRequestTraceroute(command, executedCommands, currentPathString, scrollDown, fetchUrl, traceIndex);
+    this.httpRequestTraceroute(executedCommands, scrollDown, fetchUrl, traceIndex);
   }
 
   checkTracerouteInput(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, tokens: string[]): boolean {
@@ -343,7 +349,7 @@ export class HttpRequestsService {
     return true;
   }
 
-  httpRequestTraceroute(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, fetchUrl: string, traceIndex: number): void {
+  httpRequestTraceroute(executedCommands: typeCommand[], scrollDown: () => void, fetchUrl: string, traceIndex: number): void {
     this.http.get(fetchUrl, { responseType: 'text' }).subscribe(
       (response: string) => {
         executedCommands[traceIndex].output = response;
@@ -351,7 +357,7 @@ export class HttpRequestsService {
         scrollDown();
       },
       error => {
-        executedCommands.push({ command, output: `Error: ${error.message}`, path: currentPathString });
+        executedCommands[traceIndex].output += `Error: ${error.message}`;
         this.isFetching = false;
         scrollDown();
       }
