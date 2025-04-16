@@ -236,12 +236,12 @@ export class HttpRequestsService {
     const curlIndex = executedCommands.length - 1;
     this.isFetching = true;
 
-    let url = 'https://' + tokens[1];
+    let rawUrl = tokens[1].startsWith('http://') || tokens[1].startsWith('https://') ? tokens[1] : 'https://' + tokens[1];
 
-    const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
-    const fetchUrl = proxyUrl + url;
+    const proxyUrl = 'https://proxy.lukasbusch.dev/?url=';
+    const fetchUrl = proxyUrl + encodeURIComponent(rawUrl);
 
-    this.httpRequestCurl(command, executedCommands, currentPathString, scrollDown, fetchUrl, curlIndex);
+    this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
   }
 
   checkCurlInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {
@@ -255,7 +255,7 @@ export class HttpRequestsService {
     return true;
   }
 
-  httpRequestCurl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, fetchUrl: string, curlIndex: number): void {
+  httpRequestCurl(executedCommands: typeCommand[], scrollDown: () => void, fetchUrl: string, curlIndex: number): void {
     this.http.get(fetchUrl, { responseType: 'text' }).subscribe(
       response => {
         executedCommands[curlIndex].output += response;
@@ -263,7 +263,7 @@ export class HttpRequestsService {
         scrollDown();
       },
       error => {
-        executedCommands.push({ command, output: `Error: ${error.message}`, path: currentPathString });
+        executedCommands[curlIndex].output += `Error: ${error.message}`;
         this.isFetching = false;
         scrollDown();
       }
@@ -346,7 +346,6 @@ export class HttpRequestsService {
   httpRequestTraceroute(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, fetchUrl: string, traceIndex: number): void {
     this.http.get(fetchUrl, { responseType: 'text' }).subscribe(
       (response: string) => {
-        console.log(response)
         executedCommands[traceIndex].output = response;
         this.isFetching = false;
         scrollDown();
