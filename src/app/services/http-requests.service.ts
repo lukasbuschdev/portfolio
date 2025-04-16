@@ -236,10 +236,7 @@ export class HttpRequestsService {
     const curlIndex = executedCommands.length - 1;
     this.isFetching = true;
 
-    let url = tokens[1];
-    if(!/^https?:\/\//i.test(url)) {
-      url = 'http://' + url;
-    }
+    let url = 'https://' + tokens[1];
 
     const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
     const fetchUrl = proxyUrl + url;
@@ -331,7 +328,7 @@ export class HttpRequestsService {
     const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
-    const fetchUrl = `http://69.62.69.203:5000/traceroute?q=${encodeURIComponent(tokens[1])}`;
+    const fetchUrl = `https://api.lukasbusch.dev/traceroute?q=${encodeURIComponent(tokens[1])}`;
 
     this.httpRequestTraceroute(command, executedCommands, currentPathString, scrollDown, fetchUrl, traceIndex);
   }
