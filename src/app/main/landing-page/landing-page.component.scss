@@ -128,6 +128,12 @@
     }
 }
 
+@media(max-width: 500px) {
+    #cmd {
+        display: none;
+    }
+}
+
 @media(max-height: 700px) {
     .character-container img {
         max-height: 500px;
