@@ -9,7 +9,7 @@
                 <div class="executed-commands-container">
                     @for(executedCommand of executedCommands; track $index) {
                         <div class="row executed-command-line gap-5">
-                            <span class="bold">root&#64;root:~{{ executedCommand.path }}$</span>
+                            <span class="bold">root&#64;guest:~{{ executedCommand.path }}$</span>
                             <span>{{ executedCommand.command }}</span>
                         </div>
                         @if(isCommandSent) {
@@ -23,7 +23,7 @@
                 </div>
             }
             <div class="input-line row gap-5" [class.isFetching]="httpRequests.isFetching" id="input-line">
-                <span class="bold">root&#64;root:~{{ currentPathString }}$</span>
+                <span class="bold">root&#64;guest:~{{ currentPathString }}$</span>
                 <textarea [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
             </div>
         </div>

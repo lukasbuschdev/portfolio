@@ -14,6 +14,18 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Outputs the current user or session identifier, revealing who is logged into the terminal"
   },
   {
+    command: "uname",
+    description: "Displays system info: browser userAgent, platform, language, screen resolution, etc."
+  },
+  {
+    command: "uptime",
+    description: "Shows the current time and how long the session has been running (dd hh:mm:ss), followed by the user count and system load averages for the past 1, 5, and 15 minutes"
+  },
+  {
+    command: "echo",
+    description: "Writes the given text"
+  },
+  {
     command: "ipaddr",
     description: "Displays your current public IP address as reported by an external service"
   },
@@ -28,6 +40,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: "cat",
     description: "Displays file content of the selected file"
+  },
+  {
+    command: "pwd",
+    description: "Prints the path of the working directory"
   },
   {
     command: "exit",

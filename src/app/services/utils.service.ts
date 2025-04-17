@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UtilsService {
+  private sessionStart = Date.now();
+
   generateRandomId(): number {
     return Math.floor(Math.random() * (70000 - 30000)) + 30000;
   }
@@ -50,4 +52,34 @@ export class UtilsService {
   
     return `${absLat}° ${latDirection}, ${absLon}° ${lonDirection}`;
   }
+
+  getUptime(): string {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    const currentTime = `${hh}:${mm}:${ss}`;
+  
+    let delta = Math.floor((Date.now() - this.sessionStart) / 1000);
+  
+    const days    = Math.floor(delta / 86400);
+    delta %= 86400;
+    const hours   = Math.floor(delta / 3600);
+    delta %= 3600;
+    const minutes = Math.floor(delta / 60);
+    const seconds = delta % 60;
+  
+    let upPart = '';
+    if (days > 0) {
+      upPart += `${days} day${days > 1 ? 's' : ''}, `;
+    }
+    upPart += `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  
+    const usersPart = `1 user`;
+    const loadAvg = [2.77, 2.20, 2.11].map(n => n.toFixed(2)).join(', ');
+    const loadPart = `load average: ${loadAvg}`;
+  
+    return `${currentTime}  up  ${upPart},  ${usersPart},  ${loadPart}`;
+  }
+  
 }

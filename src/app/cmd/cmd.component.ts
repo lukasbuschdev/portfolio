@@ -75,11 +75,19 @@ export class CmdComponent {
   }
 
   checkInputs(command: string): void {
-    const tokens = command.trim().split(' ');
-    const commandKey = tokens[0].toLowerCase();
+    const commands = command.split('&&').map(command => command.trim()).filter(command => command.length);
 
-    const fn = this.commandMap[commandKey];
-    fn ? fn(command) : this.executedCommands.push({ command, output: 'Command not found!', path: this.currentPathString });
+    for(const cmd of commands) {
+      const tokens = cmd.split(' ');
+      const commandKey = tokens[0];
+      const fn = this.commandMap[commandKey];
+      
+      if(fn) {
+        fn(cmd)
+      } else {
+        this.executedCommands.push({ command, output: `${ command }: command not found`, path: this.currentPathString });
+      }
+    }
   }
 
   selectCommand(event: KeyboardEvent, command: string): void {
@@ -142,6 +150,18 @@ export class CmdComponent {
     this.localRequests.whoami(command, this.executedCommands, this.currentPathString);
   }
 
+  uname(command: string): void {
+    this.localRequests.uname(command, this.executedCommands, this.currentPathString);
+  }
+
+  uptime(command: string): void {
+    this.localRequests.uptime(command, this.executedCommands, this.currentPathString);
+  }
+
+  echo(command: string): void {
+    this.localRequests.echo(command, this.executedCommands, this.currentPathString);
+  }
+
   help(command: string): void {
     this.localRequests.help(command, this.executedCommands, this.currentPathString, this.availableCommands);
   }
@@ -156,6 +176,10 @@ export class CmdComponent {
 
   cat(command: string): void {
     this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+  }
+
+  pwd(command: string): void {
+    this.localRequests.pwd(command, this.executedCommands, this.currentPathString);
   }
 
   exit(): void {

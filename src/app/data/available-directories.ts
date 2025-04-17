@@ -9,7 +9,30 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                 subdirectories: [
                     {
                         directory: 'commands',
-                        // data: ''
+                        files: [
+                            {
+                                name: 'commands.txt',
+                                data:   '1\tclear\n' +
+                                        '2\twhoami\n' +
+                                        '3\techo\n' +
+                                        '4\thelp\n' +
+                                        '5\tipaddr\n' +
+                                        '6\tcd\n' +
+                                        '7\tls\n' +
+                                        '8\tcat\n' +
+                                        '9\tpwd\n' +
+                                        '10\tcurl\n' +
+                                        '11\texit\n' +
+                                        '12\tping\n' +
+                                        '13\tdig\n' +
+                                        '14\tnslookup\n' +
+                                        '15\ttraceroute\n' +
+                                        '16\thistory\n' +
+                                        '17\tweather\n' +
+                                        '18\tuname\n' +
+                                        '19\tuptime'
+                            }
+                        ]
                     }
                 ] 
             },
