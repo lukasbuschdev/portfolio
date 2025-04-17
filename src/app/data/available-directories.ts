@@ -9,7 +9,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                 subdirectories: [
                     {
                         directory: 'commands',
-                        data: ''
+                        // data: ''
                     }
                 ] 
             },
@@ -20,7 +20,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                         directory: 'profile',
                         files: [
                             {
-                                name: 'profile',
+                                name: 'profile.txt',
                                 data:   'Name:\tLukas Busch\n\n' +
                                         'Profession:\tFull-Stack Web Developer\n\n' +
                                         'Experience:\t2 years\n\n' +
@@ -63,7 +63,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                         ]
                     },
                     {
-                        directory: 'contact',
+                        directory: 'contact.txt',
                         files: [
                             {
                                 name: 'contact',

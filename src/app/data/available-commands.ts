@@ -27,7 +27,7 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   },
   {
     command: "cat",
-    description: "Displays all file content of the selected file"
+    description: "Displays file content of the selected file"
   },
   {
     command: "exit",
