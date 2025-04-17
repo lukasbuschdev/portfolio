@@ -26,6 +26,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Lists all files and folders contained within the current directory"
   },
   {
+    command: "cat",
+    description: "Displays all file content of the selected file"
+  },
+  {
     command: "exit",
     description: "Closes console and navigates back to portfolio page https://lukasbusch.dev"
   },

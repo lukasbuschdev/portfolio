@@ -13,13 +13,10 @@
                             <span>{{ executedCommand.command }}</span>
                         </div>
                         @if(isCommandSent) {
-                            @if(executedCommand.command !== 'help' && executedCommand.command !== 'ls') {
+                            @if(executedCommand.command !== 'help') {
                                 <pre>{{ executedCommand.output }}</pre>
                             } @else if(executedCommand.command === 'help') {
                                 <app-help [availableCommands]="availableCommands"></app-help>
-                            } 
-                            @else if(executedCommand.command === 'ls') {
-                                <app-ls [executedCommand]="executedCommand"></app-ls>
                             }
                         }
                     }

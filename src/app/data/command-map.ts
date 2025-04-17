@@ -7,6 +7,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'ipaddr': 'ipaddr',
     'cd': 'cd',
     'ls': 'ls',
+    'cat': 'cat',
     'exit': 'exit',
     'curl': 'curl',
     'ping': 'ping',

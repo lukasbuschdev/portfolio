@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { AVAILABLE_COMMANDS } from '../data/available-commands';
 import { COMMAND_CONFIG } from '../data/command-map';
 import { AVAILABLE_DIRECTORIES } from '../data/available-directories';
-import { LsComponent } from './ls/ls.component';
 import { HelpComponent } from "./help/help.component";
 import { UtilsService } from '../services/utils.service';
 import { HttpRequestsService } from '../services/http-requests.service';
@@ -14,7 +13,7 @@ import { LocalRequestsService } from '../services/local-requests.service';
 
 @Component({
   selector: 'app-cmd',
-  imports: [FormsModule, LsComponent, HelpComponent],
+  imports: [FormsModule, HelpComponent],
   templateUrl: './cmd.component.html',
   styleUrl: './cmd.component.scss'
 })
@@ -153,6 +152,10 @@ export class CmdComponent {
 
   ls(command: string): void {
     this.localRequests.ls(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+  }
+
+  cat(command: string): void {
+    this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   exit(): void {

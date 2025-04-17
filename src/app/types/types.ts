@@ -15,9 +15,15 @@ export type typeCommandMap = {
 }
 
 export type typeDirectory<T = any> = {
-    directory: string;
-    data?: T;
+    directory?: string;
     subdirectories?: typeDirectory<T>[];
+    data?: string;
+    files?: typeFile[];
+}
+
+export type typeFile = {
+    name: string;
+    data: string;
 }
 
 export type typeDnsResponse = {

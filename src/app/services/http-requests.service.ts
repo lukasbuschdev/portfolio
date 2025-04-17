@@ -238,7 +238,8 @@ export class HttpRequestsService {
   curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
     const tokens = command.trim().split(' ');
     if(!this.checkCurlInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
-
+    
+    executedCommands.push({ command, output: '', path: currentPathString });
     const curlIndex = executedCommands.length - 1;
     this.isFetching = true;
 
@@ -256,8 +257,7 @@ export class HttpRequestsService {
       scrollDown();
       return false;
     }
-
-    executedCommands.push({ command, output: command, path: currentPathString });
+    
     return true;
   }
 
