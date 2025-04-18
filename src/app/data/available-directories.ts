@@ -15,30 +15,31 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                         files: [
                             {
                                 name: 'commands.txt',
-                                data:   '1\tclear\n' +
-                                        '2\twhoami\n' +
-                                        '3\techo\n' +
-                                        '4\thelp\n' +
-                                        '5\tipaddr\n' +
-                                        '6\tcd\n' +
-                                        '7\tls\n' +
-                                        '8\tcat\n' +
-                                        '9\tpwd\n' +
-                                        '10\tcurl\n' +
-                                        '11\texit\n' +
-                                        '12\tping\n' +
-                                        '13\tdig\n' +
-                                        '14\tnslookup\n' +
-                                        '15\ttraceroute\n' +
-                                        '16\thistory\n' +
-                                        '17\tweather\n' +
-                                        '18\tuname\n' +
-                                        '19\tuptime\n' +
-                                        '20\tdate\n' +
-                                        '21\tmkdir\n' +
-                                        '22\trmdir\n' +
-                                        '23\ttouch\n' +
-                                        '24\trm'
+                                data:
+                                        '1\thelp\n'           +
+                                        '2\tclear\n'          +
+                                        '3\texit\n'           +                      
+                                        '4\tpwd\n'            +
+                                        '5\tcd\n'             +
+                                        '6\tls\n'             +
+                                        '7\twhoami\n'         +
+                                        '8\tuname\n'          +                                                              
+                                        '9\tcat\n'            +
+                                        '10\ttouch\n'         +
+                                        '11\tmkdir\n'         +
+                                        '12\trmdir\n'         +
+                                        '13\trm\n'            +                                                              
+                                        '14\techo\n'          +
+                                        '15\tdate\n'          +
+                                        '16\tuptime\n'        +
+                                        '17\thistory\n'       +                                                              
+                                        '18\tipaddr\n'        +
+                                        '19\tcurl\n'          +
+                                        '20\tping\n'          +
+                                        '21\ttraceroute\n'    +
+                                        '22\tdig\n'           +
+                                        '23\tnslookup\n'      +
+                                        '24\tweather'
                             }
                         ]
                     }

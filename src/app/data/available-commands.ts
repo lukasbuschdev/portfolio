@@ -6,32 +6,12 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Displays a list of all available commands along with a brief description for each one"
   },
   {
-    command: "clear",
-    description: "Clears the terminal display to provide a fresh, uncluttered screen"
+    command: "exit",
+    description: "Closes console and navigates back to portfolio page https://lukasbusch.dev/main"
   },
   {
-    command: "whoami",
-    description: "Outputs the current user or session identifier, revealing who is logged into the terminal"
-  },
-  {
-    command: "uname",
-    description: "Displays system info: browser userAgent, platform, language, screen resolution, etc."
-  },
-  {
-    command: "uptime",
-    description: "Shows the current time and how long the session has been running (dd hh:mm:ss), followed by the user count and system load averages for the past 1, 5, and 15 minutes"
-  },
-  {
-    command: "date",
-    description: "Displays the current date and time"
-  },
-  {
-    command: "echo",
-    description: "Writes the given text"
-  },
-  {
-    command: "ipaddr",
-    description: "Displays your current public IP address as reported by an external service"
+    command: "pwd",
+    description: "Prints the path of the working directory"
   },
   {
     command: "cd",
@@ -40,6 +20,14 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: "ls",
     description: "Lists all files and folders contained within the current directory"
+  },
+  {
+    command: "whoami",
+    description: "Outputs the current user or session identifier, revealing who is logged into the terminal"
+  },
+  {
+    command: "uname",
+    description: "Displays system info: browser userAgent, platform, language, screen resolution, etc."
   },
   {
     command: "cat",
@@ -62,12 +50,24 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Removes one or multiple files from current directory"
   },
   {
-    command: "pwd",
-    description: "Prints the path of the working directory"
+    command: "echo",
+    description: "Writes the given text"
   },
   {
-    command: "exit",
-    description: "Closes console and navigates back to portfolio page https://lukasbusch.dev"
+    command: "date",
+    description: "Displays the current date and time"
+  },
+  {
+    command: "uptime",
+    description: "Shows the current time and how long the session has been running (dd hh:mm:ss), followed by the user count and system load averages for the past 1, 5, and 15 minutes"
+  },
+  {
+    command: "history",
+    description: "Displays the list of all commands executed during the current terminal session"
+  },
+  {
+    command: "ipaddr",
+    description: "Displays your current public IP address as reported by an external service"
   },
   {
     command: "curl",
@@ -78,6 +78,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Sends repeated network requests to a host to measure latency and network connectivity"
   },
   {
+    command: "traceroute",
+    description: "Displays the network path and latency to a specified destination"
+  },
+  {
     command: "dig",
     description: "Performs a DNS lookup and returns detailed information about the DNS response, including record types and header data"
   },
@@ -86,15 +90,7 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Queries DNS servers to resolve a domain name into its associated IP addresses and other DNS details"
   },
   {
-    command: "traceroute",
-    description: "Displays the network path and latency to a specified destination"
-  },
-  {
-    command: "history",
-    description: "Displays the list of all commands executed during the current terminal session"
-  },
-  {
     command: "weather",
     description: "Fetches and displays current weather details for the specified city—including temperature, humidity, pressure, wind speed, visibility (in meters), and local sunrise/sunset times."
-  },
+  }
 ];
