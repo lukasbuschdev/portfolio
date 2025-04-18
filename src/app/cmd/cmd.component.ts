@@ -89,7 +89,7 @@ export class CmdComponent {
       if(fn) {
         fn(cmd)
       } else {
-        this.executedCommands.push({ command, output: `${ command }: command not found`, path: this.currentPathString });
+        this.executedCommands.push({ command, output: `${ command }: command not found\nType 'help' for more information`, path: this.currentPathString });
       }
     }
   }
