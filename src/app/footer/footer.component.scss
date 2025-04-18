@@ -35,6 +35,28 @@ footer {
             }
         }
     }
+
+    .license {
+        span {
+            color: $white;
+
+            &:hover {
+                cursor: default;
+                filter: none;
+            }
+        }
+        
+        a {
+            color: $blue;
+            font-family: 'Exo 2';
+            font-weight: 300;
+            
+            &:hover {
+                cursor: pointer;
+                filter: brightness(0.75);
+            }
+        }
+    }
 }
 
 .links {
