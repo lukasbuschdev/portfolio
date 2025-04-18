@@ -98,6 +98,9 @@ export class LocalRequestsService {
   }
   
   ls(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+    const tokens = command.trim().split(' ');
+    if(tokens.length > 1) return void executedCommands.push({ command, output: `ls: usage error: extra operand '${ tokens[1] }'\nTry 'help' for more information`, path: currentPathString});
+
     const snapshot = JSON.parse(JSON.stringify(currentDirectory));
     const files = currentDirectory.files?.map(file => file.name) ?? [];
     const subdirectories = currentDirectory.subdirectories?.map(dir => dir.directory) ?? [];
