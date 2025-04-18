@@ -22,6 +22,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Shows the current time and how long the session has been running (dd hh:mm:ss), followed by the user count and system load averages for the past 1, 5, and 15 minutes"
   },
   {
+    command: "date",
+    description: "Displays the current date and time"
+  },
+  {
     command: "echo",
     description: "Writes the given text"
   },
@@ -40,6 +44,18 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: "cat",
     description: "Displays file content of the selected file"
+  },
+  {
+    command: "touch",
+    description: "Creates one or multiple new text files (must include extension '.txt')"
+  },
+  {
+    command: "mkdir",
+    description: "Creates one or multiple new directories"
+  },
+  {
+    command: "rmdir",
+    description: "Removes one or multiple empty directories"
   },
   {
     command: "pwd",

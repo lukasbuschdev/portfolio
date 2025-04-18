@@ -81,5 +81,33 @@ export class UtilsService {
   
     return `${currentTime}  up  ${upPart},  ${usersPart},  ${loadPart}`;
   }
-  
+ 
+
+  getFormattedDate(): string {
+    const date = new Date();
+    const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const weekday = days[date.getDay()];
+    const month   = months[date.getMonth()];
+    const day     = date.getDate();
+
+    let hours = date.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const hh = String(hours).padStart(2, '0');
+    const mm = String(date.getMinutes()).padStart(2, '0');
+    const ss = String(date.getSeconds()).padStart(2, '0');
+
+    let timezone = '';
+    const timezoneMatch = date.toString().match(/\(([^)]+)\)$/);
+    if(timezoneMatch) {
+      timezone = timezoneMatch[1].split(' ').map(word => word[0]).join('');
+    } else {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZoneName:'short' }).formatToParts(date);
+      timezone = (parts.find(p => p.type==='timeZoneName')?.value || '').replace(/[^A-Z]/g, '');
+    }
+
+    const year = date.getFullYear();
+    return `${weekday} ${month} ${day} ${hh}:${mm}:${ss} ${ampm} ${timezone} ${year}`;
+  }
 }

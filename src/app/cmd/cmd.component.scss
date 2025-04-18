@@ -58,6 +58,7 @@
         white-space: pre-wrap;
         word-wrap: break-word;
         overflow-x: auto;
+        outline: none;
     }
 
     .executed-commands-container {
@@ -70,7 +71,6 @@
 
     .input-line {
         textarea {
-            height: 1.5rem;
             width: 100%;
             font-size: 1.1rem;
             font-family: 'OCRAbyBT', sans-serif;
@@ -81,18 +81,49 @@
             resize: none;
             outline: none;
         }
+
+        textarea[autoGrow] {
+            height: 1.5rem;
+        }
     }
+
 }
+
+.edit-info {
+    height: 35px;
+    width: 100%;
+    background-color: $grey;
+    padding: 10px 5px;
+
+    span {
+        font-family: 'OCRAbyBT', sans-serif;
+        font-size: 1.3rem;
+    }
+
+    span:first-of-type {
+        background-color: $white;
+        color: $grey;
+        padding: 2px 1px;
+    }
+
+    span:last-of-type {
+        color: $white;
+        background-color: transparent;
+    }
+} 
 
 .bold {
     font-weight: 600 !important;
     color: $blue !important;
 }
 
-.isFetching {
+.isFetchingOrEditing {
     gap: 0;
-    
-    span {
-        display: none;
-    }
+    display: none;
+}
+
+.none {
+    display: none;
+    height: 0;
+    gap: 0;
 }

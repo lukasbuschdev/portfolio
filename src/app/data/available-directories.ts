@@ -3,12 +3,15 @@ import { typeDirectory } from "../types/types";
 export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
     {
         directory: '',
+        files: [],
         subdirectories: [
             {
                 directory: 'Documents',
+                files: [],
                 subdirectories: [
                     {
                         directory: 'commands',
+                        subdirectories: [],
                         files: [
                             {
                                 name: 'commands.txt',
@@ -30,7 +33,11 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         '16\thistory\n' +
                                         '17\tweather\n' +
                                         '18\tuname\n' +
-                                        '19\tuptime'
+                                        '19\tuptime\n' +
+                                        '20\tdate\n' +
+                                        '21\tmkdir\n' +
+                                        '22\trmdir\n' +
+                                        '23\ttouch'
                             }
                         ]
                     }
@@ -38,9 +45,11 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
             },
             {
                 directory: 'portfolio',
+                files: [],
                 subdirectories: [
                     {
                         directory: 'profile',
+                        subdirectories: [],
                         files: [
                             {
                                 name: 'profile.txt',
@@ -54,6 +63,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                     },
                     {
                         directory: 'projects',
+                        subdirectories: [],
                         files: [
                             {
                                 name: 'expensetracker.txt',
@@ -86,10 +96,11 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                         ]
                     },
                     {
-                        directory: 'contact.txt',
+                        directory: 'contact',
+                        subdirectories: [],
                         files: [
                             {
-                                name: 'contact',
+                                name: 'contact.txt',
                                 data:   'Name:\tLukas Busch\n\n' + 
                                         'email:\twebdeveloper@lukasbusch.dev'
                             }

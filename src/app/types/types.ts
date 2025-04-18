@@ -15,10 +15,10 @@ export type typeCommandMap = {
 }
 
 export type typeDirectory<T = any> = {
-    directory?: string;
-    subdirectories?: typeDirectory<T>[];
+    directory: string;
+    subdirectories: typeDirectory<T>[];
     data?: string;
-    files?: typeFile[];
+    files: typeFile[];
 }
 
 export type typeFile = {

@@ -4,7 +4,7 @@
             <img (click)="scroll.goToSection('main', 'landing-page')" src="img/close.svg">
         </div>
         
-        <div class="content-container" (click)="focusInput($event)">
+        <div #contentContainer class="content-container" (click)="focusInput($event)">
             @if(executedCommands.length) {
                 <div class="executed-commands-container">
                     @for(executedCommand of executedCommands; track $index) {
@@ -14,7 +14,7 @@
                         </div>
                         @if(isCommandSent) {
                             @if(executedCommand.command !== 'help') {
-                                <pre>{{ executedCommand.output }}</pre>
+                                <pre #preTag tabindex="0" [contentEditable]="localRequests.isEditing && $index === executedCommands.length - 1" (keydown)="selectCommand($event)">{{ executedCommand.output }}</pre>
                             } @else if(executedCommand.command === 'help') {
                                 <app-help [availableCommands]="availableCommands"></app-help>
                             }
@@ -22,10 +22,14 @@
                     }
                 </div>
             }
-            <div class="input-line row gap-5" [class.isFetching]="httpRequests.isFetching" id="input-line">
+            <div class="input-line row gap-5" [class.isFetchingOrEditing]="httpRequests.isFetching || localRequests.isEditing" id="input-line">
                 <span class="bold">root&#64;guest:~{{ currentPathString }}$</span>
-                <textarea [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
+                <textarea autoGrow [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
             </div>
+        </div>
+        <div class="edit-info row gap-10 left" [class.none]="!localRequests.isEditing">
+            <span>^X</span>
+            <span>Exit and Save</span>
         </div>
     </div>
 </div>

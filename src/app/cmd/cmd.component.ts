@@ -1,4 +1,4 @@
-import { Component, inject, NgZone } from '@angular/core';
+import { Component, ElementRef, inject, NgZone, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { typeCommand, typeCommandList, typeDirectory } from '../types/types';
 import { ScrollService } from '../services/scroll.service';
@@ -10,14 +10,18 @@ import { HelpComponent } from "./help/help.component";
 import { UtilsService } from '../services/utils.service';
 import { HttpRequestsService } from '../services/http-requests.service';
 import { LocalRequestsService } from '../services/local-requests.service';
+import { AutoGrowDirective } from '../directives/auto-grow.directive';
 
 @Component({
   selector: 'app-cmd',
-  imports: [FormsModule, HelpComponent],
+  imports: [FormsModule, HelpComponent, AutoGrowDirective],
   templateUrl: './cmd.component.html',
   styleUrl: './cmd.component.scss'
 })
 export class CmdComponent {
+  @ViewChildren('preTag') preTags!: QueryList<ElementRef<HTMLElement>>;
+  @ViewChild('contentContainer', { static: false }) contentContainer!: ElementRef<HTMLElement>;
+
   command: string = '';
 
   isCommandSent: boolean = false;
@@ -69,9 +73,9 @@ export class CmdComponent {
 
   scrollDown(): void {
     setTimeout(() => {
-      const inputLineElement = document.getElementById('input-line');
-      if(inputLineElement) inputLineElement.scrollIntoView();
-    }, 10);
+      const el = this.contentContainer.nativeElement;
+      el.scrollTop = el.scrollHeight;
+    });
   }
 
   checkInputs(command: string): void {
@@ -90,7 +94,15 @@ export class CmdComponent {
     }
   }
 
-  selectCommand(event: KeyboardEvent, command: string): void {
+  selectCommand(event: KeyboardEvent, command?: string): void {
+    if(this.localRequests.isEditing && event.key === 'Enter' && !event.ctrlKey) {
+      event.preventDefault();
+      document.execCommand('insertHTML', false, '\n');
+      this.scrollDown();
+    }
+    if(event.shiftKey && event.key === 'Enter') {
+      return;
+    }
     if(event.key === 'ArrowUp') {
       event.preventDefault();
       this.selectCommandUp();
@@ -102,11 +114,25 @@ export class CmdComponent {
     if(event.key === 'Enter') {
       event.preventDefault();
       if(this.httpRequests.isFetching) return;
+      if(!command) return;
       this.executeCommand(command);
     }
     if(event.ctrlKey && event.key.toLowerCase() === 'c') {
       event.preventDefault();
       this.stopPing();
+    }
+    if(event.ctrlKey && event.key.toLowerCase() === 'x') {
+      event.stopPropagation();
+      if(!this.localRequests.isEditing) return;
+      this.localRequests.isEditing = false;
+
+      const pre = event.currentTarget as HTMLElement;
+      const newData = pre.innerText;
+  
+      this.localRequests.isEditing = false;
+      this.saveFile(event.key.toUpperCase(), newData);
+      this.focusInput();
+      this.scrollDown();
     }
   }
 
@@ -132,11 +158,22 @@ export class CmdComponent {
     }
   }
 
-  focusInput(event: MouseEvent): void {
-    const inputField = document.querySelector('textarea');
-    if(inputField) (inputField as HTMLElement).focus({ preventScroll: true });
-    if(event.detail === 1) return;
-    this.scrollDown();
+  focusInput(event?: MouseEvent): void {
+    setTimeout(() => {
+      const inputField = document.querySelector('textarea');
+      if(inputField) (inputField as HTMLElement).focus({ preventScroll: true });
+      if(event instanceof MouseEvent && event.detail === 1) return;
+      this.scrollDown();
+    });
+  }
+
+  focusPreElement(): void {
+    setTimeout(() => {
+      const arr = this.preTags.toArray();
+      if(arr.length) {
+        arr[arr.length - 1].nativeElement.focus();
+      }
+    });
   }
 
 
@@ -158,6 +195,10 @@ export class CmdComponent {
     this.localRequests.uptime(command, this.executedCommands, this.currentPathString);
   }
 
+  date(command: string): void {
+    this.localRequests.date(command, this.executedCommands, this.currentPathString);
+  }
+
   echo(command: string): void {
     this.localRequests.echo(command, this.executedCommands, this.currentPathString);
   }
@@ -175,7 +216,23 @@ export class CmdComponent {
   }
 
   cat(command: string): void {
-    this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this), this.focusPreElement.bind(this));
+  }
+
+  mkdir(command: string): void {
+    this.localRequests.mkdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+  }
+
+  rmdir(command: string): void {
+    this.localRequests.rmdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+  }
+
+  touch(command: string): void {
+    this.localRequests.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+  }
+
+  saveFile(command: string, newData: string): void {
+    this.localRequests.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory, newData, this.scrollDown.bind(this));
   }
 
   pwd(command: string): void {
