@@ -196,6 +196,18 @@ export class LocalRequestsService {
     this.checkSubdirectories(executedCommands, currentDirectory, dirNames, cmdIndex);
   }
 
+  rm(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+    const tokens   = command.trim().split(' ');
+    const fileNames = tokens.slice(1);
+  
+    if(fileNames.length === 0) return void executedCommands.push({ command, output: `rmdir: missing operand\nTry 'help' for more information.`, path: currentPathString });
+  
+    executedCommands.push({ command, output: '', path: currentPathString });
+    const commandIndex = executedCommands.length - 1;
+
+    this.checkFiles(executedCommands, currentDirectory, fileNames, commandIndex);
+  }
+
   checkSubdirectories(executedCommands: typeCommand[], currentDirectory: typeDirectory, dirNames: string[], cmdIndex: number): void {
     for(const name of dirNames) {
       const index = currentDirectory.subdirectories ? currentDirectory.subdirectories.findIndex(dir => dir.directory === name) : -1;
@@ -214,6 +226,19 @@ export class LocalRequestsService {
       } else {
         currentDirectory.subdirectories!.splice(index, 1);
       }
+    }
+  }
+
+  checkFiles(executedCommands: typeCommand[], currentDirectory: typeDirectory, dirNames: string[], commandIndex: number): void {
+    for(const name of dirNames) {
+      const index = currentDirectory.files ? currentDirectory.files.findIndex(file => file.name === name) : -1;
+  
+      if(index < 0) {
+        executedCommands[commandIndex].output += `rm: failed to remove '${ name }': No such file in directory\n`;
+        continue;
+      }
+
+      currentDirectory.files.splice(index, 1);
     }
   }
 

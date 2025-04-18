@@ -235,6 +235,10 @@ export class CmdComponent {
     this.localRequests.rmdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
+  rm(command: string): void {
+    this.localRequests.rm(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+  }
+
   touch(command: string): void {
     this.localRequests.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }

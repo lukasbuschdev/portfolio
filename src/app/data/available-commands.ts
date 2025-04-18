@@ -58,6 +58,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Removes one or multiple empty directories"
   },
   {
+    command: "rm",
+    description: "Removes one or multiple files from current directory"
+  },
+  {
     command: "pwd",
     description: "Prints the path of the working directory"
   },

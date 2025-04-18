@@ -37,7 +37,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         '20\tdate\n' +
                                         '21\tmkdir\n' +
                                         '22\trmdir\n' +
-                                        '23\ttouch'
+                                        '23\ttouch\n' +
+                                        '24\trm'
                             }
                         ]
                     }

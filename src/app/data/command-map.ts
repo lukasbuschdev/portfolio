@@ -15,6 +15,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'touch': 'touch',
     'mkdir': 'mkdir',
     'rmdir': 'rmdir',
+    'rm': 'rm',
     'pwd': 'pwd',
     'exit': 'exit',
     'history': 'history',
