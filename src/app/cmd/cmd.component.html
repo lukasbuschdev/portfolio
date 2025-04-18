@@ -22,8 +22,8 @@
                     }
                 </div>
             }
-            <div class="input-line row gap-5" [class.isFetchingOrEditing]="httpRequests.isFetching || localRequests.isEditing" id="input-line">
-                <span class="bold">root&#64;guest:~{{ currentPathString }}$</span>
+            <div class="input-line row gap-5" [class.isFetchingOrEditing]="localRequests.isEditing" id="input-line">
+                <span class="bold" [class.isFetchingOrEditing]="httpRequests.isFetching || localRequests.isEditing">root&#64;guest:~{{ currentPathString }}$</span>
                 <textarea autoGrow [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
             </div>
         </div>

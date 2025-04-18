@@ -75,7 +75,7 @@ export class CmdComponent {
     setTimeout(() => {
       const el = this.contentContainer.nativeElement;
       el.scrollTop = el.scrollHeight;
-    });
+    }, 10);
   }
 
   checkInputs(command: string): void {
@@ -116,6 +116,7 @@ export class CmdComponent {
       if(this.httpRequests.isFetching) return;
       if(!command) return;
       this.executeCommand(command);
+      this.focusInput();
     }
     if(event.ctrlKey && event.key.toLowerCase() === 'c') {
       event.preventDefault();
@@ -131,7 +132,7 @@ export class CmdComponent {
   
       this.localRequests.isEditing = false;
       this.saveFile(event.key.toUpperCase(), newData);
-      this.focusInput();
+      this.focusTextarea();
       this.scrollDown();
     }
   }
@@ -164,6 +165,13 @@ export class CmdComponent {
       if(inputField) (inputField as HTMLElement).focus({ preventScroll: true });
       if(event instanceof MouseEvent && event.detail === 1) return;
       this.scrollDown();
+    });
+  }
+
+  focusTextarea(): void {
+    setTimeout(() => {
+      const textarea = document.querySelector('textarea');
+      if(textarea) (textarea as HTMLElement).focus({ preventScroll: true });
     });
   }
 
