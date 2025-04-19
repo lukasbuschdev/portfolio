@@ -124,10 +124,12 @@ export class CmdComponent {
       return;
     }
     if(event.key === 'ArrowUp') {
+      if(this.localRequests.isEditing) return;
       event.preventDefault();
       this.selectCommandUp();
     }
     if(event.key === 'ArrowDown') {
+      if(this.localRequests.isEditing) return;
       event.preventDefault();
       this.selectCommandDown();
     }
