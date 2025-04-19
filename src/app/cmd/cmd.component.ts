@@ -84,19 +84,7 @@ export class CmdComponent {
   }
 
   checkInputs(command: string): void {
-    if(command.startsWith('sudo ') && !this.localRequests.hasRootPermissions) {
-      this.pendingCommand = command;
-      this.localRequests.isInputPassword = true;
-      this.inputPw = '';
-      this.executedCommands.push({ command, path: this.currentPathString });
-      this.focusPasswordInput();
-      return;
-    }
-
-    if(command.startsWith('sudo ') && this.localRequests.hasRootPermissions) {
-      this.executedCommands.push({ command, output: `sudo: usage error: root permission already granted`, path: this.currentPathString });
-      return;
-    }
+    if(!this.checkIfSudo(command)) return;
 
     const commands = command.split('&&').map(command => command.trim()).filter(command => command.length);
 
@@ -111,6 +99,24 @@ export class CmdComponent {
         this.executedCommands.push({ command, output: `${ command }: command not found\nType 'help' for more information`, path: this.currentPathString });
       }
     }
+  }
+
+  checkIfSudo(command: string): boolean{
+    if(command.startsWith('sudo ') && !this.localRequests.hasRootPermissions) {
+      this.pendingCommand = command;
+      this.localRequests.isInputPassword = true;
+      this.inputPw = '';
+      this.executedCommands.push({ command, path: this.currentPathString });
+      this.focusPasswordInput();
+      return false;
+    }
+
+    if(command.startsWith('sudo ') && this.localRequests.hasRootPermissions) {
+      this.executedCommands.push({ command, output: `sudo: usage error: root permission already granted`, path: this.currentPathString });
+      return false;
+    }
+
+    return true;
   }
 
   selectCommand(event: KeyboardEvent, command?: string): void {

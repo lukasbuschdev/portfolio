@@ -143,18 +143,15 @@ export class LocalRequestsService {
   }
 
   checkFileContent(command: string, executedCommands: typeCommand[], currentPathString: string, fileContent: typeFile | undefined, tokens: string[], snapshot: typeDirectory, focusNanoInput: () => void): void {
-    if(!fileContent) {
-      this.isEditing = true;
-      executedCommands.push({ command, path: currentPathString, snapshot: snapshot });
-      this.openedFile = { name: tokens[1], isRootOnly: false, data: '' };
-      focusNanoInput();
-      return;
+    if(fileContent) {
+      this.openedFile = { name: fileContent.name, isRootOnly: fileContent.isRootOnly, data: fileContent.data };
     } else {
-      this.isEditing = true;
-      this.openedFile = fileContent;
-      executedCommands.push({ command, path: currentPathString, snapshot: snapshot });
-      focusNanoInput();
+      this.openedFile = { name: tokens[1], isRootOnly: false, data: '' };
     }
+
+    this.isEditing = true;
+    executedCommands.push({ command, path: currentPathString, snapshot });
+    focusNanoInput();
   }
 
   touch(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
@@ -180,21 +177,17 @@ export class LocalRequestsService {
     }
   }
 
-  saveFile(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
-    const editedFile = currentDirectory.files.find(dir => dir.name === this.openedFile.name);
+  saveFile(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory) {
+    const realFile = currentDirectory.files.find(f => f.name === this.openedFile.name);
 
-    if(editedFile) {
-      editedFile.data = this.openedFile.data;
+    if(realFile) {
+      realFile.data = this.openedFile.data;
     } else {
-      currentDirectory.files.push({ 
-        name: this.openedFile.name,
-        isRootOnly: false,
-        data: this.openedFile.data
-      });
+      currentDirectory.files.push({ name: this.openedFile.name, isRootOnly: false, data: this.openedFile.data });
     }
-    
-    console.log(currentDirectory.files)
-    executedCommands.push({ command: `^${ command }`, path: currentPathString });
+
+    executedCommands.push({ command: `^${command}`, path: currentPathString });
+    this.isEditing = false;
   }
 
   mkdir(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
