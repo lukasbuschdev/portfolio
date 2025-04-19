@@ -46,7 +46,7 @@
             </div>
             <div class="row gap-15 password-input-container" [class.none]="!localRequests.isInputPassword">
                 <span>Password:</span>
-                <input #inputPassword type="password" (keydown.enter)="checkPassword(inputPassword.value)">
+                <input #inputPassword type="password" [(ngModel)]="inputPw" (keydown.enter)="checkPassword(inputPw)">
             </div>
         </div>
     </div>

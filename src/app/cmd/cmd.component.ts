@@ -31,6 +31,7 @@ export class CmdComponent {
   executedCommands: typeCommand[] = [];
   count: number = 0;
   password: string = 'TemetNosce!';
+  inputPw: string = '';
 
   availableCommands: typeCommandList[] = AVAILABLE_COMMANDS;
   avaiableDirectories: typeDirectory[] = AVAILABLE_DIRECTORIES;
@@ -86,8 +87,14 @@ export class CmdComponent {
     if(command.startsWith('sudo ') && !this.localRequests.hasRootPermissions) {
       this.pendingCommand = command;
       this.localRequests.isInputPassword = true;
+      this.inputPw = '';
       this.executedCommands.push({ command, path: this.currentPathString });
       this.focusPasswordInput();
+      return;
+    }
+
+    if(command.startsWith('sudo ') && this.localRequests.hasRootPermissions) {
+      this.executedCommands.push({ command, output: `sudo: usage error: root permission already granted`, path: this.currentPathString });
       return;
     }
 
@@ -206,6 +213,7 @@ export class CmdComponent {
     if(inputPassword !== this.password) {
       this.executedCommands.push({ command: this.pendingCommand!, output: `${ this.pendingCommand }: wrong password: Permission denied`, path: this.currentPathString });
       this.pendingCommand = null;
+      this.focusTextarea();
       return this.scrollDown();
     }
 
