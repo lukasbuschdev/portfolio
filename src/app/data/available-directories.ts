@@ -62,7 +62,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         'Profession:\tFull-Stack Web Developer\n\n' +
                                         'Experience:\t2+ years\n\n' +
                                         'Location:\tMérida, México\n\n' +
-                                        'Languages:\tGerman, English, Spanish\n\n' +
+                                        'Languages:\tEnglish, German, Spanish\n\n' +
                                         'Description:\tI am a detail-oriented, analytical, and self-driven Full-Stack Web Developer with over two years of experience building web applications. My main focus is on technologies like Angular, TypeScript, JavaScript, HTML and CSS/SCSS. Writing clean, efficient, and scalable code is just as important to me as being a coordinated and collaborative team player with attention to detail and a keen eye for graphic design.\n\n' +
                                         'Password:\tTemetNosce!'
                             }
@@ -104,6 +104,20 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.\n\n' +
                                         'https://lukasbusch.dev/Notes/index.html'
                             },
+                            {
+                                name: 'terminal.txt',
+                                isRootOnly: false,
+                                data:   'Interactive Terminal Simulation\n\n' +
+                                        'Angular, TypeScript, SCSS, HTML, Node.js, Express, Flask\n\n' +
+                                        'Embeds a fully-functional, Linux-style command-line interface right in your portfolio.  ' +
+                                        'Supports 25+ real commands (ls, cat, nano, ping, curl, dig, nslookup, traceroute, weather, etc.), ' +
+                                        'command chaining with &&, sudo-style authentication, and precise Linux-style error messaging to mirror bash behavior.\n\n' +
+                                        'Features:\n' +
+                                        ' • WYSIWYG nano editor for .txt files (with save/exit shortcuts ^O, ^X)\n' +
+                                        ' • Session uptime, user count, and system info (uname)\n' +
+                                        ' • Real-time network and HTTP/DNS lookups via a Node.js + Flask proxy (avoids CORS)\n' +
+                                        ' • File creation, removal, renaming, and directory navigation—all with authentic error handling'
+                              }
                         ]
                     },
                     {

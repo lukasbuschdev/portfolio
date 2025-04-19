@@ -21,6 +21,14 @@ export class ProjectsComponent {
     const translations: any = {
       en: [
         {
+          name: 'Interactive Terminal',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Express | Flask',
+          description: 'Real Linux-style CLI in your browser: run 25+ commands (ls, cat, ping, dig), full file navigation, embedded nano editor, chaining & sudo auth, authentic errors and live data - built with Angular and Node.js/Flask.',
+          img: 'img/terminal.webp',
+          link: 'https://lukasbusch.dev/cmd',
+          github: 'https://github.com/lukasbuschdev/portfolio'
+        },
+        {
           name: 'Expense Tracker',
           technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node | Express',
           description: 'Expense Tracker is a full-stack financial management app. Create an account to access a dynamic dashboard that lets you manage expenses, budgets, and settings in one interface.',
@@ -55,6 +63,14 @@ export class ProjectsComponent {
       ],
       es: [
         {
+          name: 'Terminal Interactivo',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Express | Flask',
+          description: 'CLI estilo Linux real en tu navegador: ejecuta más de 25 comandos (ls, cat, ping, dig), navegación completa de archivos, editor nano integrado, encadenamiento y autenticación sudo, errores auténticos y datos en tiempo real - desarrollado con Angular y Node.js/Flask.',
+          img: 'img/terminal.webp',
+          link: 'https://lukasbusch.dev/cmd',
+          github: 'https://github.com/lukasbuschdev/portfolio'
+        },        
+        {
           name: 'Expense Tracker',
           technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node | Express',
           description: 'Expense Tracker es una aplicación full-stack que simplifica la gestión financiera. Crea una cuenta para acceder a un panel dinámico con resúmenes gráficos, gestiona tus gastos, presupuestos y categorías, y ajusta tu configuración, todo en una interfaz intuitiva.',
@@ -88,6 +104,14 @@ export class ProjectsComponent {
         }
       ],
       de: [
+        {
+          name: 'Interaktives Terminal',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Express | Flask',
+          description: 'Echte Linux-ähnliche Kommandozeile im Browser: über 25 Befehle (ls, cat, ping, dig), vollständige Dateinavigation, integrierter Nano-Editor, Verkettung & sudo-Authentifizierung, authentische Fehlermeldungen und Live-Daten - entwickelt mit Angular und Node.js/Flask.',
+          img: 'img/terminal.webp',
+          link: 'https://lukasbusch.dev/cmd',
+          github: 'https://github.com/lukasbuschdev/portfolio'
+        },        
         {
           name: 'Expense Tracker',
           technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node | Express',

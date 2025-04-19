@@ -10,6 +10,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Closes console and navigates back to portfolio page https://lukasbusch.dev/main"
   },
   {
+    command: "clear",
+    description: "Clears the terminal screen and scrollback buffer"
+  },
+  {
     command: "pwd",
     description: "Prints the path of the working directory"
   },
