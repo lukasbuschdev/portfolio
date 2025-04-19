@@ -34,6 +34,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Displays file content of the selected file"
   },
   {
+    command: "nano",
+    description: "Simple, modeless WYSIWYG (What You See Is What You Get) command-line text editor for creating or editing the specified text file (.txt)"
+  },
+  {
     command: "touch",
     description: "Creates one or multiple new text files (must include extension '.txt')"
   },

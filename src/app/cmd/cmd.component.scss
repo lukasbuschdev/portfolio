@@ -13,7 +13,7 @@
     max-height: 600px;
     background-color: $dark-blue-opacity;
     backdrop-filter: blur(4px);
-    border-radius: 5px;
+    border-radius: 10px 10px 0 0;
     overflow: hidden;
     box-shadow: 0 0 7px $blue-hover;
 }
@@ -42,6 +42,7 @@
 }
 
 .content-container {
+    position: relative;
     height: 100%;
     width: 100%;
     padding: 5px;
@@ -87,30 +88,78 @@
         }
     }
 
+    .nano-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+
+        header {
+            width: 100%;
+            height: 30px;
+            background-color: white;
+            padding: 5px 10px;
+            
+            span {
+                width: 50%;
+                text-align: start;
+                color: $grey;
+                font-size: 1rem;
+            }
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100%;
+            font-size: 1rem;
+            font-family: 'OCRAbyBT', sans-serif;
+            font-weight: 400;
+            background-color: $grey;
+            color: $white;
+            border: none;
+            resize: none;
+            outline: none;
+            overflow: auto;
+        }
+
+        .nano-commands {
+            width: 100%;
+            background-color: $grey;
+
+            &:hover {
+                cursor: default;
+            }
+        
+            span {
+                font-size: 1rem;
+            }
+        
+            span:first-of-type {
+                background-color: $white;
+                color: $grey;
+                padding: 2px 1px;
+            }
+        
+            span:last-of-type {
+                color: $white;
+                background-color: transparent;
+            }
+        } 
+    }
 }
 
-.edit-info {
-    height: 35px;
-    width: 100%;
-    background-color: $grey;
-    padding: 10px 5px;
-
-    span {
-        font-family: 'OCRAbyBT', sans-serif;
-        font-size: 1.3rem;
-    }
-
-    span:first-of-type {
-        background-color: $white;
-        color: $grey;
-        padding: 2px 1px;
-    }
-
-    span:last-of-type {
-        color: $white;
+.password-input-container {
+    input {
         background-color: transparent;
+        border: none;
+        outline: none;
+        color: $white;
+        letter-spacing: 3px;
+        font-size: 1rem;
     }
-} 
+}
+
 
 .bold {
     font-weight: 600 !important;

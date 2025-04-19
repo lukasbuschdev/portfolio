@@ -10,6 +10,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'whoami': 'whoami',
     'uname': 'uname',
     'cat': 'cat',
+    'nano': 'nano',
     'touch': 'touch',
     'mkdir': 'mkdir',
     'rmdir': 'rmdir',

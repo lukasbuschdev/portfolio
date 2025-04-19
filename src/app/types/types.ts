@@ -24,6 +24,7 @@ export type typeDirectory<T = any> = {
 export type typeFile = {
     name: string;
     data: string;
+    isRootOnly: boolean;
 }
 
 export type typeDnsResponse = {

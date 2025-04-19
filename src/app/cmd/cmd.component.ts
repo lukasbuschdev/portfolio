@@ -19,15 +19,18 @@ import { AutoGrowDirective } from '../directives/auto-grow.directive';
   styleUrl: './cmd.component.scss'
 })
 export class CmdComponent {
-  @ViewChildren('preTag') preTags!: QueryList<ElementRef<HTMLElement>>;
   @ViewChild('contentContainer', { static: false }) contentContainer!: ElementRef<HTMLElement>;
+  @ViewChild('commandInput', { static: false }) commandInput!: ElementRef<HTMLTextAreaElement>;
+  @ViewChild('nanoInput', { static: false }) nanoInput!: ElementRef<HTMLTextAreaElement>;
 
   command: string = '';
+  pendingCommand: string | null = null;
 
   isCommandSent: boolean = false;
 
   executedCommands: typeCommand[] = [];
   count: number = 0;
+  password: string = 'TemetNosce!';
 
   availableCommands: typeCommandList[] = AVAILABLE_COMMANDS;
   avaiableDirectories: typeDirectory[] = AVAILABLE_DIRECTORIES;
@@ -51,6 +54,8 @@ export class CmdComponent {
         this.commandMap[cmd] = (this as any)[COMMAND_CONFIG[cmd]].bind(this);
       }
     });
+
+    this.focusTextarea();
   }
 
   scroll = inject(ScrollService);
@@ -66,7 +71,6 @@ export class CmdComponent {
     this.command = '';
 
     this.checkInputs(inputCommand);
-
     this.count = this.executedCommands.length;
     this.scrollDown();
   }
@@ -79,6 +83,14 @@ export class CmdComponent {
   }
 
   checkInputs(command: string): void {
+    if(command.startsWith('sudo ') && !this.localRequests.hasRootPermissions) {
+      this.pendingCommand = command;
+      this.localRequests.isInputPassword = true;
+      this.executedCommands.push({ command, path: this.currentPathString });
+      this.focusPasswordInput();
+      return;
+    }
+
     const commands = command.split('&&').map(command => command.trim()).filter(command => command.length);
 
     for(const cmd of commands) {
@@ -95,11 +107,6 @@ export class CmdComponent {
   }
 
   selectCommand(event: KeyboardEvent, command?: string): void {
-    if(this.localRequests.isEditing && event.key === 'Enter' && !event.ctrlKey) {
-      event.preventDefault();
-      document.execCommand('insertHTML', false, '\n');
-      this.scrollDown();
-    }
     if(event.shiftKey && event.key === 'Enter') {
       return;
     }
@@ -112,27 +119,32 @@ export class CmdComponent {
       this.selectCommandDown();
     }
     if(event.key === 'Enter') {
+      if(this.localRequests.isEditing) return;
       event.preventDefault();
       if(this.httpRequests.isFetching) return;
       if(!command) return;
       this.executeCommand(command);
-      this.focusInput();
+      this.focusTextarea();
     }
     if(event.ctrlKey && event.key.toLowerCase() === 'c') {
       event.preventDefault();
       this.stopPing();
     }
+    if(event.ctrlKey && event.key.toLowerCase() === 'o') {
+      event.stopPropagation();
+      if(!this.localRequests.isEditing) return;
+      this.localRequests.isEditing = false;
+      this.saveFile(event.key.toUpperCase());
+      this.focusTextarea();
+      this.command = '';
+      this.scrollDown();
+    }
     if(event.ctrlKey && event.key.toLowerCase() === 'x') {
       event.stopPropagation();
       if(!this.localRequests.isEditing) return;
       this.localRequests.isEditing = false;
-
-      const pre = event.currentTarget as HTMLElement;
-      const newData = pre.innerText;
-  
-      this.localRequests.isEditing = false;
-      this.saveFile(event.key.toUpperCase(), newData);
       this.focusTextarea();
+      this.command = '';
       this.scrollDown();
     }
   }
@@ -161,27 +173,48 @@ export class CmdComponent {
 
   focusInput(event?: MouseEvent): void {
     setTimeout(() => {
-      const inputField = document.querySelector('textarea');
+      const inputField = document.querySelector('.input-line textarea');
       if(inputField) (inputField as HTMLElement).focus({ preventScroll: true });
       if(event instanceof MouseEvent && event.detail === 1) return;
       this.scrollDown();
     });
   }
 
-  focusTextarea(): void {
+  focusPasswordInput(): void {
     setTimeout(() => {
-      const textarea = document.querySelector('textarea');
-      if(textarea) (textarea as HTMLElement).focus({ preventScroll: true });
+      const input = document.querySelector('.password-input-container input');
+      if(input) (input as HTMLElement).focus();
+      this.scrollDown();
     });
   }
 
-  focusPreElement(): void {
+  focusTextarea(): void {
     setTimeout(() => {
-      const arr = this.preTags.toArray();
-      if(arr.length) {
-        arr[arr.length - 1].nativeElement.focus();
-      }
-    });
+      this.commandInput.nativeElement.focus();
+    }, 100);
+  }
+
+  focusNanoInput(): void {
+    setTimeout(() => {
+      this.nanoInput.nativeElement.focus();
+    }, 100);
+  }
+
+  checkPassword(inputPassword: string): void {
+    this.localRequests.isInputPassword = false;
+
+    if(inputPassword !== this.password) {
+      this.executedCommands.push({ command: this.pendingCommand!, output: `${ this.pendingCommand }: wrong password: Permission denied`, path: this.currentPathString });
+      this.pendingCommand = null;
+      return this.scrollDown();
+    }
+
+    this.localRequests.hasRootPermissions = true;
+    const cmd = this.pendingCommand!;
+    this.pendingCommand = null;
+
+    this.checkInputs(cmd.replace(/^sudo\s+/, ''));
+    this.focusTextarea();
   }
 
 
@@ -224,7 +257,11 @@ export class CmdComponent {
   }
 
   cat(command: string): void {
-    this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this), this.focusPreElement.bind(this));
+    this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+  }
+
+  nano(command: string): void {
+    this.localRequests.nano(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.focusNanoInput.bind(this));
   }
 
   mkdir(command: string): void {
@@ -243,8 +280,8 @@ export class CmdComponent {
     this.localRequests.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
-  saveFile(command: string, newData: string): void {
-    this.localRequests.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory, newData, this.scrollDown.bind(this));
+  saveFile(command: string): void {
+    this.localRequests.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   pwd(command: string): void {

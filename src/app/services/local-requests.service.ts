@@ -1,4 +1,4 @@
-import { ElementRef, inject, Injectable, ViewChild } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { typeCommand, typeCommandList, typeDirectory, typeFile } from '../types/types';
 import { ScrollService } from './scroll.service';
 import { UtilsService } from './utils.service';
@@ -8,7 +8,9 @@ import { UtilsService } from './utils.service';
 })
 export class LocalRequestsService {
   isEditing: boolean = false;
-  openedFile: typeFile = { name: '', data: '' };
+  hasRootPermissions: boolean = false;
+  isInputPassword: boolean = false;
+  openedFile: typeFile = { name: '', isRootOnly: false, data: '' };
 
   scroll = inject(ScrollService);
   utils = inject(UtilsService);
@@ -110,7 +112,7 @@ export class LocalRequestsService {
     executedCommands.push({ command, output: outputString, path: currentPathString, snapshot: snapshot });
   }
 
-  cat(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void, focusPreElement: () => void): void {
+  cat(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
     const snapshot = JSON.parse(JSON.stringify(currentDirectory));
     const filesOfDirectory = currentDirectory.files?.filter(dir => dir.name.includes('.txt'));
     const tokens = command.trim().split(' ');
@@ -121,11 +123,38 @@ export class LocalRequestsService {
     const fileContent = filesOfDirectory.find(dir => dir.name === tokens[1].toLowerCase());
     if(!fileContent) return void executedCommands.push({ command, output: 'No such file in directory', path: currentPathString, snapshot: snapshot });
 
-    this.openedFile = fileContent;
-    this.isEditing = true;
     executedCommands.push({ command, output: fileContent?.data , path: currentPathString, snapshot: snapshot });
-    focusPreElement();
     scrollDown();
+  }
+
+  nano(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, focusNanoInput: () => void): void {
+    const snapshot = JSON.parse(JSON.stringify(currentDirectory));
+    const filesOfDirectory = currentDirectory.files?.filter(dir => dir.name.includes('.txt'));
+    const tokens = command.trim().split(' ');
+    
+    if(tokens.length < 2) return void executedCommands.push({ command, output: 'nano: usage error: File name required', path: currentPathString, snapshot: snapshot });
+    if(!command.endsWith('.txt')) return void executedCommands.push({ command, output: `nano: usage error: File extension '.txt' required`, path: currentPathString, snapshot: snapshot });
+    if(tokens.length > 2) return void executedCommands.push({ command, output: `nano: too many arguments\nTry 'help' for more information`, path: currentPathString, snapshot: snapshot });
+    
+    const fileContent = filesOfDirectory.find(dir => dir.name === tokens[1].toLowerCase());
+    if(fileContent?.isRootOnly && !this.hasRootPermissions) return void executedCommands.push({ command, output: `Error opening '${ currentPathString }/${ fileContent.name }': Permission denied`, path: currentPathString, snapshot: snapshot });
+
+    this.checkFileContent(command, executedCommands, currentPathString, fileContent, tokens, snapshot, focusNanoInput);
+  }
+
+  checkFileContent(command: string, executedCommands: typeCommand[], currentPathString: string, fileContent: typeFile | undefined, tokens: string[], snapshot: typeDirectory, focusNanoInput: () => void): void {
+    if(!fileContent) {
+      this.isEditing = true;
+      executedCommands.push({ command, path: currentPathString, snapshot: snapshot });
+      this.openedFile = { name: tokens[1], isRootOnly: false, data: '' };
+      focusNanoInput();
+      return;
+    } else {
+      this.isEditing = true;
+      this.openedFile = fileContent;
+      executedCommands.push({ command, path: currentPathString, snapshot: snapshot });
+      focusNanoInput();
+    }
   }
 
   touch(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
@@ -146,20 +175,26 @@ export class LocalRequestsService {
       } else if(!isTextFile) {
         executedCommands[commandIndex].output += `touch: cannot create file '${ name }': Invalid extension; only .txt files are supported\n`;
       } else {
-        currentDirectory.files.push({ name, data: '' });
+        currentDirectory.files.push({ name, isRootOnly: false, data: '' });
       }
     }
   }
 
-  saveFile(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, newData: string, scrollDown: () => void): void {
+  saveFile(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
     const editedFile = currentDirectory.files.find(dir => dir.name === this.openedFile.name);
 
     if(editedFile) {
-      editedFile.data = newData;
+      editedFile.data = this.openedFile.data;
+    } else {
+      currentDirectory.files.push({ 
+        name: this.openedFile.name,
+        isRootOnly: false,
+        data: this.openedFile.data
+      });
     }
-
-    executedCommands.push({ command: `^${command}`, output: '', path: currentPathString });
-    scrollDown();
+    
+    console.log(currentDirectory.files)
+    executedCommands.push({ command: `^${ command }`, path: currentPathString });
   }
 
   mkdir(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
