@@ -10,6 +10,7 @@ import { firstValueFrom, forkJoin } from 'rxjs';
 })
 export class HttpRequestsService {
   isFetching: boolean = false;
+  isPinging: boolean = false;
   currentPingInterval: any = null;
 
   scroll = inject(ScrollService);
@@ -26,6 +27,7 @@ export class HttpRequestsService {
 
     if(!this.checkPingValidation(command, tokens, executedCommands, currentPathString, scrollDown)) return;
     this.isFetching = true;
+    this.isPinging = true;
     
     executedCommands.push({ command, output: `ping ${url}`, path: currentPathString });
     const pingIndex = executedCommands.length - 1;

@@ -22,16 +22,17 @@
                                     <textarea #nanoInput [(ngModel)]="localRequests.openedFile.data" (keydown)="selectCommand($event)"></textarea>
                                     <div class="nano-commands row gap-25 left">
                                         <div class="row gap-10">
-                                            <span>^O</span>
-                                            <span>Save and Exit</span>
+                                            <span>^X</span>
+                                            <button (click)="exitNano($event)">Exit</button>
                                         </div>
                                         <div class="row gap-10">
-                                            <span>^X</span>
-                                            <span>Exit</span>
+                                            <span>^O</span>
+                                            <button (click)="saveAndExitNano($event)">Save and Exit</button>
                                         </div>
                                     </div>
                                 </div>
-                            } @else if(executedCommand.command === 'help') {
+                            } 
+                            @else if(executedCommand.command === 'help') {
                                 <app-help [availableCommands]="availableCommands"></app-help>
                             } @else {
                                 <pre>{{ executedCommand.output }}</pre>
@@ -40,7 +41,7 @@
                     }
                 </div>
             }
-            <div class="input-line row gap-5" [class.none]="localRequests.isInputPassword" [class.isFetchingOrEditing]="localRequests.isEditing" id="input-line">
+            <div class="input-line row gap-5 align-center" [class.none]="localRequests.isInputPassword" [class.isFetchingOrEditing]="localRequests.isEditing" id="input-line">
                 <span class="bold" [class.isFetchingOrEditing]="httpRequests.isFetching || localRequests.isEditing">root&#64;guest:~{{ currentPathString }}$</span>
                 <textarea #commandInput autoGrow [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
             </div>
@@ -48,6 +49,9 @@
                 <span>Password:</span>
                 <input #inputPassword type="password" [(ngModel)]="inputPw" (keydown.enter)="checkPassword(inputPw)">
             </div>
+            @if(httpRequests.isPinging) {
+                <button class="stop-ping" (click)="stopPing()">Stop</button>
+            }
         </div>
     </div>
 </div>

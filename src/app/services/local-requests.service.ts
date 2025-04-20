@@ -158,7 +158,7 @@ export class LocalRequestsService {
     const tokens = command.trim().split(' ');
     const fileNames = tokens.slice(1);
 
-    if(fileNames.length === 0) return void executedCommands.push({ command, output: `touch: missing operand\nTry 'help' for more information.`, path: currentPathString });
+    if(fileNames.length === 0) return void executedCommands.push({ command, output: `touch: missing operand\nTry 'help' for more information`, path: currentPathString });
 
     executedCommands.push({ command, output: '', path: currentPathString });
     const commandIndex = executedCommands.length - 1;
@@ -194,7 +194,7 @@ export class LocalRequestsService {
     const tokens = command.trim().split(' ');
     const dirNames = tokens.slice(1);
 
-    if(dirNames.length === 0) return void executedCommands.push({ command, output: `mkdir: missing operand\nTry 'help' for more information.`, path: currentPathString });
+    if(dirNames.length === 0) return void executedCommands.push({ command, output: `mkdir: missing operand\nTry 'help' for more information`, path: currentPathString });
     
     executedCommands.push({ command, output: '', path: currentPathString });
     const commandIndex = executedCommands.length - 1;
@@ -216,7 +216,7 @@ export class LocalRequestsService {
     const tokens   = command.trim().split(' ');
     const dirNames = tokens.slice(1);
   
-    if(dirNames.length === 0) return void executedCommands.push({ command, output: `rmdir: missing operand\nTry 'help' for more information.`, path: currentPathString });
+    if(dirNames.length === 0) return void executedCommands.push({ command, output: `rmdir: missing operand\nTry 'help' for more information`, path: currentPathString });
   
     executedCommands.push({ command, output: '', path: currentPathString });
     const cmdIndex = executedCommands.length - 1;
@@ -228,7 +228,8 @@ export class LocalRequestsService {
     const tokens   = command.trim().split(' ');
     const fileNames = tokens.slice(1);
   
-    if(fileNames.length === 0) return void executedCommands.push({ command, output: `rmdir: missing operand\nTry 'help' for more information.`, path: currentPathString });
+    if(fileNames.length === 0) return void executedCommands.push({ command, output: `rm: missing operand\nTry 'help' for more information`, path: currentPathString });
+    if(!this.hasRootPermissions) return void executedCommands.push({ command, output: `rm: error: Permission denied`, path: currentPathString });
   
     executedCommands.push({ command, output: '', path: currentPathString });
     const commandIndex = executedCommands.length - 1;

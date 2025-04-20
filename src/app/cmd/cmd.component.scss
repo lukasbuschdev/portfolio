@@ -141,11 +141,15 @@
                 padding: 2px 1px;
             }
         
-            span:last-of-type {
+            button {
                 color: $white;
                 background-color: transparent;
             }
         } 
+    }
+
+    .stop-ping {
+        display: none;
     }
 }
 
@@ -175,4 +179,37 @@
     display: none;
     height: 0;
     gap: 0;
+}
+
+@media(max-width: 650px) {
+    .section-container {
+        padding: 0;
+    }
+    
+    .terminal {
+        height: 100vh;
+        height: 100dvh;
+        max-height: unset;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+
+        .content-container {
+            span, textarea, pre, input, button {
+                font-family: 'Exo 2';
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .stop-ping {
+        position: fixed;
+        display: block !important;
+        bottom: 0;
+        right: 0;
+        background-color: $blue;
+        color: $dark-blue;
+        border: none;
+        padding: 10px 15px;
+    }
 }

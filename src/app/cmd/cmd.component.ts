@@ -146,21 +146,10 @@ export class CmdComponent {
       this.stopPing();
     }
     if(event.ctrlKey && event.key.toLowerCase() === 'o') {
-      event.stopPropagation();
-      if(!this.localRequests.isEditing) return;
-      this.localRequests.isEditing = false;
-      this.saveFile(event.key.toUpperCase());
-      this.focusTextarea();
-      this.command = '';
-      this.scrollDown();
+      this.saveAndExitNano(event);
     }
     if(event.ctrlKey && event.key.toLowerCase() === 'x') {
-      event.stopPropagation();
-      if(!this.localRequests.isEditing) return;
-      this.localRequests.isEditing = false;
-      this.focusTextarea();
-      this.command = '';
-      this.scrollDown();
+      this.exitNano(event);
     }
   }
 
@@ -231,6 +220,25 @@ export class CmdComponent {
 
     this.checkInputs(cmd.replace(/^sudo\s+/, ''));
     this.focusTextarea();
+  }
+
+  exitNano(event?: Event): void {
+    event?.stopPropagation();
+    if(!this.localRequests.isEditing) return;
+    this.localRequests.isEditing = false;
+    this.focusTextarea();
+    this.command = '';
+    this.scrollDown();
+  }
+
+  saveAndExitNano(event: Event): void {
+    event?.stopPropagation();
+    if(!this.localRequests.isEditing) return;
+    this.localRequests.isEditing = false;
+    this.saveFile('O');
+    this.focusTextarea();
+    this.command = '';
+    this.scrollDown();
   }
 
 
@@ -334,6 +342,7 @@ export class CmdComponent {
       this.httpRequests.currentPingInterval = null;
       this.executedCommands.push({ command: '^C', path: this.currentPathString });
       this.httpRequests.isFetching = false;
+      this.httpRequests.isPinging = false;
       this.command = '';
       this.scrollDown();
     }
