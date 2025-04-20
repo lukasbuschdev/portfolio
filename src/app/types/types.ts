@@ -27,6 +27,11 @@ export type typeFile = {
     isRootOnly: boolean;
 }
 
+export type typeLog = {
+    timestamp: string;
+    command: string;
+}
+
 export type typeDnsResponse = {
     Status: number;
     Answer: typeDnsResponseAnswer[];

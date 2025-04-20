@@ -16,3 +16,10 @@ span {
         width: 70%;
     }
 }
+
+@media(max-width: 650px) {
+    span {
+        font-family: 'Exo 2';
+        font-size: 0.9rem;
+    }
+}

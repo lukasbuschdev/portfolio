@@ -1,6 +1,6 @@
-import { Component, ElementRef, inject, NgZone, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, NgZone, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { typeCommand, typeCommandList, typeDirectory } from '../types/types';
+import { typeCommand, typeCommandList, typeDirectory, typeLog } from '../types/types';
 import { ScrollService } from '../services/scroll.service';
 import { HttpClient } from '@angular/common/http';
 import { AVAILABLE_COMMANDS } from '../data/available-commands';
@@ -19,6 +19,7 @@ import { AutoGrowDirective } from '../directives/auto-grow.directive';
   styleUrl: './cmd.component.scss'
 })
 export class CmdComponent {
+  @ViewChild(AutoGrowDirective) autoGrow!: AutoGrowDirective;
   @ViewChild('contentContainer', { static: false }) contentContainer!: ElementRef<HTMLElement>;
   @ViewChild('commandInput', { static: false }) commandInput!: ElementRef<HTMLTextAreaElement>;
   @ViewChild('nanoInput', { static: false }) nanoInput!: ElementRef<HTMLTextAreaElement>;
@@ -37,6 +38,8 @@ export class CmdComponent {
   avaiableDirectories: typeDirectory[] = AVAILABLE_DIRECTORIES;
 
   currentDirectoryPath: typeDirectory[] = [this.avaiableDirectories[0]];
+
+  logs: typeLog[] = [];
 
   private commandMap: { [key: string]: (cmd: string) => void } = {};
 
@@ -73,6 +76,9 @@ export class CmdComponent {
 
     this.checkInputs(inputCommand);
     this.count = this.executedCommands.length;
+
+    this.commandInput.nativeElement.style.removeProperty('height');
+    setTimeout(() => this.autoGrow.resize());
     this.scrollDown();
   }
 
@@ -87,6 +93,7 @@ export class CmdComponent {
     if(!this.checkIfSudo(command)) return;
 
     const commands = command.split('&&').map(command => command.trim()).filter(command => command.length);
+    this.appendLog(command);
 
     for(const cmd of commands) {
       const tokens = cmd.split(' ');
@@ -119,10 +126,12 @@ export class CmdComponent {
     return true;
   }
 
+  appendLog(command: string): void {
+    const timestamp = this.utils.formatTimestamp(new Date());
+    this.logs.push({ timestamp, command });
+  }
+
   selectCommand(event: KeyboardEvent, command?: string): void {
-    if(event.shiftKey && event.key === 'Enter') {
-      return;
-    }
     if(event.key === 'ArrowUp') {
       if(this.localRequests.isEditing) return;
       event.preventDefault();

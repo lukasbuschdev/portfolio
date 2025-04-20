@@ -3,7 +3,13 @@ import { typeDirectory } from "../types/types";
 export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
     {
         directory: '',
-        files: [],
+        files: [
+            {
+                name: 'logs.txt',
+                isRootOnly: true,
+                data: ''
+            }
+        ],
         subdirectories: [
             {
                 directory: 'Documents',
@@ -58,13 +64,13 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                             {
                                 name: 'profile.txt',
                                 isRootOnly: true,
-                                data:   'Name:\t\tLukas Busch\n\n' +
-                                        'Profession:\tFull-Stack Web Developer\n\n' +
-                                        'Experience:\t2+ years\n\n' +
-                                        'Location:\tMérida, México\n\n' +
-                                        'Languages:\tEnglish, German, Spanish\n\n' +
+                                data:   'Name:\t\t\tLukas Busch\n\n' +
+                                        'Profession:\t\tFull-Stack Web Developer\n\n' +
+                                        'Experience:\t\t2+ years\n\n' +
+                                        'Location:\t\tMérida, México\n\n' +
+                                        'Languages:\t\tEnglish, German, Spanish\n\n' +
                                         'Description:\tI am a detail-oriented, analytical, and self-driven Full-Stack Web Developer with over two years of experience building web applications. My main focus is on technologies like Angular, TypeScript, JavaScript, HTML and CSS/SCSS. Writing clean, efficient, and scalable code is just as important to me as being a coordinated and collaborative team player with attention to detail and a keen eye for graphic design.\n\n' +
-                                        'Password:\tTemetNosce!'
+                                        'Password:\t\tTemetNosce!'
                             }
                         ]
                     },

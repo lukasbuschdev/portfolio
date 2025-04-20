@@ -71,6 +71,8 @@
     }
 
     .input-line {
+        align-items: flex-start;
+        
         textarea {
             width: 100%;
             font-size: 1.1rem;
@@ -84,7 +86,7 @@
         }
 
         textarea[autoGrow] {
-            height: 1.5rem;
+            height: 1.4rem;
         }
     }
 
@@ -150,6 +152,15 @@
 
     .stop-ping {
         display: none;
+    }
+
+    .log-container {
+        width: 100%;
+        align-items: flex-start;
+        
+        span {
+            width: 50%;
+        }
     }
 }
 

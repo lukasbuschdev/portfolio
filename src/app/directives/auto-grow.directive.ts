@@ -19,7 +19,7 @@ export class AutoGrowDirective implements OnInit {
     this.resize();
   }
 
-  private resize() {
+  public resize() {
     const textarea = this.textarea.nativeElement;
     textarea.style.overflow = 'hidden';
 

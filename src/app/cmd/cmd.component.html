@@ -34,6 +34,13 @@
                             } 
                             @else if(executedCommand.command === 'help') {
                                 <app-help [availableCommands]="availableCommands"></app-help>
+                            } @else if(executedCommand.command === 'cat logs.txt') {
+                                @for(log of logs; track $index) {
+                                    <div class="row left log-container gap-20">
+                                        <span>{{ log.timestamp }}</span>
+                                        <span>{{ log.command }}</span>
+                                    </div>
+                                }
                             } @else {
                                 <pre>{{ executedCommand.output }}</pre>
                             }
@@ -41,7 +48,7 @@
                     }
                 </div>
             }
-            <div class="input-line row gap-5 align-center" [class.none]="localRequests.isInputPassword" [class.isFetchingOrEditing]="localRequests.isEditing" id="input-line">
+            <div class="input-line row gap-5" [class.none]="localRequests.isInputPassword" [class.isFetchingOrEditing]="localRequests.isEditing" id="input-line">
                 <span class="bold" [class.isFetchingOrEditing]="httpRequests.isFetching || localRequests.isEditing">root&#64;guest:~{{ currentPathString }}$</span>
                 <textarea #commandInput autoGrow [(ngModel)]="command" (keydown)="selectCommand($event, command)"></textarea>
             </div>
