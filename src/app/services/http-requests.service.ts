@@ -12,6 +12,7 @@ export class HttpRequestsService {
   isFetching: boolean = false;
   isPinging: boolean = false;
   currentPingInterval: any = null;
+  private apiKeyPromise: Promise<string> | null = null;
 
   scroll = inject(ScrollService);
   http = inject(HttpClient);
@@ -281,7 +282,19 @@ export class HttpRequestsService {
 
   // WEATHER
 
-  weather(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+  private getWeatherApiKey(): Promise<string> {
+    if(!this.apiKeyPromise) {
+      this.apiKeyPromise = firstValueFrom(this.http.get<{ WEATHER_API_KEY: string }>('/api/config.php')).then(cfg => {
+        if(!cfg || !cfg.WEATHER_API_KEY) {
+          throw new Error('Weather API key missing from config.php');
+        }
+        return cfg.WEATHER_API_KEY;
+      });
+    }
+    return this.apiKeyPromise;
+  }
+
+  async weather(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): Promise<void> {
     const tokens = command.trim().split(' ');
 
     if(!this.checkWeatherInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
@@ -291,7 +304,7 @@ export class HttpRequestsService {
     const weatherIndex = executedCommands.length - 1;
 
     const city = tokens.slice(1).join(' ');
-    const apiKey = '7d26c786a81c9012fcfc6acf74d9cc56';
+    const apiKey = await this.getWeatherApiKey();
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
 
     this.httpRequestWeather(executedCommands, scrollDown, url, weatherIndex);
