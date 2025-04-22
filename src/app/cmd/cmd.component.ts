@@ -31,6 +31,7 @@ export class CmdComponent {
 
   executedCommands: typeCommand[] = [];
   count: number = 0;
+  tabIndex: number = 0;
   password: string = 'TemetNosce!';
   inputPw: string = '';
 
@@ -160,6 +161,10 @@ export class CmdComponent {
     if(event.ctrlKey && event.key.toLowerCase() === 'x') {
       this.exitNano(event);
     }
+    if(event.key === 'Tab') {
+      event.preventDefault();
+      this.showFilesAndDirectories();
+    }
   }
 
   selectCommandUp(): void {
@@ -248,6 +253,18 @@ export class CmdComponent {
     this.focusTextarea();
     this.command = '';
     this.scrollDown();
+  }
+
+  showFilesAndDirectories(): void {
+    const files = this.currentDirectory.files.map(file => file.name);
+    const subdirectories = this.currentDirectory.subdirectories.map(subdir => subdir.directory);
+    const tabFiles = [...files, ...subdirectories, ''];
+
+    const insertedCommand = this.command.trim().split(' ')[0];
+    const isFileOrDir = tabFiles.includes(insertedCommand);
+
+    this.command = (insertedCommand && !isFileOrDir) ? (insertedCommand + ' ' + tabFiles[this.tabIndex]) : tabFiles[this.tabIndex];
+    this.tabIndex = (this.tabIndex + 1) % tabFiles.length;
   }
 
 
