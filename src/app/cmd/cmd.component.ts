@@ -278,7 +278,11 @@ export class CmdComponent {
   }
 
   help(command: string): void {
-    this.localRequests.help(command, this.executedCommands, this.currentPathString, this.availableCommands);
+    this.localRequests.help(command, this.executedCommands, this.currentPathString);
+  }
+
+  story(command: string): void {
+    this.localRequests.story(command, this.executedCommands, this.currentPathString);
   }
 
   cd(command: string): void {

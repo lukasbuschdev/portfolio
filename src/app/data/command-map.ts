@@ -2,6 +2,7 @@ import { typeCommandMap } from "../types/types";
 
 export const COMMAND_CONFIG: typeCommandMap = {
     'help': 'help',
+    'story': 'story',
     'clear': 'clear',
     'exit': 'exit',
     'pwd': 'pwd',

@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { typeCommand, typeCommandList, typeDirectory, typeFile } from '../types/types';
 import { ScrollService } from './scroll.service';
 import { UtilsService } from './utils.service';
+import { AVAILABLE_DIRECTORIES } from '../data/available-directories';
 
 @Injectable({
   providedIn: 'root'
@@ -65,8 +66,13 @@ export class LocalRequestsService {
     executedCommands.push({ command, output: printValue, path: currentPathString });
   }
 
-  help(command: string, executedCommands: typeCommand[], currentPathString: string, availableCommands: typeCommandList[]): void {
+  help(command: string, executedCommands: typeCommand[], currentPathString: string): void {
     executedCommands.push({ command, path: currentPathString });
+  }
+
+  story(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+    const storyText = AVAILABLE_DIRECTORIES[0].subdirectories[0].subdirectories[1].files.find(file => file.name === 'commandline_story.txt');
+    executedCommands.push({ command, output: storyText?.data, path: currentPathString });
   }
 
   cd(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, currentDirectoryPath: typeDirectory[]): void {

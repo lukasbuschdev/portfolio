@@ -24,30 +24,57 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                 isRootOnly: true,
                                 data:
                                         '1\thelp\n'           +
-                                        '2\tclear\n'          +
-                                        '3\texit\n'           +                      
-                                        '4\tpwd\n'            +
-                                        '5\tcd\n'             +
-                                        '6\tls\n'             +
-                                        '7\twhoami\n'         +
-                                        '8\tuname\n'          +                                                              
-                                        '9\tcat\n'            +
-                                        '10\tnano\n'          +
-                                        '11\ttouch\n'         +
-                                        '12\tmkdir\n'         +
-                                        '13\trmdir\n'         +
-                                        '14\trm\n'            +                                                              
-                                        '15\techo\n'          +
-                                        '16\tdate\n'          +
-                                        '17\tuptime\n'        +
-                                        '18\thistory\n'       +                                                              
-                                        '19\tipaddr\n'        +
-                                        '20\tcurl\n'          +
-                                        '21\tping\n'          +
-                                        '22\ttraceroute\n'    +
-                                        '23\tdig\n'           +
-                                        '24\tnslookup\n'      +
-                                        '25\tweather'
+                                        '2\tstory\n'           +
+                                        '3\tclear\n'          +
+                                        '4\texit\n'           +
+                                        '5\tpwd\n'            +
+                                        '6\tcd\n'             +
+                                        '7\tls\n'             +
+                                        '8\twhoami\n'         +
+                                        '9\tuname\n'          +
+                                        '10\tcat\n'            +
+                                        '11\tnano\n'          +
+                                        '12\ttouch\n'         +
+                                        '13\tmkdir\n'         +
+                                        '14\trmdir\n'         +
+                                        '15\trm\n'            +
+                                        '16\techo\n'          +
+                                        '17\tdate\n'          +
+                                        '18\tuptime\n'        +
+                                        '19\thistory\n'       +
+                                        '20\tipaddr\n'        +
+                                        '21\tcurl\n'          +
+                                        '22\tping\n'          +
+                                        '23\ttraceroute\n'    +
+                                        '24\tdig\n'           +
+                                        '25\tnslookup\n'      +
+                                        '26\tweather'
+                            }
+                        ]
+                    },
+                    {
+                        directory: 'docs',
+                        subdirectories: [],
+                        files: [
+                            {
+                                name: 'commandline_story.txt',
+                                isRootOnly: true,
+                                data:   "When I first got the idea of creating a command line, I wasn't really planning to build anything more than a small easter egg for my portfolio page - just a few commands like 'help', 'ls', and 'cd' to showcase my content in a fun way.\n" +
+                                        "But after my initial implementation, I realized how much fun this project could be, and ideas kept pouring in.\n\n" +
+                                        "Soon I was so driven by new features that I refactored my codebase (for commands) into two services:\n" +
+                                        "\t- one for local, “static” commands\n" +
+                                        "\t- one for HTTP-based commands\n\n" +
+                                        "Most commands remained easy to implement thanks to this scalable setup, but two HTTP commands really caught me off guard:\n" +
+                                        "\t1. **curl**: the browser blocked cross-origin requests, so I built a simple HTTP proxy on my VPS to fetch URLs server-side and inject the proper CORS headers.\n" +
+                                        "\t2. **traceroute**: since browsers can't run network-layer commands, I added a VPS-hosted API to execute 'traceroute' on the server and stream the output back.\n\n" +
+                                        "With those solutions in place, I could deliver real output instead of templates or errors only.\n\n" +
+                                        "Next, I refactored the 'cat' command - originally it both displayed and edited file content, which isn't realistic—so now 'cat' only shows the content, and a new 'nano' command provides a full WYSIWYG editor with save/exit shortcuts (Ctrl+O, Ctrl+X).\n\n" +
+                                        "After that, I implemented a 'sudo' command: enter the password 'TemetNosce!' to gain root permissions and edit/delete any file.\n\n" +
+                                        "By now, I'd covered 25+ commands, complete with authentic bash-style errors and edge-case handling, plus command chaining ('&&') and batch file/dir creation or deletion.\n\n" +
+                                        "Finally, I optimized the terminal for mobile devices—adding touch-friendly buttons for 'nano' and a 'stop ping' control since Ctrl+C isn't available on phones and tablets.\n\n" +
+                                        "Now the core project is complete, but I'm already dreaming up new features. I hope this gives you a peek into how the terminal grew from a tiny easter egg into a full-blown Linux-style interface.\n" +
+                                        "Thanks for reading - have fun exploring!\n\n" +
+                                        "-Lukas"
                             }
                         ]
                     }
@@ -69,8 +96,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         'Experience:\t\t2+ years\n\n' +
                                         'Location:\t\tMérida, México\n\n' +
                                         'Languages:\t\tEnglish, German, Spanish\n\n' +
-                                        'Description:\tI am a detail-oriented, analytical, and self-driven Full-Stack Web Developer with over two years of experience building web applications. My main focus is on technologies like Angular, TypeScript, JavaScript, HTML and CSS/SCSS. Writing clean, efficient, and scalable code is just as important to me as being a coordinated and collaborative team player with attention to detail and a keen eye for graphic design.\n\n' +
-                                        'Password:\t\tTemetNosce!'
+                                        'Description:\tI am a detail-oriented, analytical, and self-driven Full-Stack Web Developer with over two years of experience building web applications. My main focus is on technologies like Angular, TypeScript, JavaScript, HTML and CSS/SCSS. Writing clean, efficient, and scalable code is just as important to me as being a coordinated and collaborative team player with attention to detail and a keen eye for graphic design.'
                             }
                         ]
                     },

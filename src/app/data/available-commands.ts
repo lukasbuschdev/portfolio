@@ -6,6 +6,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Displays a list of all available commands along with a brief description for each one"
   },
   {
+    command: "story",
+    description: "Displays a brief story about the development of this command line"
+  },
+  {
     command: "exit",
     description: "Closes console and navigates back to portfolio page https://lukasbusch.dev/main"
   },
