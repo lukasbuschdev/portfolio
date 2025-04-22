@@ -21,6 +21,13 @@ header {
             height: 60px;
             width: 60px;
             object-fit: contain;
+
+            @media(hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    filter: brightness(0.75);
+                }
+            }
         }
     }
 

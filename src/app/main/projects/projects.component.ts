@@ -58,7 +58,7 @@ export class ProjectsComponent {
           description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.',
           img: 'img/notes.webp',
           link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
-          github: 'https://github.com/lukasbuschdev/Notes'
+          github: 'https://github.com/lukasbuschdev/Notes/tree/main/Notes'
         }
       ],
       es: [
@@ -100,7 +100,7 @@ export class ProjectsComponent {
           description: 'Crea, edita, archiva y elimina notas fácilmente con funcionalidad de búsqueda incorporada. Disponible en 5 idiomas y descargable para cualquier dispositivo.',
           img: 'img/notes.webp',
           link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
-          github: 'https://github.com/lukasbuschdev/Notes'
+          github: 'https://github.com/lukasbuschdev/Notes/tree/main/Notes'
         }
       ],
       de: [
@@ -142,7 +142,7 @@ export class ProjectsComponent {
           description: 'Erstellen, bearbeiten, archivieren und löschen Sie Notizen mühelos mit eingebauter Suchfunktionalität. In 5 Sprachen verfügbar und für jedes Gerät herunterladbar.',
           img: 'img/notes.webp',
           link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
-          github: 'https://github.com/lukasbuschdev/Notes'
+          github: 'https://github.com/lukasbuschdev/Notes/tree/main/Notes'
         }
       ]
     };
