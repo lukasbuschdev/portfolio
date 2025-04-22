@@ -77,6 +77,7 @@ export class CmdComponent {
 
     this.checkInputs(inputCommand);
     this.count = this.executedCommands.length;
+    this.tabIndex = 0;
 
     this.commandInput.nativeElement.style.removeProperty('height');
     setTimeout(() => this.autoGrow.resize());
