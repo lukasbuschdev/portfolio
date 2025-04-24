@@ -25,6 +25,7 @@ export type typeFile = {
     name: string;
     data: string;
     isRootOnly: boolean;
+    isHidden?: boolean;
 }
 
 export type typeLog = {

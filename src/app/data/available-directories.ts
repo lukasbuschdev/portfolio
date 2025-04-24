@@ -75,6 +75,25 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         "Now the core project is complete, but I'm already dreaming up new features. I hope this gives you a peek into how the terminal grew from a tiny easter egg into a full-blown Linux-style interface.\n" +
                                         "Thanks for reading - have fun exploring!\n\n" +
                                         "-Lukas"
+                            },
+                            {
+                                name: 'secret.txt',
+                                isRootOnly: true,
+                                data:   "──────────────────────────────────────────────────────────\n" +
+                                        "“The Matrix is everywhere.\n" +  
+                                        "It is all around us...”\n" +
+                                        "— Morpheus, The Matrix\n\n" +
+                                        "You've breached the shell and gained root.\n" +  
+                                        "Welcome to the Construct.\n\n" +
+                                        "> system.host    api.lukasbusch.dev\n" + 
+                                        "> system.proxy   proxy.lukasbusch.dev\n" + 
+                                        "> language       Angular & TypeScript\n" + 
+                                        "> editor         nano (Ctrl+O, Ctrl+X)\n\n" +
+                                        "“I can only show you the door.\n" +
+                                        " You're the one that has to walk through it.”\n" +
+                                        "   — Morpheus, The Matrix\n" +
+                                        "──────────────────────────────────────────────────────────",
+                                isHidden: true
                             }
                         ]
                     }

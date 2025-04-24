@@ -257,7 +257,7 @@ export class CmdComponent {
   }
 
   showFilesAndDirectories(): void {
-    const files = this.currentDirectory.files.map(file => file.name);
+    const files = this.currentDirectory.files.filter(file => !file.isHidden).map(file => file.name);
     const subdirectories = this.currentDirectory.subdirectories.map(subdir => subdir.directory);
     const tabFiles = [...files, ...subdirectories, ''];
 
