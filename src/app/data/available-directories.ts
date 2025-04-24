@@ -91,7 +91,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         "> editor         nano (Ctrl+O, Ctrl+X)\n\n" +
                                         "“I can only show you the door.\n" +
                                         " You're the one that has to walk through it.”\n" +
-                                        "   — Morpheus, The Matrix\n" +
+                                        "   — Morpheus, The Matrix\n\n" +                         
+                                        "Tip: Try `curl matrix`\n" + 
                                         "──────────────────────────────────────────────────────────",
                                 isHidden: true
                             }

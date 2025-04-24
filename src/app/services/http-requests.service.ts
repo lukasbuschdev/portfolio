@@ -249,7 +249,7 @@ export class HttpRequestsService {
     let rawUrl = tokens[1].startsWith('http://') || tokens[1].startsWith('https://') ? tokens[1] : 'https://' + tokens[1];
 
     const proxyUrl = 'https://proxy.lukasbusch.dev/?url=';
-    const fetchUrl = proxyUrl + encodeURIComponent(rawUrl);
+    const fetchUrl = tokens[1] === 'matrix' ? 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true' : proxyUrl + encodeURIComponent(rawUrl);
 
     this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
   }
