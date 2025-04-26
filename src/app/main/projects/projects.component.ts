@@ -51,14 +51,6 @@ export class ProjectsComponent {
           img: 'img/polloloco.webp',
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
-        },
-        {
-          name: 'Notes',
-          technologies: 'JavaScript | HTML | CSS | Firebase',
-          description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.',
-          img: 'img/notes.webp',
-          link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
-          github: 'https://github.com/lukasbuschdev/Notes/tree/main/Notes'
         }
       ],
       es: [
@@ -93,14 +85,6 @@ export class ProjectsComponent {
           img: 'img/polloloco.webp',
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
-        },
-        {
-          name: 'Notas',
-          technologies: 'JavaScript | HTML | CSS | Firebase',
-          description: 'Crea, edita, archiva y elimina notas fácilmente con funcionalidad de búsqueda incorporada. Disponible en 5 idiomas y descargable para cualquier dispositivo.',
-          img: 'img/notes.webp',
-          link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
-          github: 'https://github.com/lukasbuschdev/Notes/tree/main/Notes'
         }
       ],
       de: [
@@ -135,14 +119,6 @@ export class ProjectsComponent {
           img: 'img/polloloco.webp',
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
-        },
-        {
-          name: 'Notizen',
-          technologies: 'JavaScript | HTML | CSS | Firebase',
-          description: 'Erstellen, bearbeiten, archivieren und löschen Sie Notizen mühelos mit eingebauter Suchfunktionalität. In 5 Sprachen verfügbar und für jedes Gerät herunterladbar.',
-          img: 'img/notes.webp',
-          link: 'https://lukasbusch.dev/Notes/index.html?fullscreen=true',
-          github: 'https://github.com/lukasbuschdev/Notes/tree/main/Notes'
         }
       ]
     };

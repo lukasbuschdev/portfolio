@@ -149,14 +149,6 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         'https://lukasbusch.dev/PolloLoco/index.html'
                             },
                             {
-                                name: 'notes.txt',
-                                isRootOnly: true,
-                                data:   'Notes\n\n' +
-                                        'JavaScript, HTML, CSS, Firebase\n\n' +
-                                        'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.\n\n' +
-                                        'https://lukasbusch.dev/Notes/index.html'
-                            },
-                            {
                                 name: 'terminal.txt',
                                 isRootOnly: false,
                                 data:   'Interactive Terminal Simulation\n\n' +
