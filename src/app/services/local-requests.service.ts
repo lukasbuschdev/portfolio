@@ -20,6 +20,18 @@ export class LocalRequestsService {
     executedCommands.length = 0;
   }
 
+  color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement): void {
+    const tokens = command.trim().split(' ');
+    const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
+    
+    if(tokens.length < 2) return void executedCommands.push({ command, output: `color: usage error: Color code (HEX) required`, path: currentPathString });
+    if(tokens.length > 2) return void executedCommands.push({ command, output: `color: usage error: Too many operands`, path: currentPathString });
+    if(!hexRegex.test(tokens[1])) return void executedCommands.push({ command, output: `color: usage error: Invalid hex code\nExpected format: #RRGGBB or #RGB`, path: currentPathString });
+
+    executedCommands.push({ command, path: currentPathString });
+    hostElement.style.setProperty('--txt-white', tokens[1]);
+  }
+  
   whoami(command: string, executedCommands: typeCommand[], currentPathString: string): void {
     executedCommands.push({ command, output: 'guest', path: currentPathString });
   }

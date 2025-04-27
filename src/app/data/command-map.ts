@@ -4,6 +4,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
     'help': 'help',
     'story': 'story',
     'clear': 'clear',
+    'color': 'color',
     'exit': 'exit',
     'pwd': 'pwd',
     'cd': 'cd',

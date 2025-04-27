@@ -24,31 +24,32 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                 isRootOnly: true,
                                 data:
                                         '1\thelp\n'           +
-                                        '2\tstory\n'           +
+                                        '2\tstory\n'          +
                                         '3\tclear\n'          +
                                         '4\texit\n'           +
-                                        '5\tpwd\n'            +
-                                        '6\tcd\n'             +
-                                        '7\tls\n'             +
-                                        '8\twhoami\n'         +
-                                        '9\tuname\n'          +
-                                        '10\tcat\n'            +
-                                        '11\tnano\n'          +
-                                        '12\ttouch\n'         +
-                                        '13\tmkdir\n'         +
-                                        '14\trmdir\n'         +
-                                        '15\trm\n'            +
-                                        '16\techo\n'          +
-                                        '17\tdate\n'          +
-                                        '18\tuptime\n'        +
-                                        '19\thistory\n'       +
-                                        '20\tipaddr\n'        +
-                                        '21\tcurl\n'          +
-                                        '22\tping\n'          +
-                                        '23\ttraceroute\n'    +
-                                        '24\tdig\n'           +
-                                        '25\tnslookup\n'      +
-                                        '26\tweather'
+                                        '5\tcolor\n'          +
+                                        '6\tpwd\n'            +
+                                        '7\tcd\n'             +
+                                        '8\tls\n'             +
+                                        '9\twhoami\n'         +
+                                        '10\tuname\n'         +
+                                        '11\tcat\n'           +
+                                        '12\tnano\n'          +
+                                        '13\ttouch\n'         +
+                                        '14\tmkdir\n'         +
+                                        '15\trmdir\n'         +
+                                        '16\trm\n'            +
+                                        '17\techo\n'          +
+                                        '18\tdate\n'          +
+                                        '19\tuptime\n'        +
+                                        '20\thistory\n'       +
+                                        '21\tipaddr\n'        +
+                                        '22\tcurl\n'          +
+                                        '23\tping\n'          +
+                                        '24\ttraceroute\n'    +
+                                        '25\tdig\n'           +
+                                        '26\tnslookup\n'      +
+                                        '27\tweather'
                             }
                         ]
                     },

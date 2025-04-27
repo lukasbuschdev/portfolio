@@ -53,6 +53,8 @@ export class CmdComponent {
     return path ? '/' + path : '';
   }
 
+  constructor(public host: ElementRef<HTMLElement>) { }
+
   ngOnInit(): void {
     Object.keys(COMMAND_CONFIG).forEach(cmd => {
       if(typeof (this as any)[COMMAND_CONFIG[cmd]] === 'function') {
@@ -275,6 +277,10 @@ export class CmdComponent {
     this.localRequests.clear(this.executedCommands);
   }
   
+  color(command: string): void {
+    this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement);
+  }
+
   whoami(command: string): void {
     this.localRequests.whoami(command, this.executedCommands, this.currentPathString);
   }

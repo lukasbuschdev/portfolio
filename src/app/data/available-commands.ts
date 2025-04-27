@@ -18,12 +18,16 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Clears the terminal screen and scrollback buffer"
   },
   {
+    command: "color HEX",
+    description: "Set the terminal text color to the given HEX code (e.g. ff00ff for magenta)"
+  },  
+  {
     command: "pwd",
     description: "Prints the path of the working directory"
   },
   {
-    command: "cd",
-    description: "Changes the current working directory to the specified target directory"
+    command: "cd DIR",
+    description: "Changes the current working directory to the specified target DIR"
   },
   {
     command: "ls",
@@ -38,32 +42,32 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Displays system info: browser userAgent, platform, language, screen resolution, etc."
   },
   {
-    command: "cat",
-    description: "Displays file content of the selected file"
+    command: "cat FILE",
+    description: "Displays file content of the selected FILE"
   },
   {
-    command: "nano",
-    description: "Simple, modeless WYSIWYG (What You See Is What You Get) command-line text editor for creating or editing the specified text file (.txt)"
+    command: "nano FILE",
+    description: "Simple, modeless WYSIWYG (What You See Is What You Get) command-line text editor for creating or editing the specified FILE (.txt)"
   },
   {
-    command: "touch",
-    description: "Creates one or multiple new text files (must include extension '.txt')"
+    command: "touch FILE...",
+    description: "Create one or more new text files; each FILE must include the '.txt' extension"
   },
   {
-    command: "mkdir",
-    description: "Creates one or multiple new directories"
+    command: "mkdir DIR...",
+    description: "Creates one or multiple new directories named DIR"
   },
   {
-    command: "rmdir",
-    description: "Removes one or multiple empty directories"
+    command: "rmdir DIR...",
+    description: "Removes one or multiple empty directories named DIR"
   },
   {
-    command: "rm",
-    description: "Removes one or multiple files from current directory"
+    command: "rm FILE",
+    description: "Removes one or multiple files from current directory named FILE"
   },
   {
-    command: "echo",
-    description: "Writes the given text"
+    command: "echo TEXT...",
+    description: "Write the given TEXT to standard output"
   },
   {
     command: "date",
@@ -82,27 +86,27 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Displays your current public IP address as reported by an external service"
   },
   {
-    command: "curl",
+    command: "curl URL",
     description: "Fetches data from a specified URL or IP address using the HTTP/HTTPS protocol"
   },
   {
-    command: "ping",
-    description: "Sends repeated network requests to a host to measure latency and network connectivity"
+    command: "ping HOST",
+    description: "Send ICMP ECHO_REQUEST packets to HOST to measure latency and network connectivity"
   },
   {
-    command: "traceroute",
-    description: "Displays the network path and latency to a specified destination"
+    command: "traceroute HOST",
+    description: "Displays the network path and latency to HOST"
   },
   {
-    command: "dig",
-    description: "Performs a DNS lookup and returns detailed information about the DNS response, including record types and header data"
+    command: "dig HOST",
+    description: "Perform a DNS lookup for HOST and display detailed response (record types, headers, etc.)"
   },
   {
-    command: "nslookup",
-    description: "Queries DNS servers to resolve a domain name into its associated IP addresses and other DNS details"
+    command: "nslookup HOST",
+    description: "Query DNS servers to resolve HOST into its IP address(es) and display DNS details"
   },
   {
-    command: "weather",
-    description: "Fetches and displays current weather details for the specified city—including temperature, humidity, pressure, wind speed, visibility (in meters), and local sunrise/sunset times."
+    command: "weather CITY",
+    description: "Fetches and displays current weather details for CITY - including temperature, humidity, pressure, wind speed, visibility (in meters), and local sunrise/sunset times."
   }
 ];
