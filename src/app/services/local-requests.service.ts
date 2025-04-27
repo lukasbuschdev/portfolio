@@ -21,6 +21,8 @@ export class LocalRequestsService {
   }
 
   color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement): void {
+    if(command.includes('curl')) return void hostElement.style.setProperty('--txt-white', '#00ff00');
+
     const tokens = command.trim().split(' ');
     const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
     

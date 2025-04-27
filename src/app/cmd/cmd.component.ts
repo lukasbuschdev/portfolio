@@ -365,7 +365,7 @@ export class CmdComponent {
   }
 
   curl(command: string): void {
-    this.httpRequests.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.httpRequests.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this), this.host.nativeElement);
   }
 
   ping(command: string): void {

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { UtilsService } from './utils.service';
 import { typeCommand, typeDnsResponse } from '../types/types';
 import { firstValueFrom, forkJoin } from 'rxjs';
+import { LocalRequestsService } from './local-requests.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,7 @@ export class HttpRequestsService {
   http = inject(HttpClient);
   ngZone = inject(NgZone);
   utils = inject(UtilsService);
+  localRequests = inject(LocalRequestsService);
 
 
   // PING
@@ -238,7 +240,7 @@ export class HttpRequestsService {
 
   // CURL
 
-  curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+  curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostElement: HTMLElement): void {
     const tokens = command.trim().split(' ');
     if(!this.checkCurlInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
     
@@ -250,8 +252,9 @@ export class HttpRequestsService {
 
     const proxyUrl = 'https://proxy.lukasbusch.dev/?url=';
     const fetchUrl = tokens[1] === 'matrix' ? 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true' : proxyUrl + encodeURIComponent(rawUrl);
-
+    
     this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
+    if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement);
   }
 
   checkCurlInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {
