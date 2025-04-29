@@ -1,5 +1,9 @@
 @use 'variables' as *;
 
+:host {
+    --terminal-bg: #{$dark-blue-opacity};
+}
+
 .section-container {
     height: 100vh;
     height: 100dvh;
@@ -11,7 +15,7 @@
     max-width: 1080px;
     height: 70vh;
     max-height: 650px;
-    background-color: $dark-blue-opacity;
+    background-color: var(--terminal-bg);
     backdrop-filter: blur(4px);
     border-radius: 5px;
     overflow: hidden;

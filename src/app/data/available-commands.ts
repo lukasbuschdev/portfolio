@@ -18,9 +18,13 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: "Clears the terminal screen and scrollback buffer"
   },
   {
-    command: "color HEX",
-    description: "Set the terminal text color to the given HEX code (e.g. ff00ff for magenta)"
-  },  
+    command: "color FOREGROUND [BACKGROUND]",
+    description: "Set the terminal text color to FOREGROUND and, if provided, the background color to BACKGROUND (each as a hex code, e.g. #fff or #ff00ff)"
+  },
+  {
+    command: "color reset",
+    description: "Restore the terminal's default text and background colors"
+  },
   {
     command: "pwd",
     description: "Prints the path of the working directory"
