@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { typeCommand, typeCommandList, typeDirectory, typeFile } from '../types/types';
+import { typeCommand, typeDirectory, typeFile } from '../types/types';
 import { ScrollService } from './scroll.service';
 import { UtilsService } from './utils.service';
 import { AVAILABLE_DIRECTORIES } from '../data/available-directories';
@@ -20,17 +20,18 @@ export class LocalRequestsService {
     executedCommands.length = 0;
   }
 
-  color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement, terminalContainer: HTMLElement): void {
+  color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement): void {
     if(command.includes('curl')) return void hostElement.style.setProperty('--txt-white', '#00ff00');
 
+    const terminalContainer = document.querySelector<HTMLElement>('.terminal')!;
     const tokens = command.trim().split(' ');
-    const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
+    const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/;
     
     if(tokens.length < 2) return void executedCommands.push({ command, output: `color: usage error: Color code (HEX) required`, path: currentPathString });
     if(tokens[1] === 'reset') return void this.resetColors(command, executedCommands, currentPathString, hostElement, terminalContainer);
+    if(!hexRegex.test(tokens[1])) return void executedCommands.push({ command, output: `color: usage error: Invalid hex code '${tokens[1]}'\nExpected format: #RGB, #RRGGBB or #RRGGBBAA`, path: currentPathString });
     if(tokens.length > 2) return void this.setBgAndTextColor(tokens, executedCommands, currentPathString, hostElement, terminalContainer, hexRegex);
     if(tokens.length > 3) return void executedCommands.push({ command, output: `color: usage error: Too many operands`, path: currentPathString });
-    if(!hexRegex.test(tokens[1])) return void executedCommands.push({ command, output: `color: usage error: ${ tokens[1] }\nExpected format: #RRGGBB or #RGB`, path: currentPathString });
 
     executedCommands.push({ command, path: currentPathString });
     hostElement.style.setProperty('--txt-white', tokens[1]);
@@ -43,8 +44,13 @@ export class LocalRequestsService {
     executedCommands.push({ command: tokens.join(' '), output: '', path: currentPathString });
     const lastCommandIndex = executedCommands.length - 1;
 
-    if(!hexRegex.test(tokens[1])) executedCommands[lastCommandIndex].output += `color: usage error: ${ tokens[1] }\nExpected format: #RRGGBB or #RGB`;
-    if(!hexRegex.test(tokens[2])) executedCommands[lastCommandIndex].output += `color: usage error: ${ tokens[2] }\nExpected format: #RRGGBB or #RGB`;
+    if(!hexRegex.test(tokens[1])) {
+      executedCommands[lastCommandIndex].output += `color: usage error: Invalid hex code '${tokens[1]}'\nExpected format: #RGB, #RRGGBB or #RRGGBBAA`;
+      return;
+    } else if(!hexRegex.test(tokens[2])) {
+      executedCommands[lastCommandIndex].output += `color: usage error: Invalid hex code '${tokens[2]}'\nExpected format: #RGB, #RRGGBB or #RRGGBBAA`;
+      return;
+    } 
 
     hostElement.style.setProperty('--txt-white', textColor);
     terminalContainer.style.setProperty('--terminal-bg', terminalBg);

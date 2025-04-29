@@ -240,7 +240,7 @@ export class HttpRequestsService {
 
   // CURL
 
-  curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostElement: HTMLElement, terminalContainer: HTMLElement): void {
+  curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostElement: HTMLElement): void {
     const tokens = command.trim().split(' ');
     if(!this.checkCurlInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
     
@@ -254,7 +254,7 @@ export class HttpRequestsService {
     const fetchUrl = tokens[1] === 'matrix' ? 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true' : proxyUrl + encodeURIComponent(rawUrl);
     
     this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
-    if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement, terminalContainer);
+    if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement);
   }
 
   checkCurlInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {

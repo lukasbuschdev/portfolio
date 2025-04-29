@@ -279,7 +279,7 @@ export class CmdComponent {
   }
   
   color(command: string): void {
-    this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement, this.terminalContainer.nativeElement);
+    this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement);
   }
 
   whoami(command: string): void {
@@ -366,7 +366,7 @@ export class CmdComponent {
   }
 
   curl(command: string): void {
-    this.httpRequests.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this), this.host.nativeElement, this.terminalContainer.nativeElement);
+    this.httpRequests.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this), this.host.nativeElement);
   }
 
   ping(command: string): void {

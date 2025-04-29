@@ -19,7 +19,7 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   },
   {
     command: "color FOREGROUND [BACKGROUND]",
-    description: "Set the terminal text color to FOREGROUND and, if provided, the background color to BACKGROUND (each as a hex code, e.g. #fff or #ff00ff)"
+    description: "Set the terminal text color to FOREGROUND and, if provided, the background color to BACKGROUND (each as a hex code, e.g. #RGB, #RRGGBB or #RRGGBBAA)"
   },
   {
     command: "color reset",
