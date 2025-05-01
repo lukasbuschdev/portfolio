@@ -185,7 +185,15 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                                         ' • Session uptime, user count, and system info (uname)\n' +
                                         ' • Real-time network and HTTP/DNS lookups via a Node.js + Flask proxy (avoids CORS)\n' +
                                         ' • File creation, removal, renaming, and directory navigation—all with authentic error handling'
-                              }
+                            },
+                            {
+                                name: 'notes.txt',
+                                isRootOnly: true,
+                                data:   'Notes\n\n' +
+                                        'JavaScript, HTML, CSS, Firebase\n\n' +
+                                        'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.\n\n' +
+                                        'https://lukasbusch.dev/Notes/index.html'
+                            }
                         ]
                     },
                     {

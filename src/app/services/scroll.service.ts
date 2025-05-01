@@ -25,7 +25,7 @@ export class ScrollService {
       this.scrollToSection(section);
       if(!inputFieldId) return;
       this.focusInputField(inputFieldId);
-    });
+    }, 100);
   }
 
   focusInputField(inputFieldId: string): void {
