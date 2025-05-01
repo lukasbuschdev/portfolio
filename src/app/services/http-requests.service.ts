@@ -5,6 +5,7 @@ import { UtilsService } from './utils.service';
 import { typeCommand, typeDnsResponse } from '../types/types';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { LocalRequestsService } from './local-requests.service';
+import { AVAILABLE_DIRECTORIES } from '../data/available-directories';
 
 @Injectable({
   providedIn: 'root'
@@ -242,6 +243,7 @@ export class HttpRequestsService {
 
   curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostElement: HTMLElement): void {
     const tokens = command.trim().split(' ');
+    let fetchUrl = '';
     if(!this.checkCurlInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
     
     executedCommands.push({ command, output: '', path: currentPathString });
@@ -251,7 +253,14 @@ export class HttpRequestsService {
     let rawUrl = tokens[1].startsWith('http://') || tokens[1].startsWith('https://') ? tokens[1] : 'https://' + tokens[1];
 
     const proxyUrl = 'https://proxy.lukasbusch.dev/?url=';
-    const fetchUrl = tokens[1] === 'matrix' ? 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true' : proxyUrl + encodeURIComponent(rawUrl);
+    
+    if(tokens[1] === 'matrix') {
+      fetchUrl = 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true';
+    } else if(tokens[1] === '86.173.192.12:80') {
+      fetchUrl = 'https://lukasbusch.dev/congrats.txt?ngsw-bypass=true';
+    } else {
+      fetchUrl = proxyUrl + encodeURIComponent(rawUrl);
+    }
     
     this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
     if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement);

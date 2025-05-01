@@ -4,6 +4,10 @@
     --terminal-bg: #{$dark-blue-opacity};
 }
 
+* {
+    user-select: text;
+}
+
 .section-container {
     height: 100vh;
     height: 100dvh;
@@ -212,6 +216,11 @@
         .content-container {
             span, textarea, pre, input, button {
                 font-size: 0.9rem;
+            }
+
+            .executed-command-line,
+            .input-line {
+                flex-wrap: wrap;
             }
         }
     }
