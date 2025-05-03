@@ -53,6 +53,14 @@ export class ProjectsComponent {
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
         },
         {
+          name: 'Tax Calculator',
+          technologies: 'Angular | HTML | SCSS | REST-API',
+          description: 'Estimate your net take-home pay in Mexico: choose currency and pay frequency, enter your salary, and view monthly and yearly after-tax amounts with real-time exchange rates.',
+          img: 'img/calculator.webp',
+          link: 'https://lukasbusch.dev/Calculator/main',
+          github: 'https://github.com/lukasbuschdev/calculator'
+        },
+        {
           name: 'Notes',
           technologies: 'JavaScript | HTML | CSS | Firebase',
           description: 'Create, edit, archive, and delete notes effortlessly with inbuilt search functionality. Available in 5 languages and as PWA.',
@@ -95,6 +103,14 @@ export class ProjectsComponent {
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
         },
         {
+          name: 'Calculadora de Impuestos',
+          technologies: 'Angular | HTML | SCSS | API REST',
+          description: 'Calcula tu salario neto en México: selecciona moneda y frecuencia de pago, ingresa tu salario y consulta montos mensuales y anuales después de impuestos con tasas de cambio en tiempo real.',
+          img: 'img/calculator.webp',
+          link: 'https://lukasbusch.dev/Calculator/main',
+          github: 'https://github.com/lukasbuschdev/calculator'
+        },        
+        {
           name: 'Notas',
           technologies: 'JavaScript | HTML | CSS | Firebase',
           description: 'Crea, edita, archiva y elimina notas fácilmente con funcionalidad de búsqueda incorporada. Disponible en 5 idiomas y descargable para cualquier dispositivo.',
@@ -136,6 +152,14 @@ export class ProjectsComponent {
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
         },
+        {
+          name: 'Steuerrechner',
+          technologies: 'Angular | HTML | SCSS | REST-API',
+          description: 'Berechne dein Nettogehalt in Mexiko: wähle Währung und Zahlungsfrequenz, gib dein Gehalt ein und erhalte monatliche und jährliche Beträge nach Steuern mit Echtzeit-Wechselkursen.',
+          img: 'img/calculator.webp',
+          link: 'https://lukasbusch.dev/Calculator/main',
+          github: 'https://github.com/lukasbuschdev/calculator'
+        },        
         {
           name: 'Notizen',
           technologies: 'JavaScript | HTML | CSS | Firebase',
