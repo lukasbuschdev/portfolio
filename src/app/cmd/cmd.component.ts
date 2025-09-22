@@ -401,4 +401,12 @@ export class CmdComponent {
   weather(command: string): void {
     this.httpRequests.weather(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+
+  shorten(command: string): void {
+    this.httpRequests.shorten(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
+  
+  qr(command: string): void {
+    this.httpRequests.qr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }

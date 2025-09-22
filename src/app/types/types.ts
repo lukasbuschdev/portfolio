@@ -3,6 +3,7 @@ export type typeCommand = {
     output?: string | typeDirectory;
     path?: string;
     snapshot?: typeDirectory;
+    qrPath?: string;
 }
 
 export type typeCommandList = {

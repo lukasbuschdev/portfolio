@@ -23,7 +23,7 @@ export class ProjectsComponent {
         {
           name: 'Interactive Terminal',
           technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Flask',
-          description: 'Real Linux-style CLI in your browser: run 28+ commands (ls, cat, ping, dig), full file navigation, embedded nano editor, chaining & sudo auth, authentic errors and live data.',
+          description: 'Real Linux-style CLI in your browser: run 30+ commands (ls, cat, ping, dig etc.), full file navigation, embedded nano editor, chaining & sudo auth, authentic errors and live data.',
           img: 'img/terminal.webp',
           link: 'https://lukasbusch.dev/cmd',
           github: 'https://github.com/lukasbuschdev/portfolio'
@@ -73,7 +73,7 @@ export class ProjectsComponent {
         {
           name: 'Interactive Terminal',
           technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Flask',
-          description: 'Terminal Linux en el navegador: +28 comandos (ls, cat, ping…), navegación de archivos, editor nano, chaining y sudo, errores reales y datos en vivo.',
+          description: 'Terminal Linux en el navegador: +30 comandos (ls, cat, ping…), navegación de archivos, editor nano, chaining y sudo, errores reales y datos en vivo.',
           img: 'img/terminal.webp',
           link: 'https://lukasbusch.dev/cmd',
           github: 'https://github.com/lukasbuschdev/portfolio'
@@ -123,7 +123,7 @@ export class ProjectsComponent {
         {
           name: 'Interaktives Terminal',
           technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Flask',
-          description: 'Echte Linux-CLI im Browser: 28+ Befehle (ls, cat, ping, dig), vollständige Dateinavigation, integrierter Nano-Editor, Befehlsketten & sudo, authentische Fehlermeldungen & Live-Daten.',
+          description: 'Echte Linux-CLI im Browser: 30+ Befehle (ls, cat, ping, dig), vollständige Dateinavigation, integrierter Nano-Editor, Befehlsketten & sudo, authentische Fehlermeldungen & Live-Daten.',
           img: 'img/terminal.webp',
           link: 'https://lukasbusch.dev/cmd',
           github: 'https://github.com/lukasbuschdev/portfolio'
