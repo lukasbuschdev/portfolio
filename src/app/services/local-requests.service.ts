@@ -20,6 +20,11 @@ export class LocalRequestsService {
     executedCommands.length = 0;
   }
 
+  reboot(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+    executedCommands.push({ command, path: currentPathString });
+    window.location.reload();
+  }
+
   color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement): void {
     if(command.includes('curl')) return void hostElement.style.setProperty('--txt-white', '#00ff00');
 

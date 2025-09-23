@@ -277,6 +277,10 @@ export class CmdComponent {
   clear(): void {
     this.localRequests.clear(this.executedCommands);
   }
+
+  reboot(command: string): void {
+    this.localRequests.reboot(command, this.executedCommands, this.currentPathString);
+  }
   
   color(command: string): void {
     this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement);
