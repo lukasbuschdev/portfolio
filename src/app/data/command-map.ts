@@ -31,5 +31,6 @@ export const COMMAND_CONFIG: typeCommandMap = {
   weather: 'weather',
   shorten: 'shorten',
   qr: 'qr',
-  status: 'status'
+  status: 'status',
+  whois: 'whois'
 };

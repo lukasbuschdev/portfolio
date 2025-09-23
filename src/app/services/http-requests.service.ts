@@ -549,4 +549,66 @@ export class HttpRequestsService {
       }
     });
   }
+
+  
+  // WHOIS
+
+  whois(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
+    const tokens = command.trim().split(/\s+/);
+    if (!this.checkWhoisInput(command, executed, currentPath, scrollDown, tokens)) return;
+
+    const raw = tokens[1];
+    executed.push({ command, output: `Looking up WHOIS for ${raw}...\n\n`, path: currentPath });
+    const idx = executed.length - 1;
+    this.isFetching = true;
+
+    const url = `https://proxy.lukasbusch.dev/whois?domain=${encodeURIComponent(raw)}`;
+
+    this.http.get<any>(url).subscribe({
+      next: (body) => {
+        const lines: string[] = [];
+        const fmt = (s?: string | null) =>
+          s ? new Date(s).toISOString().replace('T',' ').replace('Z',' UTC') : '—';
+
+        lines.push(`Domain:\t\t${body.unicodeName || body.ldhName || raw}`);
+        if (body.ldhName && body.unicodeName && body.ldhName !== body.unicodeName) {
+          lines.push(`ASCII:\t\t${body.ldhName}`);
+        }
+        if (body.registrar) lines.push(`Registrar:\t${body.registrar}`);
+        if (Array.isArray(body.status) && body.status.length) {
+          lines.push(`Status:\t\t${body.status.join(', ')}`);
+        }
+        lines.push(`Created:\t${fmt(body.registration)}`);
+        lines.push(`Expires:\t${fmt(body.expiration)}`);
+        if (body.lastChanged) lines.push(`Updated:\t${fmt(body.lastChanged)}`);
+
+        if (Array.isArray(body.nameServers) && body.nameServers.length) {
+          lines.push(`Name servers:\n  - ${body.nameServers.join('\n  - ')}`);
+        }
+
+        executed[idx].output += lines.join('\n') + '\n';
+        this.isFetching = false;
+        scrollDown();
+      },
+      error: (err) => {
+        executed[idx].output += `Error (whois): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        this.isFetching = false;
+        scrollDown();
+      }
+    });
+  }
+
+  private checkWhoisInput(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void,tokens: string[]): boolean {
+    if (tokens.length < 2) {
+      executed.push({ command, output: 'whois: usage error: Domain required', path: currentPath });
+      scrollDown();
+      return false;
+    }
+    if (!/[.]/.test(tokens[1])) {
+      executed.push({ command, output: `whois: "${tokens[1]}" is not a valid domain`, path: currentPath });
+      scrollDown();
+      return false;
+    }
+    return true;
+  }
 }

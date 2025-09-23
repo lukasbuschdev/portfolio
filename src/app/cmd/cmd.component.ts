@@ -417,4 +417,8 @@ export class CmdComponent {
   status(command: string): void {
     this.httpRequests.status(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+
+  whois(command: string): void {
+    this.httpRequests.whois(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }

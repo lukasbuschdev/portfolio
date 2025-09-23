@@ -132,5 +132,9 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'status HOST',
     description: 'Fetches the HTTP status code and status text for the given HOST',
+  },
+  { 
+    command: 'whois DOMAIN',
+    description: 'Query WHOIS (RDAP) info for DOMAIN (registrar, created/expires, nameservers).'
   }
 ];

@@ -54,7 +54,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                   '29\tweather\n' +
                   '30\tshorten\n' +
                   '31\tqr\n' +
-                  '32\tstatus\n'
+                  '32\tstatus\n' +
+                  '33\twhois\n'
               },
             ],
           },

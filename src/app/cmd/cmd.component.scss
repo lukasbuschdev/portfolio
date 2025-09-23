@@ -83,6 +83,7 @@
         
         span {
             white-space: pre-wrap;
+            font-size: 1.2rem;
         }
     }
 
@@ -189,6 +190,10 @@
         letter-spacing: 3px;
         font-size: 1rem;
     }
+}
+
+.greeting span {
+    font-size: 1.2rem;
 }
 
 .bold {
