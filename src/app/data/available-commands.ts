@@ -50,6 +50,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: 'Outputs the current user or session identifier, revealing who is logged into the terminal',
   },
   {
+    command: 'whois DOMAIN|IP [--json]',
+    description: 'Query WHOIS (RDAP) for a domain or IP. Use --json to print raw RDAP JSON.'
+  },
+  {
     command: 'uname',
     description: 'Displays system info: browser userAgent, platform, language, screen resolution, etc.',
   },
@@ -132,9 +136,5 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'status HOST',
     description: 'Fetches the HTTP status code and status text for the given HOST',
-  },
-  { 
-    command: 'whois DOMAIN',
-    description: 'Query WHOIS (RDAP) info for DOMAIN (registrar, created/expires, nameservers).'
   }
 ];

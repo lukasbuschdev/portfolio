@@ -56,6 +56,25 @@
     padding: 5px;
     overflow: auto;
 
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+
+    /* WebKit (Chrome, Edge, Safari) */
+    &::-webkit-scrollbar {
+        width: 6px;   /* thin */
+        height: 6px;  /* thin for horizontal */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent; /* transparent track */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.4); /* semi-transparent thumb */
+        border-radius: 3px;
+    }
+
     span, pre {
         // font-family: 'OCRAbyBT', sans-serif;
         font-size: 1.1rem;
@@ -100,6 +119,12 @@
             background-color: transparent;
             resize: none;
             outline: none;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
         }
 
         textarea[autoGrow] {

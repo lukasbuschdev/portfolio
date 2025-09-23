@@ -553,59 +553,130 @@ export class HttpRequestsService {
   
   // WHOIS
 
+// WHOIS (refactored into tidy helpers)
+
   whois(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
     const tokens = command.trim().split(/\s+/);
+
+    // Reuse your existing validation (keeps behavior identical)
     if (!this.checkWhoisInput(command, executed, currentPath, scrollDown, tokens)) return;
 
-    const raw = tokens[1];
-    executed.push({ command, output: `Looking up WHOIS for ${raw}...\n\n`, path: currentPath });
-    const idx = executed.length - 1;
+    const { arg, rawFlag } = this.parseWhoisArgs(tokens);
+    executed.push({ command, output: `Looking up WHOIS for ${arg}...\n\n`, path: currentPath });
+    const traceIndex = executed.length - 1;
     this.isFetching = true;
 
-    const url = `https://proxy.lukasbusch.dev/whois?domain=${encodeURIComponent(raw)}`;
+    const url = this.buildWhoisUrl(arg, rawFlag);
 
     this.http.get<any>(url).subscribe({
       next: (body) => {
-        const lines: string[] = [];
-        const fmt = (s?: string | null) =>
-          s ? new Date(s).toISOString().replace('T',' ').replace('Z',' UTC') : '—';
-
-        lines.push(`Domain:\t\t${body.unicodeName || body.ldhName || raw}`);
-        if (body.ldhName && body.unicodeName && body.ldhName !== body.unicodeName) {
-          lines.push(`ASCII:\t\t${body.ldhName}`);
-        }
-        if (body.registrar) lines.push(`Registrar:\t${body.registrar}`);
-        if (Array.isArray(body.status) && body.status.length) {
-          lines.push(`Status:\t\t${body.status.join(', ')}`);
-        }
-        lines.push(`Created:\t${fmt(body.registration)}`);
-        lines.push(`Expires:\t${fmt(body.expiration)}`);
-        if (body.lastChanged) lines.push(`Updated:\t${fmt(body.lastChanged)}`);
-
-        if (Array.isArray(body.nameServers) && body.nameServers.length) {
-          lines.push(`Name servers:\n  - ${body.nameServers.join('\n  - ')}`);
-        }
-
-        executed[idx].output += lines.join('\n') + '\n';
+        const out = rawFlag ? JSON.stringify(body, null, 2) + '\n' : this.formatWhoisOutput(body, arg);
+        executed[traceIndex].output += out;
         this.isFetching = false;
         scrollDown();
       },
       error: (err) => {
-        executed[idx].output += `Error (whois): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executed[traceIndex].output += `Error (whois): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
     });
   }
 
-  private checkWhoisInput(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void,tokens: string[]): boolean {
+  /** Extract first non-flag argument and flags (like --json) */
+  private parseWhoisArgs(tokens: string[]): { arg: string; rawFlag: boolean } {
+    const rawFlag = tokens.includes('--json');
+    // first non-flag after "whois"
+    const arg = tokens.slice(1).find(t => !t.startsWith('--')) || '';
+    return { arg, rawFlag };
+  }
+
+  /** Build proxy URL with optional raw passthrough */
+  private buildWhoisUrl(arg: string, rawFlag: boolean): string {
+    const base = `https://proxy.lukasbusch.dev/whois?domain=${encodeURIComponent(arg)}`;
+    return rawFlag ? `${base}&raw=1` : base;
+  }
+
+  /** Decide IP vs domain and format accordingly */
+  private formatWhoisOutput(body: any, arg: string): string {
+    const cls = String(body?.objectClassName || '').toLowerCase();
+    if (cls.includes('ip') || body?.startAddress || body?.endAddress) return this.formatIpBody(body, arg);
+    return this.formatDomainBody(body, arg);
+  }
+
+  /** Pretty print domain RDAP */
+  private formatDomainBody(body: any, arg: string): string {
+    const lines: string[] = [];
+    lines.push(`Domain:\t\t${body.unicodeName || body.ldhName || arg}`);
+    if (body.ldhName && body.unicodeName && body.ldhName !== body.unicodeName) {
+      lines.push(`ASCII:\t\t${body.ldhName}`);
+    }
+    if (body.registrar) lines.push(`Registrar:\t${body.registrar}`);
+
+    if (Array.isArray(body.status) && body.status.length) {
+      lines.push(`Status:\t\t${body.status.join(', ')}`);
+    }
+
+    lines.push(`Created:\t${this.formatDate(body.registration)}`);
+    lines.push(`Expires:\t${this.formatDate(body.expiration)}`);
+    if (body.lastChanged) lines.push(`Updated:\t${this.formatDate(body.lastChanged)}`);
+
+    if (Array.isArray(body.abuseEmails) && body.abuseEmails.length) {
+      lines.push(`Abuse:\t\t${body.abuseEmails.join(', ')}`);
+    }
+
+    if (Array.isArray(body.nameServers) && body.nameServers.length) {
+      lines.push(`Name servers:\n  - ${body.nameServers.join('\n  - ')}`);
+    }
+
+    return lines.join('\n') + '\n';
+  }
+
+  /** Pretty print IP network RDAP */
+  private formatIpBody(body: any, arg: string): string {
+    const lines: string[] = [];
+    lines.push(`IP / Network:\t${arg}`);
+    if (body.handle)       lines.push(`Handle:\t\t${body.handle}`);
+    if (body.name)         lines.push(`Name:\t\t${body.name}`);
+    if (body.startAddress) lines.push(`Start:\t\t${body.startAddress}`);
+    if (body.endAddress)   lines.push(`End:\t\t${body.endAddress}`);
+    if (body.country)      lines.push(`Country:\t${body.country}`);
+
+    if (Array.isArray(body.events) && body.events.length) {
+      const ev = body.events.slice(0, 4)
+        .map((e: any) => `  - ${e.eventAction}: ${this.formatDate(e.eventDate)}`)
+        .join('\n');
+      lines.push(`Events:\n${ev}`);
+    }
+
+    return lines.join('\n') + '\n';
+  }
+
+  /** Consistent date formatting (UTC) */
+  private formatDate(date?: string | null): string {
+    return date ? new Date(date).toISOString().replace('T', ' ').replace('Z', ' UTC') : '—';
+  }
+
+
+  checkWhoisInput(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void,tokens: string[]): boolean {
     if (tokens.length < 2) {
-      executed.push({ command, output: 'whois: usage error: Domain required', path: currentPath });
+      executed.push({ command, output: 'whois: usage error: Domain or IP required', path: currentPath });
       scrollDown();
       return false;
     }
-    if (!/[.]/.test(tokens[1])) {
-      executed.push({ command, output: `whois: "${tokens[1]}" is not a valid domain`, path: currentPath });
+    // first non-flag arg
+    const arg = tokens.slice(1).find(t => !t.startsWith('--'));
+    if (!arg) {
+      executed.push({ command, output: 'whois: usage error: Domain or IP required', path: currentPath });
+      scrollDown();
+      return false;
+    }
+    // allow domains (have a dot) or IPv4/IPv6
+    const looksLikeDomain = /[.]/.test(arg);
+    const looksLikeIPv4 = /^[0-9.]+$/.test(arg);
+    const looksLikeIPv6 = /^[0-9a-f:.]+$/i.test(arg);
+    if (!looksLikeDomain && !looksLikeIPv4 && !looksLikeIPv6) {
+      executed.push({ command, output: `whois: "${arg}" is not a valid domain or IP`, path: currentPath });
       scrollDown();
       return false;
     }

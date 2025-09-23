@@ -11,6 +11,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
   cd: 'cd',
   ls: 'ls',
   whoami: 'whoami',
+  whois: 'whois',
   uname: 'uname',
   cat: 'cat',
   nano: 'nano',
@@ -31,6 +32,5 @@ export const COMMAND_CONFIG: typeCommandMap = {
   weather: 'weather',
   shorten: 'shorten',
   qr: 'qr',
-  status: 'status',
-  whois: 'whois'
+  status: 'status'
 };
