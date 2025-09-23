@@ -504,7 +504,7 @@ export class HttpRequestsService {
     const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
-    this.httpRequestStatus(executedCommands, scrollDown, target.toString(), traceIndex);
+    this.httpRequestStatus(executedCommands, scrollDown, raw, target.toString(), traceIndex);
   }
 
   checkStatusInput(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, tokens: string[]): boolean {
@@ -517,7 +517,7 @@ export class HttpRequestsService {
     return true;
   }
 
-  httpRequestStatus(executedCommands: typeCommand[], scrollDown: () => void, fetchUrl: string, traceIndex: number): void {
+  httpRequestStatus(executedCommands: typeCommand[], scrollDown: () => void, rawUrl: string, fetchUrl: string, traceIndex: number): void {
     const start = performance.now();
     const proxied = `https://proxy.lukasbusch.dev/status?url=${encodeURIComponent(fetchUrl)}`;
 
@@ -527,7 +527,7 @@ export class HttpRequestsService {
         const body = res.body || {};
         const lines: string[] = [];
 
-        lines.push(`URL: ${body.finalUrl || fetchUrl}`);
+        lines.push(`URL: ${rawUrl}`);
         lines.push(`Status: ${body.status} ${body.statusText || ''}`.trim());
         lines.push(`Time: ${(end - start).toFixed(1)} ms`);
 
@@ -548,23 +548,5 @@ export class HttpRequestsService {
         scrollDown();
       }
     });
-  }
-
-  renderStatus(res: HttpResponse<any>, fetchUrl: string, timeMs: number, executedCommands: typeCommand[], traceIndex: number): void {
-    const lines: string[] = [];
-
-    lines.push(`URL: ${fetchUrl}`);
-    lines.push(`Status: ${res.status} ${res.statusText}`);
-    lines.push(`Time: ${timeMs.toFixed(1)} ms`);
-
-    const location = res.headers.get('location');
-    const type = res.headers.get('content-type');
-    const len = res.headers.get('content-length');
-
-    if (location) lines.push(`Location: ${location}`);
-    if (type) lines.push(`Content-Type: ${type}`);
-    if (len) lines.push(`Content-Length: ${len}`);
-
-    executedCommands[traceIndex].output = (executedCommands[traceIndex].output || '') + lines.join('\n') + '\n';
   }
 }
