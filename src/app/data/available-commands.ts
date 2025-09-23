@@ -119,14 +119,18 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   },
   {
     command: 'weather CITY',
-    description: 'Fetches and displays current weather details for CITY - including temperature, humidity, pressure, wind speed, visibility (in meters), and local sunrise/sunset times.',
+    description: 'Fetches and displays current weather details for CITY - including temperature, humidity, pressure, wind speed, visibility (in meters), and local sunrise/sunset times',
   },
   {
     command: 'shorten URL',
-    description: 'Shortens the given URL.',
+    description: 'Shortens the given URL',
   },
   {
     command: 'qr URL',
-    description: 'Creates QR code for given URL.',
+    description: 'Creates QR code for given URL',
+  },
+  {
+    command: 'status HOST',
+    description: 'Fetches the HTTP status code and status text for the given HOST',
   }
 ];

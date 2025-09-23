@@ -413,4 +413,8 @@ export class CmdComponent {
   qr(command: string): void {
     this.httpRequests.qr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+  
+  status(command: string): void {
+    this.httpRequests.status(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }

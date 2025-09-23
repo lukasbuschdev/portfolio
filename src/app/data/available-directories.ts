@@ -53,7 +53,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                   '28\tnslookup\n' +
                   '29\tweather\n' +
                   '30\tshorten\n' +
-                  '31\tqr\n'
+                  '31\tqr\n' +
+                  '32\tstatus\n'
               },
             ],
           },
@@ -76,7 +77,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                   'With those solutions in place, I could deliver real output instead of templates or errors only.\n\n' +
                   "Next, I refactored the 'cat' command - originally it both displayed and edited file content, which isn't realistic — so now 'cat' only shows the content, and a new 'nano' command provides a full WYSIWYG editor with save/exit shortcuts (Ctrl+O, Ctrl+X).\n\n" +
                   "After that, I implemented a 'sudo' command: enter the password 'TemetNosce!' to gain root permissions and edit/delete any file.\n\n" +
-                  "By now, I'd covered 31+ commands, complete with authentic bash-style errors and edge-case handling, plus command chaining ('&&') and batch file/dir creation or deletion.\n\n" +
+                  "By now, I'd covered 32+ commands, complete with authentic bash-style errors and edge-case handling, plus command chaining ('&&') and batch file/dir creation or deletion.\n\n" +
                   "Finally, I optimized the terminal for mobile devices — adding touch-friendly buttons for 'nano' and a 'stop ping' control since Ctrl+C isn't available on phones and tablets.\n\n" +
                   "Now the core project is complete, but I'm already dreaming up new features. I hope this gives you a peek into how the terminal grew from a tiny easter egg into a full-blown Linux-style interface.\n" +
                   'Thanks for reading - have fun exploring!\n\n' +
@@ -189,7 +190,7 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                   'Interactive Terminal Simulation\n\n' +
                   'Angular, TypeScript, SCSS, HTML, Node.js, Express, Flask\n\n' +
                   'Embeds a fully-functional, Linux-style command-line interface right in your portfolio.  ' +
-                  'Supports 31+ real commands (ls, cat, nano, ping, curl, dig, nslookup, traceroute, weather, etc.), ' +
+                  'Supports 32+ real commands (ls, cat, nano, ping, curl, dig, nslookup, traceroute, weather, etc.), ' +
                   'command chaining with &&, sudo-style authentication, and precise Linux-style error messaging to mirror bash behavior.\n\n' +
                   'Features:\n' +
                   ' • WYSIWYG nano editor for .txt files (with save/exit shortcuts ^O, ^X)\n\n' +

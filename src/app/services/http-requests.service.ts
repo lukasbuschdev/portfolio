@@ -1,6 +1,6 @@
 import { inject, Injectable, NgZone } from '@angular/core';
 import { ScrollService } from './scroll.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { UtilsService } from './utils.service';
 import { typeCommand, typeDnsResponse } from '../types/types';
 import { firstValueFrom, forkJoin } from 'rxjs';
@@ -253,7 +253,7 @@ export class HttpRequestsService {
 
     let rawUrl = tokens[1].startsWith('http://') || tokens[1].startsWith('https://') ? tokens[1] : 'https://' + tokens[1];
 
-    const proxyUrl = 'https://proxy.lukasbusch.dev/?url=';
+    const proxyUrl = 'https://proxy.lukasbusch.dev/proxy?url=';
     
     if(tokens[1] === 'matrix') {
       fetchUrl = 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true';
@@ -486,5 +486,85 @@ export class HttpRequestsService {
     }
 
     return true;
+  }
+
+
+  // STATUS
+
+  status(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    const tokens = command.trim().split(/\s+/);
+    if (!this.checkStatusInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
+    
+    let raw = tokens[1];
+    if (!/^https?:\/\//i.test(raw)) raw = `https://${raw}`;
+    const target = new URL(raw);
+    target.searchParams.set('ngsw-bypass', 'true');
+
+    executedCommands.push({ command, output: `Checking status for ${raw}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
+    this.isFetching = true;
+
+    this.httpRequestStatus(executedCommands, scrollDown, target.toString(), traceIndex);
+  }
+
+  checkStatusInput(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, tokens: string[]): boolean {
+    if(tokens.length < 2) {
+      executedCommands.push({ command, output: 'status: usage error: Destination address required', path: currentPathString });
+      scrollDown();
+      return false;
+    }
+
+    return true;
+  }
+
+  httpRequestStatus(executedCommands: typeCommand[], scrollDown: () => void, fetchUrl: string, traceIndex: number): void {
+    const start = performance.now();
+    const proxied = `https://proxy.lukasbusch.dev/status?url=${encodeURIComponent(fetchUrl)}`;
+
+    this.http.get<any>(proxied, { observe: 'response' }).subscribe({
+      next: (res: HttpResponse<any>) => {
+        const end = performance.now();
+        const body = res.body || {};
+        const lines: string[] = [];
+
+        lines.push(`URL: ${body.finalUrl || fetchUrl}`);
+        lines.push(`Status: ${body.status} ${body.statusText || ''}`.trim());
+        lines.push(`Time: ${(end - start).toFixed(1)} ms`);
+
+        if (body.redirected) lines.push(`Redirected: ${body.redirected}`);
+        if (body.headers?.location) lines.push(`Location: ${body.headers.location}`);
+        if (body.headers?.['content-type']) lines.push(`Content-Type: ${body.headers['content-type']}`);
+        if (body.headers?.['content-length']) lines.push(`Content-Length: ${body.headers['content-length']}`);
+
+        executedCommands[traceIndex].output = (executedCommands[traceIndex].output || '') + lines.join('\n') + '\n';
+        this.isFetching = false;
+        scrollDown();
+      },
+      error: (err) => {
+        executedCommands[traceIndex].output =
+          (executedCommands[traceIndex].output || '') +
+          `Error (proxy): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        this.isFetching = false;
+        scrollDown();
+      }
+    });
+  }
+
+  renderStatus(res: HttpResponse<any>, fetchUrl: string, timeMs: number, executedCommands: typeCommand[], traceIndex: number): void {
+    const lines: string[] = [];
+
+    lines.push(`URL: ${fetchUrl}`);
+    lines.push(`Status: ${res.status} ${res.statusText}`);
+    lines.push(`Time: ${timeMs.toFixed(1)} ms`);
+
+    const location = res.headers.get('location');
+    const type = res.headers.get('content-type');
+    const len = res.headers.get('content-length');
+
+    if (location) lines.push(`Location: ${location}`);
+    if (type) lines.push(`Content-Type: ${type}`);
+    if (len) lines.push(`Content-Length: ${len}`);
+
+    executedCommands[traceIndex].output = (executedCommands[traceIndex].output || '') + lines.join('\n') + '\n';
   }
 }

@@ -30,5 +30,6 @@ export const COMMAND_CONFIG: typeCommandMap = {
   nslookup: 'nslookup',
   weather: 'weather',
   shorten: 'shorten',
-  qr: 'qr'
+  qr: 'qr',
+  status: 'status'
 };
