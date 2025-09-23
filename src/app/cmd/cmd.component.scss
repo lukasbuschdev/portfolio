@@ -57,10 +57,19 @@
     overflow: auto;
 
     span, pre {
-        font-family: 'OCRAbyBT', sans-serif;
+        // font-family: 'OCRAbyBT', sans-serif;
+        font-family: 'Mono', sans-serif;
         font-size: 1.1rem;
         font-weight: 400;
         color: var(--txt-white);
+    }
+
+    .user-color {
+        color: rgb(190, 110, 254) !important;
+    }
+
+    .path-color {
+        color: rgb(181, 255, 146);
     }
 
     pre {
