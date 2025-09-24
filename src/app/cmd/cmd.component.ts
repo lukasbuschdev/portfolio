@@ -429,4 +429,8 @@ export class CmdComponent {
   geoip(command: string): void {
     this.httpRequests.geoip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+
+  asn(command: string): void {
+    this.httpRequests.asn(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }

@@ -144,5 +144,9 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'geoip IP|DOMAIN [--json]',
     description: 'Lookup geolocation, ISP, ASN, timezone for an IP or domain. Use --json for raw API output.'
+  },
+  {
+    command: 'asn IP|DOMAIN [--json]',
+    description: 'Show ASN (via GeoIP) including AS number/name, ISP, org. Use --json to dump raw geoip.'
   }
 ];

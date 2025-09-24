@@ -862,4 +862,63 @@ export class HttpRequestsService {
     const mm = String(Math.floor((abs % 3600) / 60)).padStart(2, '0');
     return `${sign}${hh}:${mm}`;
   }
+
+
+  // ASN (lightweight via /geoip)
+
+  asn(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
+    const tokens = command.trim().split(/\s+/);
+    // require one non-flag arg
+    const q = tokens.slice(1).find(t => !t.startsWith('--'));
+    if (!q) {
+      executed.push({ command, output: 'asn: usage error: IP or domain required', path: currentPath });
+      scrollDown();
+      return;
+    }
+
+    const rawJson = tokens.includes('--json'); // optional, just dump geoip payload
+
+    executed.push({ command, output: `ASN lookup for ${q}...\n\n`, path: currentPath });
+    const traceIndex = executed.length - 1;
+    this.isFetching = true;
+
+    const url = `https://proxy.lukasbusch.dev/geoip?query=${encodeURIComponent(q)}${rawJson ? '&raw=1' : ''}`;
+
+    this.http.get<any>(url).subscribe({
+      next: (body) => {
+        if (rawJson) {
+          executed[traceIndex].output += JSON.stringify(body, null, 2) + '\n';
+        } else {
+          const isCompact = body?.location && body?.network;
+          const asStr   = isCompact ? (body.network.as || '') : (body.as || '');
+          const asName  = isCompact ? (body.network.asname || '') : (body.asname || '');
+          const isp     = isCompact ? (body.network.isp || '') : (body.isp || '');
+          const org     = isCompact ? (body.network.org || '') : (body.org || '');
+          const query   = isCompact ? (body.query || q) : (body.query || q);
+          const country = isCompact ? (body.location?.country || '') : (body.country || '');
+
+          const lines: string[] = [];
+          lines.push(`Query:\t\t${query}`);
+          if (asStr) lines.push(`AS:\t\t${asStr}`);       // e.g. "AS15169 Google LLC"
+          if (asName) lines.push(`AS Name:\t${asName}`); // e.g. "GOOGLE"
+          if (isp) lines.push(`ISP:\t\t${isp}`);
+          if (org) lines.push(`Org:\t\t${org}`);
+          if (country) lines.push(`Country:\t${country}`);
+
+          if (!asStr && !asName && !isp && !org)
+            lines.push('(no ASN/ISP data available)');
+
+          executed[traceIndex].output += lines.join('\n') + '\n';
+        }
+
+        this.isFetching = false;
+        scrollDown();
+      },
+      error: (err) => {
+        executed[traceIndex].output += `Error (asn): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        this.isFetching = false;
+        scrollDown();
+      }
+    });
+  }
 }
