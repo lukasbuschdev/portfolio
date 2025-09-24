@@ -140,5 +140,9 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'ssl DOMAIN [--json]',
     description: 'Show TLS certificate info for a domain. Use --json for full chain / PEMs.'
+  },
+  {
+    command: 'geoip IP|DOMAIN [--json]',
+    description: 'Lookup geolocation, ISP, ASN, timezone for an IP or domain. Use --json for raw API output.'
   }
 ];

@@ -33,5 +33,6 @@ export const COMMAND_CONFIG: typeCommandMap = {
   shorten: 'shorten',
   qr: 'qr',
   status: 'status',
-  ssl: 'ssl'
+  ssl: 'ssl',
+  geoip: 'geoip'
 };

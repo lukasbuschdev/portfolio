@@ -425,4 +425,8 @@ export class CmdComponent {
   ssl(command: string): void {
     this.httpRequests.ssl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+
+  geoip(command: string): void {
+    this.httpRequests.geoip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }
