@@ -433,4 +433,8 @@ export class CmdComponent {
   asn(command: string): void {
     this.httpRequests.asn(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+
+  reverseip(command: string): void {
+    this.httpRequests.reverseip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }
