@@ -113,7 +113,7 @@ export class UtilsService {
   }
 
   hasExplainFlag(raw: string): boolean {
-    return /\s--explain(\s|$)/.test(raw);
+    return /\s--man(\s|$)/.test(raw);
   }
 
   renderExplain(name: string): string {

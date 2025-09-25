@@ -2,10 +2,6 @@ import { typeCommandList } from '../types/types';
 
 export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
-    command: 'COMMAND',
-    description: 'DESCRIPTION',
-  },
-  {
     command: 'help',
     description: 'Displays a list of all available commands along with a brief description for each one.',
   },

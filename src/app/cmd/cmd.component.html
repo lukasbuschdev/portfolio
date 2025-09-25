@@ -8,6 +8,11 @@
         <div #contentContainer [class.no-scroll]="localRequests.isEditing" class="content-container" (click)="focusInput($event)">
             <div class="greeting">
                 <span>Type 'help' to see available commands.</span>
+                <br><br>
+                <span>Tip: try '--man' behind a command to see how it works.</span>
+                <br>
+                <span>(example: 'ping --man')</span>
+                <br><br>
             </div>
             
             @if(executedCommands.length) {
