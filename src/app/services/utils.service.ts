@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EXPLAIN } from '../data/command-explain';
 
 @Injectable({
   providedIn: 'root'
@@ -109,5 +110,27 @@ export class UtilsService {
 
     const year = date.getFullYear();
     return `${weekday} ${month} ${day} ${hh}:${mm}:${ss} ${ampm} ${timezone} ${year}`;
+  }
+
+  hasExplainFlag(raw: string): boolean {
+    return /\s--explain(\s|$)/.test(raw);
+  }
+
+  renderExplain(name: string): string {
+    const e = EXPLAIN[name];
+    if (!e) return `No explanation available for '${name}'.`;
+    const ex = e.examples.map(x => `  $ ${x.cmd}\n    → ${x.why}`).join('\n');
+    const notes = (e.notes ?? []).map(n => `  • ${n}`).join('\n');
+    const see = e.seeAlso?.length ? `\nSee also: ${e.seeAlso.join(', ')}` : '';
+    return [
+      `${e.name} — ${e.purpose}`,
+      ``,
+      `Usage: ${e.synopsis}`,
+      ``,
+      `Examples:\n${ex}`,
+      notes ? `\nNotes:\n${notes}` : '',
+      e.explaination ? `\nBeginner explanation:\n${e.explaination}` : '',
+      see
+    ].join('\n');
   }
 }

@@ -16,16 +16,34 @@ export class LocalRequestsService {
   scroll = inject(ScrollService);
   utils = inject(UtilsService);
 
-  clear(executedCommands: typeCommand[]): void {
+  clear(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('clear'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.length = 0;
   }
 
-  reboot(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  reboot(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('reboot'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, path: currentPathString });
     window.location.reload();
   }
 
-  color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement): void {
+  color(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('color'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     if(command.includes('curl')) return void hostElement.style.setProperty('--txt-white', '#00ff00');
 
     const terminalContainer = document.querySelector<HTMLElement>('.terminal')!;
@@ -33,7 +51,7 @@ export class LocalRequestsService {
     const hexRegex = /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/;
     
     if(tokens.length < 2) return void executedCommands.push({ command, output: `color: usage error: Color code (HEX) required`, path: currentPathString });
-    if(tokens[1] === 'reset') return void this.resetColors(command, executedCommands, currentPathString, hostElement, terminalContainer);
+    if(tokens[1] === 'reset') return void this.resetColors(command, executedCommands, currentPathString, hostElement, terminalContainer, scrollDown.bind(this));
     if(!hexRegex.test(tokens[1])) return void executedCommands.push({ command, output: `color: usage error: Invalid hex code '${tokens[1]}'\nExpected format: #RGB, #RRGGBB or #RRGGBBAA`, path: currentPathString });
     if(tokens.length > 2) return void this.setBgAndTextColor(tokens, executedCommands, currentPathString, hostElement, terminalContainer, hexRegex);
     if(tokens.length > 3) return void executedCommands.push({ command, output: `color: usage error: Too many operands`, path: currentPathString });
@@ -61,18 +79,36 @@ export class LocalRequestsService {
     terminalContainer.style.setProperty('--terminal-bg', terminalBg);
   }
   
-  resetColors(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement, terminalContainer: HTMLElement): void {
+  resetColors(command: string, executedCommands: typeCommand[], currentPathString: string, hostElement: HTMLElement, terminalContainer: HTMLElement, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('resetColors'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, path: currentPathString });
 
     hostElement.style.setProperty('--txt-white', '#ffffff');
     terminalContainer.style.setProperty('--terminal-bg', '#00080733');
   }
   
-  whoami(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  whoami(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('whoami'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, output: 'guest', path: currentPathString });
   }
 
-  uname(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  uname(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('uname'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const nav = window.navigator;
     const conn = (nav as any).connection || {};
     const info = [
@@ -98,32 +134,68 @@ export class LocalRequestsService {
     executedCommands.push({ command, output: info.join('\n'), path: currentPathString });
   }
 
-  uptime(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  uptime(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+     if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('uname'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const output = this.utils.getUptime();
     executedCommands.push({ command, output, path: currentPathString });
   }
 
-  date(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  date(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('date'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const output = this.utils.getFormattedDate();
     executedCommands.push({ command, output, path: currentPathString });
   }
 
-  echo(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  echo(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('echo'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const printValue = command.trim().split(' ').slice(1).join(' ');
     if(!printValue) return void executedCommands.push({ command, output: '\n', path: currentPathString });
     executedCommands.push({ command, output: printValue, path: currentPathString });
   }
 
-  help(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  help(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('help'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, path: currentPathString });
   }
 
-  story(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  story(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('story'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const storyText = AVAILABLE_DIRECTORIES[0].subdirectories[0].subdirectories[1].files.find(file => file.name === 'commandline_story.txt');
     executedCommands.push({ command, output: storyText?.data, path: currentPathString });
   }
 
-  cd(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, currentDirectoryPath: typeDirectory[]): void {
+  cd(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, currentDirectoryPath: typeDirectory[], scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('cd'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const tokens = command.trim().split(' ');
     const snapshotPath = currentPathString;
     const snapshot = JSON.parse(JSON.stringify(currentDirectory));
@@ -153,7 +225,13 @@ export class LocalRequestsService {
     }
   }
   
-  ls(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+  ls(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('ls'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const tokens = command.trim().split(' ');
     if(tokens.length > 1) return void executedCommands.push({ command, output: `ls: usage error: extra operand '${ tokens[1] }'\nTry 'help' for more information`, path: currentPathString});
 
@@ -167,6 +245,12 @@ export class LocalRequestsService {
   }
 
   cat(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('cat'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const snapshot = JSON.parse(JSON.stringify(currentDirectory));
     const filesOfDirectory = currentDirectory.files?.filter(dir => dir.name.includes('.txt'));
     const tokens = command.trim().split(' ');
@@ -181,7 +265,13 @@ export class LocalRequestsService {
     scrollDown();
   }
 
-  nano(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, focusNanoInput: () => void): void {
+  nano(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, focusNanoInput: () => void, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('nano'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const snapshot = JSON.parse(JSON.stringify(currentDirectory));
     const filesOfDirectory = currentDirectory.files?.filter(dir => dir.name.includes('.txt'));
     const tokens = command.trim().split(' ');
@@ -208,7 +298,13 @@ export class LocalRequestsService {
     focusNanoInput();
   }
 
-  touch(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+  touch(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('touch'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const tokens = command.trim().split(' ');
     const fileNames = tokens.slice(1);
 
@@ -231,7 +327,7 @@ export class LocalRequestsService {
     }
   }
 
-  saveFile(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory) {
+  saveFile(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void) {
     const realFile = currentDirectory.files.find(f => f.name === this.openedFile.name);
 
     if(realFile) {
@@ -244,7 +340,13 @@ export class LocalRequestsService {
     this.isEditing = false;
   }
 
-  mkdir(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+  mkdir(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('mkdir'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const tokens = command.trim().split(' ');
     const dirNames = tokens.slice(1);
 
@@ -266,7 +368,13 @@ export class LocalRequestsService {
     }
   }
 
-  rmdir(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+  rmdir(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('rmdir'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const tokens   = command.trim().split(' ');
     const dirNames = tokens.slice(1);
   
@@ -278,7 +386,13 @@ export class LocalRequestsService {
     this.checkSubdirectories(executedCommands, currentDirectory, dirNames, cmdIndex);
   }
 
-  rm(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory): void {
+  rm(command: string, executedCommands: typeCommand[], currentPathString: string, currentDirectory: typeDirectory, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('rm'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
     const tokens   = command.trim().split(' ');
     const fileNames = tokens.slice(1);
   
@@ -325,15 +439,33 @@ export class LocalRequestsService {
     }
   }
 
-  pwd(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  pwd(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('pwd'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, output: `/root${currentPathString}`, path: currentPathString });
   }
 
-  exit(): void {
+  exit(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('exit'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     this.scroll.goToSection('main', 'landing-page');
   }
   
-  history(command: string, executedCommands: typeCommand[], currentPathString: string): void {
+  history(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('history'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const commandHistory = this.getCommandHistory(executedCommands);
     executedCommands.push({ command, output: commandHistory, path: currentPathString });
   }

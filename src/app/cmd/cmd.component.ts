@@ -274,52 +274,52 @@ export class CmdComponent {
 
   // LOCAL REQUESTS
 
-  clear(): void {
-    this.localRequests.clear(this.executedCommands);
+  clear(command: string): void {
+    this.localRequests.clear(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   reboot(command: string): void {
-    this.localRequests.reboot(command, this.executedCommands, this.currentPathString);
+    this.localRequests.reboot(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
   
   color(command: string): void {
-    this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement);
+    this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement, this.scrollDown.bind(this));
   }
 
   whoami(command: string): void {
-    this.localRequests.whoami(command, this.executedCommands, this.currentPathString);
+    this.localRequests.whoami(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   uname(command: string): void {
-    this.localRequests.uname(command, this.executedCommands, this.currentPathString);
+    this.localRequests.uname(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   uptime(command: string): void {
-    this.localRequests.uptime(command, this.executedCommands, this.currentPathString);
+    this.localRequests.uptime(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   date(command: string): void {
-    this.localRequests.date(command, this.executedCommands, this.currentPathString);
+    this.localRequests.date(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   echo(command: string): void {
-    this.localRequests.echo(command, this.executedCommands, this.currentPathString);
+    this.localRequests.echo(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   help(command: string): void {
-    this.localRequests.help(command, this.executedCommands, this.currentPathString);
+    this.localRequests.help(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   story(command: string): void {
-    this.localRequests.story(command, this.executedCommands, this.currentPathString);
+    this.localRequests.story(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   cd(command: string): void {
-    this.localRequests.cd(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.currentDirectoryPath);
+    this.localRequests.cd(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.currentDirectoryPath, this.scrollDown.bind(this));
   }
 
   ls(command: string): void {
-    this.localRequests.ls(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.ls(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   cat(command: string): void {
@@ -327,39 +327,39 @@ export class CmdComponent {
   }
 
   nano(command: string): void {
-    this.localRequests.nano(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.focusNanoInput.bind(this));
+    this.localRequests.nano(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.focusNanoInput.bind(this), this.scrollDown.bind(this));
   }
 
   mkdir(command: string): void {
-    this.localRequests.mkdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.mkdir(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   rmdir(command: string): void {
-    this.localRequests.rmdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.rmdir(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   rm(command: string): void {
-    this.localRequests.rm(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.rm(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   touch(command: string): void {
-    this.localRequests.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   saveFile(command: string): void {
-    this.localRequests.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory);
+    this.localRequests.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   pwd(command: string): void {
-    this.localRequests.pwd(command, this.executedCommands, this.currentPathString);
+    this.localRequests.pwd(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
-  exit(): void {
-    this.localRequests.exit();
+  exit(command: string): void {
+    this.localRequests.exit(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
   
   history(command: string): void {
-    this.localRequests.history(command, this.executedCommands, this.currentPathString);
+    this.localRequests.history(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
 

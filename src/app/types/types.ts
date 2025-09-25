@@ -45,3 +45,13 @@ export type typeDnsResponseAnswer = {
     name: string;
     type: number;
 }
+
+export type Explain = {
+  name: string;
+  synopsis: string;
+  purpose: string;
+  examples: { cmd: string; why: string; }[];
+  notes?: string[];
+  seeAlso?: string[];
+  explaination?: string;
+};

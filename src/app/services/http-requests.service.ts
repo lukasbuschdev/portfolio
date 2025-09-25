@@ -27,6 +27,12 @@ export class HttpRequestsService {
   // PING
 
   ping(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('ping'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
     const url = tokens[1];
 
@@ -89,6 +95,12 @@ export class HttpRequestsService {
   // DIG
 
   dig(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('dig'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
     if(!this.checkDigInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
 
@@ -140,6 +152,12 @@ export class HttpRequestsService {
   // NSLOOKUP
 
   nslookup(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('nslookup'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
     if(!this.checkNslookupInput(command, tokens, executedCommands, scrollDown)) return;
 
@@ -217,6 +235,12 @@ export class HttpRequestsService {
   // GET IP
 
   async ipaddr(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): Promise<void>{
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('ipaddr'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, output: '', path: currentPathString });
     this.isFetching = true;
     const ipIndex = executedCommands.length - 1;
@@ -243,6 +267,12 @@ export class HttpRequestsService {
   // CURL
 
   curl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void, hostElement: HTMLElement): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('curl'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
     let fetchUrl = '';
     if(!this.checkCurlInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
@@ -264,7 +294,7 @@ export class HttpRequestsService {
     }
     
     this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
-    if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement);
+    if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement, scrollDown);
   }
 
   checkCurlInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {
@@ -308,6 +338,12 @@ export class HttpRequestsService {
   }
 
   async weather(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): Promise<void> {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('weather'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
 
     if(!this.checkWeatherInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
@@ -353,6 +389,12 @@ export class HttpRequestsService {
   // TRACEROUTE
 
   traceroute(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('traceroute'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
 
     if(!this.checkTracerouteInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
@@ -396,6 +438,12 @@ export class HttpRequestsService {
   // SHORTEN
 
   shorten(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('shorten'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
 
     if(!this.checkShortenInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
@@ -446,6 +494,12 @@ export class HttpRequestsService {
   // QR
 
   qr(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('qr'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(' ');
 
     if(!this.checkQrInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
@@ -492,6 +546,12 @@ export class HttpRequestsService {
   // STATUS
 
   status(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('status'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(/\s+/);
     if (!this.checkStatusInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
     
@@ -553,17 +613,21 @@ export class HttpRequestsService {
   
   // WHOIS
 
-// WHOIS (refactored into tidy helpers)
+  whois(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('whois'), path: currentPathString });
+      scrollDown();
+      return;
+    }
 
-  whois(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
     const tokens = command.trim().split(/\s+/);
 
     // Reuse your existing validation (keeps behavior identical)
-    if (!this.checkWhoisInput(command, executed, currentPath, scrollDown, tokens)) return;
+    if (!this.checkWhoisInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
 
     const { arg, rawFlag } = this.parseWhoisArgs(tokens);
-    executed.push({ command, output: `Looking up WHOIS for ${arg}...\n\n`, path: currentPath });
-    const traceIndex = executed.length - 1;
+    executedCommands.push({ command, output: `Looking up WHOIS for ${arg}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
     const url = this.buildWhoisUrl(arg, rawFlag);
@@ -571,12 +635,12 @@ export class HttpRequestsService {
     this.http.get<any>(url).subscribe({
       next: (body) => {
         const out = rawFlag ? JSON.stringify(body, null, 2) + '\n' : this.formatWhoisOutput(body, arg);
-        executed[traceIndex].output += out;
+        executedCommands[traceIndex].output += out;
         this.isFetching = false;
         scrollDown();
       },
       error: (err) => {
-        executed[traceIndex].output += `Error (whois): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executedCommands[traceIndex].output += `Error (whois): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
@@ -657,17 +721,16 @@ export class HttpRequestsService {
     return date ? new Date(date).toISOString().replace('T', ' ').replace('Z', ' UTC') : '—';
   }
 
-
-  checkWhoisInput(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void,tokens: string[]): boolean {
+  checkWhoisInput(command: string, executedCommands: typeCommand[], currentPathString: string,scrollDown: () => void,tokens: string[]): boolean {
     if (tokens.length < 2) {
-      executed.push({ command, output: 'whois: usage error: Domain or IP required', path: currentPath });
+      executedCommands.push({ command, output: 'whois: usage error: Domain or IP required', path: currentPathString });
       scrollDown();
       return false;
     }
     // first non-flag arg
     const arg = tokens.slice(1).find(t => !t.startsWith('--'));
     if (!arg) {
-      executed.push({ command, output: 'whois: usage error: Domain or IP required', path: currentPath });
+      executedCommands.push({ command, output: 'whois: usage error: Domain or IP required', path: currentPathString });
       scrollDown();
       return false;
     }
@@ -676,7 +739,7 @@ export class HttpRequestsService {
     const looksLikeIPv4 = /^[0-9.]+$/.test(arg);
     const looksLikeIPv6 = /^[0-9a-f:.]+$/i.test(arg);
     if (!looksLikeDomain && !looksLikeIPv4 && !looksLikeIPv6) {
-      executed.push({ command, output: `whois: "${arg}" is not a valid domain or IP`, path: currentPath });
+      executedCommands.push({ command, output: `whois: "${arg}" is not a valid domain or IP`, path: currentPathString });
       scrollDown();
       return false;
     }
@@ -686,14 +749,20 @@ export class HttpRequestsService {
 
   // SSL CERT
 
-  ssl(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
+  ssl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('ssl'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(/\s+/);
-    if (!this.checkSslInput(command, executed, currentPath, scrollDown, tokens)) return;
+    if (!this.checkSslInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
 
     const { domain, json } = this.parseSslArgs(tokens);
 
-    executed.push({ command, output: `Checking SSL certificate for ${domain}...\n\n`, path: currentPath });
-    const traceIndex = executed.length - 1;
+    executedCommands.push({ command, output: `Checking SSL certificate for ${domain}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
     const url = this.buildSslUrl(domain, json);
@@ -701,27 +770,27 @@ export class HttpRequestsService {
     this.http.get<any>(url).subscribe({
       next: (body) => {
         const out = json ? (JSON.stringify(body, null, 2) + '\n') : this.formatSsl(body);
-        executed[traceIndex].output += out;
+        executedCommands[traceIndex].output += out;
         this.isFetching = false;
         scrollDown();
       },
       error: (err) => {
-        executed[traceIndex].output += `Error (ssl): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executedCommands[traceIndex].output += `Error (ssl): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
     });
   }
 
-  private checkSslInput(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void,tokens: string[]): boolean {
+  private checkSslInput(command: string, executedCommands: typeCommand[], currentPathString: string,scrollDown: () => void,tokens: string[]): boolean {
     if (tokens.length < 2) {
-      executed.push({ command, output: 'ssl: usage error: Domain required', path: currentPath });
+      executedCommands.push({ command, output: 'ssl: usage error: Domain required', path: currentPathString });
       scrollDown();
       return false;
     }
     const d = tokens.slice(1).find(t => !t.startsWith('--'));
     if (!d) {
-      executed.push({ command, output: 'ssl: usage error: Domain required', path: currentPath });
+      executedCommands.push({ command, output: 'ssl: usage error: Domain required', path: currentPathString });
       scrollDown();
       return false;
     }
@@ -770,14 +839,20 @@ export class HttpRequestsService {
 
   // GEOIP
 
-  geoip(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
+  geoip(command: string, executedCommands: typeCommand[], currentPathString: string,scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('geoip'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(/\s+/);
-    if (!this.checkGeoipInput(command, executed, currentPath, scrollDown, tokens)) return;
+    if (!this.checkGeoipInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
 
     const { query, json } = this.parseGeoipArgs(tokens);
 
-    executed.push({ command, output: `GeoIP lookup for ${query}...\n\n`, path: currentPath });
-    const traceIndex = executed.length - 1;
+    executedCommands.push({ command, output: `GeoIP lookup for ${query}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
     const url = this.buildGeoipUrl(query, json);
@@ -786,27 +861,27 @@ export class HttpRequestsService {
       next: (body) => {
         const out = json ? (JSON.stringify(body, null, 2) + '\n')
                          : this.formatGeoip(body);
-        executed[traceIndex].output += out;
+        executedCommands[traceIndex].output += out;
         this.isFetching = false;
         scrollDown();
       },
       error: (err) => {
-        executed[traceIndex].output += `Error (geoip): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executedCommands[traceIndex].output += `Error (geoip): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
     });
   }
 
-  private checkGeoipInput(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void,tokens: string[]): boolean {
+  private checkGeoipInput(command: string, executedCommands: typeCommand[], currentPathString: string,scrollDown: () => void,tokens: string[]): boolean {
     if (tokens.length < 2) {
-      executed.push({ command, output: 'geoip: usage error: IP or domain required', path: currentPath });
+      executedCommands.push({ command, output: 'geoip: usage error: IP or domain required', path: currentPathString });
       scrollDown();
       return false;
     }
     const q = tokens.slice(1).find(t => !t.startsWith('--'));
     if (!q) {
-      executed.push({ command, output: 'geoip: usage error: IP or domain required', path: currentPath });
+      executedCommands.push({ command, output: 'geoip: usage error: IP or domain required', path: currentPathString });
       scrollDown();
       return false;
     }
@@ -866,20 +941,26 @@ export class HttpRequestsService {
 
   // ASN (lightweight via /geoip)
 
-  asn(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
+  asn(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('asn'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(/\s+/);
     // require one non-flag arg
     const q = tokens.slice(1).find(t => !t.startsWith('--'));
     if (!q) {
-      executed.push({ command, output: 'asn: usage error: IP or domain required', path: currentPath });
+      executedCommands.push({ command, output: 'asn: usage error: IP or domain required', path: currentPathString });
       scrollDown();
       return;
     }
 
     const rawJson = tokens.includes('--json'); // optional, just dump geoip payload
 
-    executed.push({ command, output: `ASN lookup for ${q}...\n\n`, path: currentPath });
-    const traceIndex = executed.length - 1;
+    executedCommands.push({ command, output: `ASN lookup for ${q}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
     const url = `https://proxy.lukasbusch.dev/geoip?query=${encodeURIComponent(q)}${rawJson ? '&raw=1' : ''}`;
@@ -887,7 +968,7 @@ export class HttpRequestsService {
     this.http.get<any>(url).subscribe({
       next: (body) => {
         if (rawJson) {
-          executed[traceIndex].output += JSON.stringify(body, null, 2) + '\n';
+          executedCommands[traceIndex].output += JSON.stringify(body, null, 2) + '\n';
         } else {
           const isCompact = body?.location && body?.network;
           const asStr   = isCompact ? (body.network.as || '') : (body.as || '');
@@ -899,7 +980,7 @@ export class HttpRequestsService {
 
           const lines: string[] = [];
           lines.push(`Query:\t\t${query}`);
-          if (asStr) lines.push(`AS:\t\t${asStr}`);       // e.g. "AS15169 Google LLC"
+          if (asStr) lines.push(`AS:\t\t${asStr}`);      // e.g. "AS15169 Google LLC"
           if (asName) lines.push(`AS Name:\t${asName}`); // e.g. "GOOGLE"
           if (isp) lines.push(`ISP:\t\t${isp}`);
           if (org) lines.push(`Org:\t\t${org}`);
@@ -908,14 +989,14 @@ export class HttpRequestsService {
           if (!asStr && !asName && !isp && !org)
             lines.push('(no ASN/ISP data available)');
 
-          executed[traceIndex].output += lines.join('\n') + '\n';
+          executedCommands[traceIndex].output += lines.join('\n') + '\n';
         }
 
         this.isFetching = false;
         scrollDown();
       },
       error: (err) => {
-        executed[traceIndex].output += `Error (asn): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executedCommands[traceIndex].output += `Error (asn): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
@@ -925,11 +1006,17 @@ export class HttpRequestsService {
 
   // REVERSEIP
 
-  reverseip(command: string,executed: typeCommand[],currentPath: string,scrollDown: () => void): void {
+  reverseip(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('reverseip'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     const tokens = command.trim().split(/\s+/);
     const q = tokens.slice(1).find(t => !t.startsWith('--'));
     if (!q) {
-      executed.push({ command, output: 'reverseip: usage error: IP or domain required', path: currentPath });
+      executedCommands.push({ command, output: 'reverseip: usage error: IP or domain required', path: currentPathString });
       scrollDown();
       return;
     }
@@ -937,8 +1024,8 @@ export class HttpRequestsService {
     const wantJson = tokens.includes('--json');
     const wantAll  = tokens.includes('--all');
 
-    executed.push({ command, output: `Reverse DNS for ${q}...\n\n`, path: currentPath });
-    const traceIndex = executed.length - 1;
+    executedCommands.push({ command, output: `Reverse DNS for ${q}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
     this.isFetching = true;
 
     const url = `https://proxy.lukasbusch.dev/reverseip?query=${encodeURIComponent(q)}${wantJson ? '&raw=1' : ''}${wantAll ? '&all=1' : ''}`;
@@ -946,12 +1033,12 @@ export class HttpRequestsService {
     this.http.get<any>(url).subscribe({
       next: (body) => {
         const out = wantJson ? (JSON.stringify(body, null, 2) + '\n') : this.formatReverseIp(q, body);
-        executed[traceIndex].output += out;
+        executedCommands[traceIndex].output += out;
         this.isFetching = false;
         scrollDown();
       },
       error: (err) => {
-        executed[traceIndex].output += `Error (reverseip): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executedCommands[traceIndex].output += `Error (reverseip): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
