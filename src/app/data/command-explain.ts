@@ -352,7 +352,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'ssl example.com', why: 'See certificate details at a glance.' }
     ],
     seeAlso: ['whois', 'status'],
-    explaination: 'Websites use SSL/TLS certificates to prove they are secure and to enable the lock icon in browsers. The `ssl` command shows who issued the certificate and when it expires. Beginners can think of it as: “Check if this website’s ID card is still valid.”'
+    explaination: 'Websites use SSL/TLS (Secure Sockets Layer / Transport Layer Security) certificates to prove they are secure and to enable the lock icon in browsers. The `ssl` command shows who issued the certificate and when it expires. Beginners can think of it as: “Check if this website’s ID card is still valid.”'
   },
 
   geoip: {
