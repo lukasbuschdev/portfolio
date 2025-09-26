@@ -362,6 +362,10 @@ export class CmdComponent {
     this.localRequests.history(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
+  battery(command: string): void {
+    this.localRequests.battery(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
+
 
   // HTTP REQUESTS
 
@@ -440,5 +444,9 @@ export class CmdComponent {
 
   ciphers(command: string): void {
     this.httpRequests.ciphers(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
+
+  tlschain(command: string): void {
+    this.httpRequests.tlschain(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 }

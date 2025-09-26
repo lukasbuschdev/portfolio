@@ -28,39 +28,41 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                   '3\tclear\n' +
                   '4\treboot\n' +
                   '5\texit\n' +
-                  '6\tcolor\n' +
-                  '7\tcolor reset\n' +
-                  '8\tpwd\n' +
-                  '9\tcd\n' +
-                  '10\tls\n' +
-                  '11\twhoami\n' +
-                  '12\twhois\n' +
-                  '13\tuname\n' +
-                  '14\tcat\n' +
-                  '15\tnano\n' +
-                  '16\ttouch\n' +
-                  '17\tmkdir\n' +
-                  '18\trmdir\n' +
-                  '19\trm\n' +
-                  '20\techo\n' +
-                  '21\tdate\n' +
-                  '22\tuptime\n' +
-                  '23\thistory\n' +
-                  '24\tipaddr\n' +
-                  '25\tcurl\n' +
-                  '26\tping\n' +
-                  '27\ttraceroute\n' +
-                  '28\tdig\n' +
-                  '29\tnslookup\n' +
-                  '30\tweather\n' +
-                  '31\tshorten\n' +
-                  '32\tqr\n' +
-                  '33\tstatus\n' +
-                  '34\topenssl\n' +
-                  '35\tgeoip\n' +
-                  '36\tasn\n' +
-                  '37\treverseip\n' +
-                  '38\tciphers\n'
+                  '6\t\battery\n' +
+                  '7\tcolor\n' +
+                  '8\tcolor reset\n' +
+                  '9\tpwd\n' +
+                  '10\tcd\n' +
+                  '11\tls\n' +
+                  '12\twhoami\n' +
+                  '13\twhois\n' +
+                  '14\tuname\n' +
+                  '15\tcat\n' +
+                  '16\tnano\n' +
+                  '17\ttouch\n' +
+                  '18\tmkdir\n' +
+                  '19\trmdir\n' +
+                  '20\trm\n' +
+                  '21\techo\n' +
+                  '22\tdate\n' +
+                  '23\tuptime\n' +
+                  '24\thistory\n' +
+                  '25\tipaddr\n' +
+                  '26\tcurl\n' +
+                  '27\tping\n' +
+                  '28\ttraceroute\n' +
+                  '29\tdig\n' +
+                  '30\tnslookup\n' +
+                  '31\tweather\n' +
+                  '32\tshorten\n' +
+                  '33\tqr\n' +
+                  '34\tstatus\n' +
+                  '35\topenssl\n' +
+                  '36\tgeoip\n' +
+                  '37\tasn\n' +
+                  '38\treverseip\n' +
+                  '39\tciphers\n' + 
+                  '40\ttlschain\n'
               },
             ],
           },

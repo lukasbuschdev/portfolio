@@ -32,6 +32,20 @@ export const EXPLAIN: Record<string, Explain> = {
     ]
   },
 
+  battery: {
+    name: 'battery',
+    synopsis: 'battery',
+    purpose: 'Show the device’s battery charge level and whether it is currently charging.',
+    examples: [
+      { cmd: 'battery', why: 'Check if your laptop is charging and how much battery is left.' }
+    ],
+    notes: [
+      'Not all browsers support the Battery Status API. Works best in Chrome/Edge.',
+      'Values are approximate and may not be available on all devices.'
+    ],
+    seeAlso: ['uptime', 'uname']
+  },
+
   clear: {
     name: 'clear',
     synopsis: 'clear',
@@ -415,5 +429,23 @@ export const EXPLAIN: Record<string, Explain> = {
     ],
     seeAlso: ['openssl', 'status'],
     explanation: 'When you visit a secure website (https://), your browser and the server agree on a “cipher suite” — a set of rules that decide how your data will be encrypted and exchanged. This includes the TLS version (e.g., TLS 1.3), the encryption algorithm (e.g., AES-GCM), and sometimes the key exchange curve (e.g., X25519). The `ciphers` command shows you exactly what your client and the server negotiated. Beginners can think of it as: “Check what kind of lock and key are being used to keep my connection to this website safe.”'
+  },
+
+  tlschain: {
+    name: "tlschain",
+    synopsis: "tlschain DOMAIN [--port N] [--json]",
+    purpose: "Retrieve and display the full TLS certificate chain presented by a server, including subject, issuer, validity period, and key details.",
+    examples: [
+      { cmd: "tlschain example.com", why: "See the full certificate chain a server presents to validate its identity." },
+      { cmd: "tlschain example.com --port 8443", why: "Check the TLS chain for a service running on a custom port." },
+      { cmd: "tlschain example.com --json", why: "Get the raw certificate details (subject, issuer, SANs, fingerprints, etc.) in JSON format for deep inspection." }
+    ],
+    notes: [
+      "This is a simulated command fetching real data — in a real Linux/Unix shell `tlschain` does not exist.",
+      "Equivalent real-world tools: `openssl s_client -connect example.com:443 -showcerts` or `nmap --script ssl-cert -p 443 example.com`.",
+      "Browsers and clients automatically validate these chains against trusted root CAs, but this command makes the full chain visible."
+    ],
+    seeAlso: ["ciphers", "whois", "sslcheck"],
+    explanation: "When your browser connects to a secure website, the server presents not just its own certificate but usually a chain of certificates leading up to a trusted root. This chain proves the site’s identity and lets your browser verify that it can trust the connection. The `tlschain` command shows you that chain: each certificate’s subject (the entity it belongs to), issuer (the authority that signed it), validity dates, and other details like Subject Alternative Names (SANs) or fingerprints. Beginners can think of it as: “Show me the full passport chain the server presents to prove it’s who it says it is.”"
   }
 };

@@ -481,4 +481,32 @@ export class LocalRequestsService {
 
     return allCommands;
   }
+
+  battery(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('battery'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+  
+    executedCommands.push({ command, path: currentPathString });
+    const commandIndex = executedCommands.length - 1;
+
+    if ('getBattery' in navigator) {
+      (navigator as any).getBattery().then((battery: any) => {
+        const output =
+          `Battery level:\t\t${Math.round(battery.level * 100)}%\n` +
+          `Charging:\t\t${battery.charging ? 'yes' : 'no'}\n`;
+
+        executedCommands[commandIndex].output = output;
+        scrollDown();
+      }).catch(() => {
+        executedCommands[commandIndex].output = 'Error retrieving battery info.';
+        scrollDown();
+      });
+    } else {
+      executedCommands[commandIndex].output = 'Battery API not supported in this browser.';
+      scrollDown();
+    }
+  }
 }

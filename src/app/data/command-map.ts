@@ -7,6 +7,7 @@ export const COMMAND_CONFIG: typeCommandMap = {
   reboot: 'reboot',
   color: 'color',
   exit: 'exit',
+  battery: 'battery',
   pwd: 'pwd',
   cd: 'cd',
   ls: 'ls',
@@ -37,5 +38,6 @@ export const COMMAND_CONFIG: typeCommandMap = {
   geoip: 'geoip',
   asn: 'asn',
   reverseip: 'reverseip',
-  ciphers: 'ciphers'
+  ciphers: 'ciphers',
+  tlschain: 'tlschain'
 };

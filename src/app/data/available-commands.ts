@@ -18,6 +18,10 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: 'Clears the terminal screen and scrollback buffer.',
   },
   {
+    command: 'battery',
+    description: 'Displays current battery level and charging status (if supported by the browser).',
+  },
+  {
     command: 'reboot',
     description: 'Reboots the terminal by reloading the page.',
   },
@@ -152,5 +156,9 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'ciphers DOMAIN [--port N] [--json]',
     description: 'Show negotiated TLS protocol and cipher (and key exchange curve if available).'
+  },
+  {
+    command: 'tlschain DOMAIN [--port N] [--json]',
+    description: 'Show the full presented TLS certificate chain (leaf → intermediates → root) and validity.'
   }
 ];
