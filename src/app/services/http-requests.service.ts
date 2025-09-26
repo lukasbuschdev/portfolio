@@ -273,28 +273,41 @@ export class HttpRequestsService {
       return;
     }
 
-    const tokens = command.trim().split(' ');
-    let fetchUrl = '';
-    if(!this.checkCurlInput(command, tokens, executedCommands, currentPathString, scrollDown)) return;
-    
+    const tokens = command.trim().split(/\s+/);
+    const wantsHeaders = this.hasHeadersFlag(tokens);
+    const target = this.firstNonFlagArg(tokens);
+
+    if (!target) {
+      executedCommands.push({ command, output: 'curl: usage error: Destination address required\nTip: try "curl -I <url>" to fetch only headers', path: currentPathString });
+      scrollDown();
+      return;
+    }
+
     executedCommands.push({ command, output: '', path: currentPathString });
     const curlIndex = executedCommands.length - 1;
     this.isFetching = true;
 
-    let rawUrl = tokens[1].startsWith('http://') || tokens[1].startsWith('https://') ? tokens[1] : 'https://' + tokens[1];
+    const rawUrl = (target.startsWith('http://') || target.startsWith('https://')) ? target : 'https://' + target;
+    const proxyBase = 'https://proxy.lukasbusch.dev';
+    const proxyUrl = `${proxyBase}/proxy?ngsw-bypass=true&url=`;
+    const headersUrl = `${proxyBase}/headers?ngsw-bypass=true&url=`;
 
-    const proxyUrl = 'https://proxy.lukasbusch.dev/proxy?url=';
-    
-    if(tokens[1] === 'matrix') {
+    let fetchUrl = '';
+
+    if (target === 'matrix') {
       fetchUrl = 'https://lukasbusch.dev/matrix.txt?ngsw-bypass=true';
-    } else if(tokens[1] === '86.173.192.12:80') {
+    } else if (target === '86.173.192.12:80') {
       fetchUrl = 'https://lukasbusch.dev/congrats.txt?ngsw-bypass=true';
     } else {
-      fetchUrl = proxyUrl + encodeURIComponent(rawUrl);
+      fetchUrl = (wantsHeaders ? (headersUrl + encodeURIComponent(rawUrl)) : (proxyUrl + encodeURIComponent(rawUrl)));
     }
-    
-    this.httpRequestCurl(executedCommands, scrollDown, fetchUrl, curlIndex);
-    if(tokens[1] === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement, scrollDown);
+
+    if (wantsHeaders) {
+      this.httpRequestCurlHeaders(executedCommands, scrollDown, rawUrl, fetchUrl, curlIndex);
+    } else {
+      this.httpRequestCurl(executedCommands, scrollDown, rawUrl, fetchUrl, curlIndex);
+      if (target === 'matrix') this.localRequests.color(command, executedCommands, currentPathString, hostElement, scrollDown);
+    }
   }
 
   checkCurlInput(command: string, tokens: string[], executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): boolean {
@@ -307,20 +320,55 @@ export class HttpRequestsService {
     return true;
   }
 
-  httpRequestCurl(executedCommands: typeCommand[], scrollDown: () => void, fetchUrl: string, curlIndex: number): void {
+  hasHeadersFlag(tokens: string[]): boolean {
+    return tokens.includes('-I');
+  }
+  
+  firstNonFlagArg(tokens: string[]): string | null {
+    for (const t of tokens.slice(1)) {
+      if (!t.startsWith('-')) return t;
+    }
+    return null;
+  }
+
+  httpRequestCurl(executedCommands: typeCommand[], scrollDown: () => void, rawUrl: string, fetchUrl: string, curlIndex: number): void {
     this.http.get(fetchUrl, { responseType: 'text' }).subscribe(
       response => {
         executedCommands[curlIndex].output += response;
         this.isFetching = false;
         scrollDown();
       },
-      error => {
-        executedCommands[curlIndex].output += `Error: ${error.message}`;
+      (error) => {
+        executedCommands[curlIndex].output += this.formatCurlError(error, rawUrl);
         this.isFetching = false;
         scrollDown();
       }
     );
   }
+
+  httpRequestCurlHeaders(executedCommands: typeCommand[], scrollDown: () => void, rawUrl: string, fetchUrl: string, curlIndex: number): void {
+    this.http.get(fetchUrl, { responseType: 'text' }).subscribe(
+      (text) => {
+        executedCommands[curlIndex].output = text;
+        this.isFetching = false;
+        scrollDown();
+      },
+      (error) => {
+        executedCommands[curlIndex].output += this.formatCurlError(error, rawUrl);
+        this.isFetching = false;
+        scrollDown();
+      }
+    );
+  }
+
+  formatCurlError(err: any, url: string): string {
+    if (err.status === 429) {
+      return `curl: upstream returned 429 (Too Many Requests) for ${url}\n\n` +
+             `Tip: try "curl -I ${url}" to fetch only headers (lighter, less likely to be blocked).`;
+    }
+    return `Error: ${err.message || 'unknown error'} (status ${err.status || 'n/a'})`;
+  }
+
 
 
   // WEATHER
@@ -1077,5 +1125,101 @@ export class HttpRequestsService {
     }
 
     return JSON.stringify(body, null, 2) + '\n';
+  }
+
+
+  // CIPHERS
+
+  ciphers(command: string, executedCommands: typeCommand[], currentPathString: string,scrollDown: () => void): void {
+    if (this.utils.hasExplainFlag(command)) {
+      executedCommands.push({ command, output: this.utils.renderExplain('ciphers'), path: currentPathString });
+      scrollDown();
+      return;
+    }
+    
+    const tokens = command.trim().split(/\s+/);
+    if (!this.checkCiphersInput(command, executedCommands, currentPathString, scrollDown, tokens)) return;
+
+    const { domain, json, port } = this.parseCiphersArgs(tokens);
+
+    executedCommands.push({ command, output: `TLS cipher/protocol for ${domain}${port !== 443 ? ':' + port : ''}...\n\n`, path: currentPathString });
+    const traceIndex = executedCommands.length - 1;
+    this.isFetching = true;
+
+    const url = this.buildCiphersUrl(domain, port, json);
+
+    this.http.get<any>(url).subscribe({
+      next: (body) => {
+        const out = json ? (JSON.stringify(body, null, 2) + '\n')
+                         : this.formatCiphers(body);
+        executedCommands[traceIndex].output += out;
+        this.isFetching = false;
+        scrollDown();
+      },
+      error: (err) => {
+        executedCommands[traceIndex].output += `Error (ciphers): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        this.isFetching = false;
+        scrollDown();
+      }
+    });
+  }
+
+  private checkCiphersInput(command: string,executedCommands: typeCommand[],currentPathString: string,scrollDown: () => void,tokens: string[]): boolean {
+    if (tokens.length < 2) {
+      executedCommands.push({ command, output: 'ciphers: usage error: Domain required', path: currentPathString });
+      scrollDown();
+      return false;
+    }
+    const d = tokens.slice(1).find(t => !t.startsWith('--') && !/^\d+$/.test(t));
+    if (!d) {
+      executedCommands.push({ command, output: 'ciphers: usage error: Domain required', path: currentPathString });
+      scrollDown();
+      return false;
+    }
+    return true;
+  }
+
+  private parseCiphersArgs(tokens: string[]): { domain: string; json: boolean; port: number } {
+    const json = tokens.includes('--json');
+    // Allow optional --port N
+    const portFlagIdx = tokens.findIndex(t => t === '--port');
+    let port = 443;
+    if (portFlagIdx >= 0 && tokens[portFlagIdx + 1] && /^\d+$/.test(tokens[portFlagIdx + 1])) {
+      port = parseInt(tokens[portFlagIdx + 1], 10);
+    }
+    // first non-flag token after command that isn't a number
+    const domain = tokens.slice(1).find(t => !t.startsWith('--') && !/^\d+$/.test(t)) || '';
+    return { domain, json, port };
+  }
+
+  private buildCiphersUrl(domain: string, port: number, json: boolean): string {
+    const base = `https://proxy.lukasbusch.dev/ciphers?domain=${encodeURIComponent(domain)}&port=${port}`;
+    return json ? `${base}&raw=1` : base;
+  }
+
+  private formatCiphers(body: any): string {
+    const proto = body?.protocol || '—';
+    const cipher = body?.cipher || '—';
+    const std = body?.standardName ? ` (${body.standardName})` : '';
+    const kxType = body?.ephemeralKey?.type || null;  // e.g., 'ECDH'
+    const curve  = body?.ephemeralKey?.name || null;  // e.g., 'X25519'
+    const bits   = body?.ephemeralKey?.size || null;  // e.g., 253
+    const alpn   = body?.alpn || null;
+
+    const parts: string[] = [];
+    parts.push(`${proto}`);
+    if (curve) {
+      // Example: TLSv1.3 with X25519 and TLS_AES_128_GCM_SHA256
+      parts.push(`with ${curve}`);
+    } else if (kxType) {
+      parts.push(`with ${kxType}`);
+    }
+    parts.push(`and ${cipher}${std}`);
+
+    const line1 = parts.filter(Boolean).join(' ');
+    const line2 = alpn ? `ALPN: ${alpn}` : '';
+
+    const out = [line1, line2].filter(Boolean).join('\n');
+    return out + '\n';
   }
 }

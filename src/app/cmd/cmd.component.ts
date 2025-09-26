@@ -437,4 +437,8 @@ export class CmdComponent {
   reverseip(command: string): void {
     this.httpRequests.reverseip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
+
+  ciphers(command: string): void {
+    this.httpRequests.ciphers(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  }
 }

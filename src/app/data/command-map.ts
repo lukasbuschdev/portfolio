@@ -36,5 +36,6 @@ export const COMMAND_CONFIG: typeCommandMap = {
   ssl: 'ssl',
   geoip: 'geoip',
   asn: 'asn',
-  reverseip: 'reverseip'
+  reverseip: 'reverseip',
+  ciphers: 'ciphers'
 };

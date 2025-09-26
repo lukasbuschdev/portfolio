@@ -59,7 +59,8 @@ export const AVAILABLE_DIRECTORIES: typeDirectory[] = [
                   '34\tssl\n' +
                   '35\tgeoip\n' +
                   '36\tasn\n' +
-                  '37\treverseip\n'
+                  '37\treverseip\n' +
+                  '38\tciphers\n'
               },
             ],
           },

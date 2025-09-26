@@ -98,7 +98,7 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: 'Displays your current public IP address as reported by an external service.',
   },
   {
-    command: 'curl URL',
+    command: 'curl URL [-I]',
     description: 'Fetches data from a specified URL or IP address using the HTTP/HTTPS protocol.',
   },
   {
@@ -148,5 +148,9 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'reverseip IP | DOMAIN [--all] [--json]',
     description: 'Reverse DNS (PTR). Use --all to query PTR for all resolved A/AAAA; --json dumps raw.'
+  },
+  {
+    command: 'ciphers DOMAIN [--port N] [--json]',
+    description: 'Show negotiated TLS protocol and cipher (and key exchange curve if available).'
   }
 ];

@@ -265,6 +265,18 @@ export const EXPLAIN: Record<string, Explain> = {
     seeAlso: ['shorten']
   },
 
+  shorten: {
+    name: 'shorten',
+    synopsis: 'shorten URL',
+    purpose: 'Generate a shortened link for a long URL.',
+    examples: [
+      { cmd: 'shorten https://example.com/very/long/path', why: 'Turn a long, hard-to-type URL into a short link you can easily share.' },
+      { cmd: 'shorten https://lukasbusch.dev/projects', why: 'Get a compact link for portfolio sharing.' }
+    ],
+    seeAlso: ['qr', 'curl'],
+    explaination: 'Sometimes links are extremely long and messy, which makes them hard to share in emails, chats, or on paper. The `shorten` command uses a URL shortener service to produce a much shorter link that points to the same destination. Beginners can think of it as: “Give me a nickname for this long web address so it’s easier to pass around.”'
+  },
+
   ipaddr: {
     name: 'ipaddr',
     synopsis: 'ipaddr',
@@ -278,14 +290,18 @@ export const EXPLAIN: Record<string, Explain> = {
 
   curl: {
     name: 'curl',
-    synopsis: 'curl URL',
+    synopsis: 'curl URL [-I]',
     purpose: 'Fetch the content of a URL via HTTP/HTTPS.',
     examples: [
-      { cmd: 'curl https://example.com', why: 'Print HTML of a page.' }
+      { cmd: 'curl https://example.com', why: 'Fetch the full response body (HTML, JSON, or other content).' },
+      { cmd: 'curl -I https://example.com', why: 'Fetch only HTTP response headers (metadata about the resource).' },
     ],
-    notes: ['Browser CORS is handled via a custom Node proxy.'],
+    notes: [
+      'Use -I (uppercase i) to request just the headers, which is faster and avoids downloading the body.',
+      'Browser CORS is handled via a custom Node proxy.'
+    ],
     seeAlso: ['status', 'ssl'],
-    explaination: '`curl` is like opening a website without a browser. Instead of showing you pictures or styles, it just prints the raw text or code that the server sends. Beginners can think of it as: “Show me what this website really sends under the hood.”'
+    explaination: '`curl` is like opening a website without a browser. Instead of showing pictures or styles, it just prints the raw text/code that the server sends. Beginners can think of it as: “Show me what this website really sends under the hood.”\n\nThe `-I` flag is special: it asks the server to send back *only the headers*, which are short lines of information that describe the content (e.g., type, size, server software, or redirects). This is useful when you want to inspect how a site responds without downloading the full page.'
   },
 
   ping: {
@@ -351,7 +367,7 @@ export const EXPLAIN: Record<string, Explain> = {
     examples: [
       { cmd: 'ssl example.com', why: 'See certificate details at a glance.' }
     ],
-    seeAlso: ['whois', 'status'],
+    seeAlso: ['whois', 'status', 'ciphers'],
     explaination: 'Websites use SSL/TLS (Secure Sockets Layer / Transport Layer Security) certificates to prove they are secure and to enable the lock icon in browsers. The `ssl` command shows who issued the certificate and when it expires. Beginners can think of it as: “Check if this website’s ID card is still valid.”'
   },
 
@@ -386,5 +402,18 @@ export const EXPLAIN: Record<string, Explain> = {
     ],
     seeAlso: ['whois', 'asn'],
     explaination: 'Sometimes many websites share the same IP address. `reverseip` tries to list them. Beginners can think of it as: “Show me who else lives in the same apartment building (IP address) as this website.”'
+  },
+
+  ciphers: {
+    name: 'ciphers',
+    synopsis: 'ciphers DOMAIN [--port N] [--json]',
+    purpose: 'Show the negotiated TLS protocol and cipher suite for a server (and key exchange curve if available).',
+    examples: [
+      { cmd: 'ciphers example.com', why: 'Check what TLS protocol and cipher suite the server uses by default.' },
+      { cmd: 'ciphers example.com --port 8443', why: 'Test a server running HTTPS on a non-standard port.' },
+      { cmd: 'ciphers example.com --json', why: 'See the raw TLS handshake details in JSON format for advanced inspection.' }
+    ],
+    seeAlso: ['ssl', 'status'],
+    explaination: 'When you visit a secure website (https://), your browser and the server agree on a “cipher suite” — a set of rules that decide how your data will be encrypted and exchanged. This includes the TLS version (e.g., TLS 1.3), the encryption algorithm (e.g., AES-GCM), and sometimes the key exchange curve (e.g., X25519). The `ciphers` command shows you exactly what your client and the server negotiated. Beginners can think of it as: “Check what kind of lock and key are being used to keep my connection to this website safe.”'
   }
 };
