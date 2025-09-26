@@ -129,7 +129,7 @@ export class UtilsService {
       ``,
       `Examples:\n${ex}`,
       notes ? `\nNotes:\n${notes}` : '',
-      e.explaination ? `\nBeginner explanation:\n${e.explaination}` : '',
+      e.explanation ? `\nBeginner explanation:\n${e.explanation}` : '',
       see
     ].join('\n');
   }

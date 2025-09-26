@@ -118,8 +118,8 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'whois example.com --json', why: 'Show raw RDAP JSON.' },
     ],
     notes: ['Some records may be redacted for privacy.'],
-    seeAlso: ['geoip', 'asn', 'reverseip', 'ssl'],
-    explaination: 'WHOIS is like a phonebook for the internet. It tells you who registered a domain name or IP address, when it was created, when it expires, and sometimes contact info. Beginners can think of it as asking: “Who owns this website or server?”'
+    seeAlso: ['geoip', 'asn', 'reverseip', 'openssl'],
+    explanation: 'WHOIS is like a phonebook for the internet. It tells you who registered a domain name or IP address, when it was created, when it expires, and sometimes contact info. Beginners can think of it as asking: “Who owns this website or server?”'
   },
 
   uname: {
@@ -274,7 +274,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'shorten https://lukasbusch.dev/projects', why: 'Get a compact link for portfolio sharing.' }
     ],
     seeAlso: ['qr', 'curl'],
-    explaination: 'Sometimes links are extremely long and messy, which makes them hard to share in emails, chats, or on paper. The `shorten` command uses a URL shortener service to produce a much shorter link that points to the same destination. Beginners can think of it as: “Give me a nickname for this long web address so it’s easier to pass around.”'
+    explanation: 'Sometimes links are extremely long and messy, which makes them hard to share in emails, chats, or on paper. The `shorten` command uses a URL shortener service to produce a much shorter link that points to the same destination. Beginners can think of it as: “Give me a nickname for this long web address so it’s easier to pass around.”'
   },
 
   ipaddr: {
@@ -285,7 +285,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'ipaddr', why: 'Discover your public-facing IP address.' }
     ],
     seeAlso: ['geoip'],
-    explaination: 'Every device on the internet has an IP address, like a street address for your computer. The `ipaddr` command shows what address the outside world sees you as. Beginners can think of it as: “What is my online address right now?”'
+    explanation: 'Every device on the internet has an IP address, like a street address for your computer. The `ipaddr` command shows what address the outside world sees you as. Beginners can think of it as: “What is my online address right now?”'
   },
 
   curl: {
@@ -300,8 +300,8 @@ export const EXPLAIN: Record<string, Explain> = {
       'Use -I (uppercase i) to request just the headers, which is faster and avoids downloading the body.',
       'Browser CORS is handled via a custom Node proxy.'
     ],
-    seeAlso: ['status', 'ssl'],
-    explaination: '`curl` is like opening a website without a browser. Instead of showing pictures or styles, it just prints the raw text/code that the server sends. Beginners can think of it as: “Show me what this website really sends under the hood.”\n\nThe `-I` flag is special: it asks the server to send back *only the headers*, which are short lines of information that describe the content (e.g., type, size, server software, or redirects). This is useful when you want to inspect how a site responds without downloading the full page.'
+    seeAlso: ['status', 'openssl'],
+    explanation: '`curl` is like opening a website without a browser. Instead of showing pictures or styles, it just prints the raw text/code that the server sends. Beginners can think of it as: “Show me what this website really sends under the hood.”\n\nThe `-I` flag is special: it asks the server to send back *only the headers*, which are short lines of information that describe the content (e.g., type, size, server software, or redirects). This is useful when you want to inspect how a site responds without downloading the full page.'
   },
 
   ping: {
@@ -313,7 +313,7 @@ export const EXPLAIN: Record<string, Explain> = {
     ],
     notes: ['ICMP is blocked in browsers; this uses HTTP HEAD via your backend.'],
     seeAlso: ['traceroute', 'status'],
-    explaination: 'Ping sends a tiny “hello” packet to another computer and waits for a reply, telling you if it is online and how long the round trip takes. Beginners can think of it as: “Knock on the server’s door and see if it answers.”'
+    explanation: 'Ping sends a tiny “hello” packet to another computer and waits for a reply, telling you if it is online and how long the round trip takes. Beginners can think of it as: “Knock on the server’s door and see if it answers.”'
   },
 
   traceroute: {
@@ -324,7 +324,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'traceroute example.com', why: 'Identify where latency increases along the route.' }
     ],
     seeAlso: ['ping', 'dig', 'nslookup'],
-    explaination: 'Traceroute shows every step your data takes across the internet to reach a destination. Each “hop” is a router or server along the way. Beginners can think of it as: “Show me the path my message travels to get to the website.”'
+    explanation: 'Traceroute shows every step your data takes across the internet to reach a destination. Each “hop” is a router or server along the way. Beginners can think of it as: “Show me the path my message travels to get to the website.”'
   },
 
   dig: {
@@ -335,7 +335,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'dig example.com', why: 'Resolve IPv4 addresses with detailed output.' }
     ],
     seeAlso: ['nslookup', 'whois'],
-    explaination: 'DIG asks the Domain Name System (DNS) what IP address belongs to a domain name. Beginners can think of DNS as the phonebook of the internet: “What number (IP) should I call when I type in this name (domain)?”'
+    explanation: 'DIG asks the Domain Name System (DNS) what IP address belongs to a domain name. Beginners can think of DNS as the phonebook of the internet: “What number (IP) should I call when I type in this name (domain)?”'
   },
 
   nslookup: {
@@ -346,7 +346,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'nslookup example.com', why: 'Get A/AAAA answers combined.' }
     ],
     seeAlso: ['dig', 'whois'],
-    explaination: '`nslookup` is another way to ask DNS servers what IP address belongs to a website. Beginners can think of it as: “Look up the phone number for this web address.”'
+    explanation: '`nslookup` is another way to ask DNS servers what IP address belongs to a website. Beginners can think of it as: “Look up the phone number for this web address.”'
   },
 
   status: {
@@ -357,18 +357,18 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'status https://example.com', why: 'Quick “is it up?” check without fetching the body.' }
     ],
     seeAlso: ['curl', 'ping'],
-    explaination: 'When you visit a website, the server first replies with a status code, like 200 (OK) or 404 (Not Found). The `status` command shows just that code. Beginners can think of it as: “Ask the website if it’s alive and what condition it’s in.”'
+    explanation: 'When you visit a website, the server first replies with a status code, like 200 (OK) or 404 (Not Found). The `status` command shows just that code. Beginners can think of it as: “Ask the website if it’s alive and what condition it’s in.”'
   },
 
-  ssl: {
-    name: 'ssl',
-    synopsis: 'ssl DOMAIN [--json]',
+  openssl: {
+    name: 'openssl',
+    synopsis: 'openssl DOMAIN [--json]',
     purpose: 'Inspect a site’s TLS certificate (issuer, subject, expiry).',
     examples: [
-      { cmd: 'ssl example.com', why: 'See certificate details at a glance.' }
+      { cmd: 'openssl example.com', why: 'See certificate details at a glance.' }
     ],
     seeAlso: ['whois', 'status', 'ciphers'],
-    explaination: 'Websites use SSL/TLS (Secure Sockets Layer / Transport Layer Security) certificates to prove they are secure and to enable the lock icon in browsers. The `ssl` command shows who issued the certificate and when it expires. Beginners can think of it as: “Check if this website’s ID card is still valid.”'
+    explanation: 'Websites use SSL/TLS (Secure Sockets Layer / Transport Layer Security) certificates to prove they are secure and to enable the lock icon in browsers. The `openssl` command shows who issued the certificate and when it expires. Beginners can think of it as: “Check if this website’s ID card is still valid.”'
   },
 
   geoip: {
@@ -379,7 +379,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'geoip example.com', why: 'Approximate where the server is located.' }
     ],
     seeAlso: ['asn', 'whois'],
-    explaination: 'GeoIP uses public records to guess the physical location of an IP address, like what country or city the server is in. Beginners can think of it as: “Where in the world is this website’s computer?”'
+    explanation: 'GeoIP uses public records to guess the physical location of an IP address, like what country or city the server is in. Beginners can think of it as: “Where in the world is this website’s computer?”'
   },
 
   asn: {
@@ -390,7 +390,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'asn 1.1.1.1', why: 'See Cloudflare’s ASN (AS13335).' }
     ],
     seeAlso: ['geoip', 'whois'],
-    explaination: 'Every block of IP addresses belongs to a bigger network called an Autonomous System, usually run by an ISP or company. The `asn` command tells you which organization owns that network. Beginners can think of it as: “Who runs the neighborhood this IP lives in?”'
+    explanation: 'Every block of IP addresses belongs to a bigger network called an Autonomous System, usually run by an ISP or company. The `asn` command tells you which organization owns that network. Beginners can think of it as: “Who runs the neighborhood this IP lives in?”'
   },
 
   reverseip: {
@@ -401,7 +401,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'reverseip example.com', why: 'List other domains on the same IP (if available).' }
     ],
     seeAlso: ['whois', 'asn'],
-    explaination: 'Sometimes many websites share the same IP address. `reverseip` tries to list them. Beginners can think of it as: “Show me who else lives in the same apartment building (IP address) as this website.”'
+    explanation: 'Sometimes many websites share the same IP address. `reverseip` tries to list them. Beginners can think of it as: “Show me who else lives in the same apartment building (IP address) as this website.”'
   },
 
   ciphers: {
@@ -413,7 +413,7 @@ export const EXPLAIN: Record<string, Explain> = {
       { cmd: 'ciphers example.com --port 8443', why: 'Test a server running HTTPS on a non-standard port.' },
       { cmd: 'ciphers example.com --json', why: 'See the raw TLS handshake details in JSON format for advanced inspection.' }
     ],
-    seeAlso: ['ssl', 'status'],
-    explaination: 'When you visit a secure website (https://), your browser and the server agree on a “cipher suite” — a set of rules that decide how your data will be encrypted and exchanged. This includes the TLS version (e.g., TLS 1.3), the encryption algorithm (e.g., AES-GCM), and sometimes the key exchange curve (e.g., X25519). The `ciphers` command shows you exactly what your client and the server negotiated. Beginners can think of it as: “Check what kind of lock and key are being used to keep my connection to this website safe.”'
+    seeAlso: ['openssl', 'status'],
+    explanation: 'When you visit a secure website (https://), your browser and the server agree on a “cipher suite” — a set of rules that decide how your data will be encrypted and exchanged. This includes the TLS version (e.g., TLS 1.3), the encryption algorithm (e.g., AES-GCM), and sometimes the key exchange curve (e.g., X25519). The `ciphers` command shows you exactly what your client and the server negotiated. Beginners can think of it as: “Check what kind of lock and key are being used to keep my connection to this website safe.”'
   }
 };

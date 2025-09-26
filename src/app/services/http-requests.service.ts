@@ -795,11 +795,11 @@ export class HttpRequestsService {
   }
 
 
-  // SSL CERT
+  // openssl CERT
 
-  ssl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+  openssl(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
     if (this.utils.hasExplainFlag(command)) {
-      executedCommands.push({ command, output: this.utils.renderExplain('ssl'), path: currentPathString });
+      executedCommands.push({ command, output: this.utils.renderExplain('openssl'), path: currentPathString });
       scrollDown();
       return;
     }
@@ -823,7 +823,7 @@ export class HttpRequestsService {
         scrollDown();
       },
       error: (err) => {
-        executedCommands[traceIndex].output += `Error (ssl): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
+        executedCommands[traceIndex].output += `Error (openssl): ${err?.error?.error || err?.message || 'Unknown error'}\n`;
         this.isFetching = false;
         scrollDown();
       }
@@ -832,13 +832,13 @@ export class HttpRequestsService {
 
   private checkSslInput(command: string, executedCommands: typeCommand[], currentPathString: string,scrollDown: () => void,tokens: string[]): boolean {
     if (tokens.length < 2) {
-      executedCommands.push({ command, output: 'ssl: usage error: Domain required', path: currentPathString });
+      executedCommands.push({ command, output: 'openssl: usage error: Domain required', path: currentPathString });
       scrollDown();
       return false;
     }
     const d = tokens.slice(1).find(t => !t.startsWith('--'));
     if (!d) {
-      executedCommands.push({ command, output: 'ssl: usage error: Domain required', path: currentPathString });
+      executedCommands.push({ command, output: 'openssl: usage error: Domain required', path: currentPathString });
       scrollDown();
       return false;
     }

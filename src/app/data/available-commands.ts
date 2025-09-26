@@ -134,7 +134,7 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
     description: 'Fetches the HTTP status code and status text for the given HOST.',
   },
   {
-    command: 'ssl DOMAIN [--json]',
+    command: 'openssl DOMAIN [--json]',
     description: 'Show TLS certificate info for a domain. Use --json for full chain / PEMs.'
   },
   {

@@ -53,5 +53,5 @@ export type Explain = {
   examples: { cmd: string; why: string; }[];
   notes?: string[];
   seeAlso?: string[];
-  explaination?: string;
+  explanation?: string;
 };
