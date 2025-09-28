@@ -6,9 +6,7 @@ export const EXPLAIN: Record<string, Explain> = {
     synopsis: 'help [COMMAND]',
     purpose: 'Show all available commands, or details for a specific command.',
     examples: [
-      { cmd: 'help', why: 'List every command with a short description.' },
-      { cmd: 'help ping', why: 'See a beginner-friendly explanation of “ping”.' },
-      { cmd: 'ping example.com --explain', why: 'Alternative to “help ping”; shows the same info.' },
+      { cmd: 'help', why: 'List every command with a short description.' }
     ],
     seeAlso: ['history', 'man']
   },

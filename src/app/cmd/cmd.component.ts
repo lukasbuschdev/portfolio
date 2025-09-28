@@ -11,6 +11,45 @@ import { UtilsService } from '../services/utils.service';
 import { HttpRequestsService } from '../services/http-requests.service';
 import { LocalRequestsService } from '../services/local-requests.service';
 import { AutoGrowDirective } from '../directives/auto-grow.directive';
+import { PingService } from '../services/http-commands/ping.service';
+import { DigService } from '../services/http-commands/dig.service';
+import { NslookupService } from '../services/http-commands/nslookup.service';
+import { IpaddrService } from '../services/http-commands/ipaddr.service';
+import { CurlService } from '../services/http-commands/curl.service';
+import { WeatherService } from '../services/http-commands/weather.service';
+import { TracerouteService } from '../services/http-commands/traceroute.service';
+import { ShortenService } from '../services/http-commands/shorten.service';
+import { QrService } from '../services/http-commands/qr.service';
+import { StatusService } from '../services/http-commands/status.service';
+import { WhoisService } from '../services/http-commands/whois.service';
+import { OpensslService } from '../services/http-commands/openssl.service';
+import { GeoipService } from '../services/http-commands/geoip.service';
+import { AsnService } from '../services/http-commands/asn.service';
+import { ReverseipService } from '../services/http-commands/reverseip.service';
+import { CiphersService } from '../services/http-commands/ciphers.service';
+import { TlschainService } from '../services/http-commands/tlschain.service';
+import { ClearService } from '../services/local-commands/clear.service';
+import { RebootService } from '../services/local-commands/reboot.service';
+import { ColorService } from '../services/local-commands/color.service';
+import { WhoamiService } from '../services/local-commands/whoami.service';
+import { UnameService } from '../services/local-commands/uname.service';
+import { UptimeService } from '../services/local-commands/uptime.service';
+import { DateService } from '../services/local-commands/date.service';
+import { EchoService } from '../services/local-commands/echo.service';
+import { HelpService } from '../services/local-commands/help.service';
+import { StoryService } from '../services/local-commands/story.service';
+import { CdService } from '../services/local-commands/cd.service';
+import { LsService } from '../services/local-commands/ls.service';
+import { CatService } from '../services/local-commands/cat.service';
+import { NanoService } from '../services/local-commands/nano.service';
+import { MkdirService } from '../services/local-commands/mkdir.service';
+import { RmdirService } from '../services/local-commands/rmdir.service';
+import { RmService } from '../services/local-commands/rm.service';
+import { TouchService } from '../services/local-commands/touch.service';
+import { SaveFileService } from '../services/local-commands/save-file.service';
+import { PwdService } from '../services/local-commands/pwd.service';
+import { HistoryService } from '../services/local-commands/history.service';
+import { BatteryService } from '../services/local-commands/battery.service';
 
 @Component({
   selector: 'app-cmd',
@@ -19,6 +58,56 @@ import { AutoGrowDirective } from '../directives/auto-grow.directive';
   styleUrl: './cmd.component.scss'
 })
 export class CmdComponent {
+    scroll = inject(ScrollService);
+  http = inject(HttpClient);
+  ngZone = inject(NgZone);
+  utils = inject(UtilsService);
+  httpRequests = inject(HttpRequestsService);
+  localRequests = inject(LocalRequestsService);
+
+  // LOCAL COMMANDS SERVICES
+  clearService = inject(ClearService);
+  rebootService = inject(RebootService);
+  colorService = inject(ColorService);
+  whoamiService = inject(WhoamiService);
+  unameService = inject(UnameService);
+  uptimeService = inject(UptimeService);
+  dateService = inject(DateService);
+  echoService = inject(EchoService);
+  helpService = inject(HelpService);
+  storyService = inject(StoryService);
+  cdService = inject(CdService);
+  lsService = inject(LsService);
+  catService = inject(CatService);
+  nanoService = inject(NanoService);
+  mkdirService = inject(MkdirService);
+  rmdirService = inject(RmdirService);
+  rmService = inject(RmService);
+  touchService = inject(TouchService);
+  saveFileService = inject(SaveFileService);
+  pwdService = inject(PwdService);
+  historyService = inject(HistoryService);
+  batteryService = inject(BatteryService);
+
+  // HTTP COMMANDS SERVICES
+  pingService = inject(PingService);
+  digService = inject(DigService);
+  nslookupService = inject(NslookupService);
+  ipaddrService = inject(IpaddrService);
+  curlService = inject(CurlService);
+  weatherService = inject(WeatherService);
+  tracerouteService = inject(TracerouteService);
+  shortenService = inject(ShortenService);
+  qrService = inject(QrService);
+  statusService = inject(StatusService);
+  whoisService = inject(WhoisService);
+  opensslService = inject(OpensslService);
+  geoipService = inject(GeoipService);
+  asnService = inject(AsnService);
+  reverseipService = inject(ReverseipService);
+  ciphersService = inject(CiphersService);
+  tslchainService = inject(TlschainService);
+
   @ViewChild(AutoGrowDirective) autoGrow!: AutoGrowDirective;
   @ViewChild('terminalContainer', { static: false }) terminalContainer!: ElementRef<HTMLElement>;
   @ViewChild('contentContainer', { static: false }) contentContainer!: ElementRef<HTMLElement>;
@@ -38,7 +127,6 @@ export class CmdComponent {
 
   availableCommands: typeCommandList[] = AVAILABLE_COMMANDS;
   avaiableDirectories: typeDirectory[] = AVAILABLE_DIRECTORIES;
-
   currentDirectoryPath: typeDirectory[] = [this.avaiableDirectories[0]];
 
   logs: typeLog[] = [];
@@ -65,14 +153,6 @@ export class CmdComponent {
 
     this.focusTextarea();
   }
-
-  scroll = inject(ScrollService);
-  http = inject(HttpClient);
-  ngZone = inject(NgZone);
-  utils = inject(UtilsService);
-  httpRequests = inject(HttpRequestsService);
-  localRequests = inject(LocalRequestsService);
-
 
   executeCommand(inputCommand: string): void {
     this.isCommandSent = true;
@@ -106,6 +186,12 @@ export class CmdComponent {
       const fn = this.commandMap[commandKey];
       
       if(fn) {
+        if (this.utils.hasExplainFlag(command)) {
+          const manToken = command.split(' ')[0];
+          this.executedCommands.push({ command, output: this.utils.renderExplain(manToken), path: this.currentPathString });
+          this.scrollDown();
+          return;
+        }
         fn(cmd)
       } else {
         this.executedCommands.push({ command, output: `${ command }: command not found\nType 'help' for more information`, path: this.currentPathString });
@@ -141,31 +227,25 @@ export class CmdComponent {
       if(this.localRequests.isEditing) return;
       event.preventDefault();
       this.selectCommandUp();
-    }
-    if(event.key === 'ArrowDown') {
+    } else if(event.key === 'ArrowDown') {
       if(this.localRequests.isEditing) return;
       event.preventDefault();
       this.selectCommandDown();
-    }
-    if(event.key === 'Enter') {
+    } else if(event.key === 'Enter') {
       if(this.localRequests.isEditing) return;
       event.preventDefault();
       if(this.httpRequests.isFetching) return;
       if(!command) return;
       this.executeCommand(command);
       this.focusTextarea();
-    }
-    if(event.ctrlKey && event.key.toLowerCase() === 'c') {
+    } else if(event.ctrlKey && event.key.toLowerCase() === 'c') {
       event.preventDefault();
       this.stopPing();
-    }
-    if(event.ctrlKey && event.key.toLowerCase() === 'o') {
+    } else if(event.ctrlKey && event.key.toLowerCase() === 'o') {
       this.saveAndExitNano(event);
-    }
-    if(event.ctrlKey && event.key.toLowerCase() === 'x') {
+    } else if(event.ctrlKey && event.key.toLowerCase() === 'x') {
       this.exitNano(event);
-    }
-    if(event.key === 'Tab') {
+    } else if(event.key === 'Tab') {
       event.preventDefault();
       this.showFilesAndDirectories();
     }
@@ -274,118 +354,118 @@ export class CmdComponent {
 
   // LOCAL REQUESTS
 
-  clear(command: string): void {
-    this.localRequests.clear(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  clear(): void {
+    this.clearService.clear(this.executedCommands);
   }
 
   reboot(command: string): void {
-    this.localRequests.reboot(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.rebootService.reboot(command, this.executedCommands, this.currentPathString);
   }
   
   color(command: string): void {
-    this.localRequests.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement, this.scrollDown.bind(this));
+    this.colorService.color(command, this.executedCommands, this.currentPathString, this.host.nativeElement, this.scrollDown.bind(this));
   }
 
   whoami(command: string): void {
-    this.localRequests.whoami(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.whoamiService.whoami(command, this.executedCommands, this.currentPathString);
   }
 
   uname(command: string): void {
-    this.localRequests.uname(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.unameService.uname(command, this.executedCommands, this.currentPathString);
   }
 
   uptime(command: string): void {
-    this.localRequests.uptime(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.uptimeService.uptime(command, this.executedCommands, this.currentPathString);
   }
 
   date(command: string): void {
-    this.localRequests.date(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.dateService.date(command, this.executedCommands, this.currentPathString);
   }
 
   echo(command: string): void {
-    this.localRequests.echo(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.echoService.echo(command, this.executedCommands, this.currentPathString);
   }
 
   help(command: string): void {
-    this.localRequests.help(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.helpService.help(command, this.executedCommands, this.currentPathString);
   }
 
   story(command: string): void {
-    this.localRequests.story(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.storyService.story(command, this.executedCommands, this.currentPathString);
   }
 
   cd(command: string): void {
-    this.localRequests.cd(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.currentDirectoryPath, this.scrollDown.bind(this));
+    this.cdService.cd(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.currentDirectoryPath, this.scrollDown.bind(this));
   }
 
   ls(command: string): void {
-    this.localRequests.ls(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.lsService.ls(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   cat(command: string): void {
-    this.localRequests.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.catService.cat(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
   }
 
   nano(command: string): void {
-    this.localRequests.nano(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.focusNanoInput.bind(this), this.scrollDown.bind(this));
+    this.nanoService.nano(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.focusNanoInput.bind(this));
   }
 
   mkdir(command: string): void {
-    this.localRequests.mkdir(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.mkdirService.mkdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   rmdir(command: string): void {
-    this.localRequests.rmdir(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.rmdirService.rmdir(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   rm(command: string): void {
-    this.localRequests.rm(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.rmService.rm(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   touch(command: string): void {
-    this.localRequests.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.touchService.touch(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   saveFile(command: string): void {
-    this.localRequests.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory, this.scrollDown.bind(this));
+    this.saveFileService.saveFile(command, this.executedCommands, this.currentPathString, this.currentDirectory);
   }
 
   pwd(command: string): void {
-    this.localRequests.pwd(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.pwdService.pwd(command, this.executedCommands, this.currentPathString);
   }
 
-  exit(command: string): void {
-    this.localRequests.exit(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+  exit(): void {
+    this.scroll.goToSection('main', 'landing-page');
   }
   
   history(command: string): void {
-    this.localRequests.history(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.historyService.history(command, this.executedCommands, this.currentPathString);
   }
 
   battery(command: string): void {
-    this.localRequests.battery(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.batteryService.battery(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
 
   // HTTP REQUESTS
 
   async ipaddr(command: string): Promise<void> {
-    return this.httpRequests.ipaddr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    return this.ipaddrService.ipaddr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   curl(command: string): void {
-    this.httpRequests.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this), this.host.nativeElement);
+    this.curlService.curl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this), this.host.nativeElement);
   }
 
   ping(command: string): void {
-    this.httpRequests.ping(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.pingService.ping(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
     this.scrollDown();
   }
 
   stopPing(): void {
-    if(this.httpRequests.currentPingInterval) {
-      clearInterval(this.httpRequests.currentPingInterval);
-      this.httpRequests.currentPingInterval = null;
+    if(this.pingService.currentPingInterval) {
+      clearInterval(this.pingService.currentPingInterval);
+      this.pingService.currentPingInterval = null;
       this.executedCommands.push({ command: '^C', path: this.currentPathString });
       this.httpRequests.isFetching = false;
       this.httpRequests.isPinging = false;
@@ -395,58 +475,58 @@ export class CmdComponent {
   }
 
   dig(command: string): void {
-    this.httpRequests.dig(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.digService.dig(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   nslookup(command: string): void {
-    this.httpRequests.nslookup(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.nslookupService.nslookup(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   traceroute(command: string): void {
-    this.httpRequests.traceroute(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.tracerouteService.traceroute(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   weather(command: string): void {
-    this.httpRequests.weather(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.weatherService.weather(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   shorten(command: string): void {
-    this.httpRequests.shorten(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.shortenService.shorten(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
   
   qr(command: string): void {
-    this.httpRequests.qr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.qrService.qr(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
   
   status(command: string): void {
-    this.httpRequests.status(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.statusService.status(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   whois(command: string): void {
-    this.httpRequests.whois(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.whoisService.whois(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   openssl(command: string): void {
-    this.httpRequests.openssl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.opensslService.openssl(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   geoip(command: string): void {
-    this.httpRequests.geoip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.geoipService.geoip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   asn(command: string): void {
-    this.httpRequests.asn(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.asnService.asn(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   reverseip(command: string): void {
-    this.httpRequests.reverseip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.reverseipService.reverseip(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   ciphers(command: string): void {
-    this.httpRequests.ciphers(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.ciphersService.ciphers(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 
   tlschain(command: string): void {
-    this.httpRequests.tlschain(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
+    this.tslchainService.tlschain(command, this.executedCommands, this.currentPathString, this.scrollDown.bind(this));
   }
 }
