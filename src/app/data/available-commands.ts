@@ -160,5 +160,9 @@ export const AVAILABLE_COMMANDS: typeCommandList[] = [
   {
     command: 'tlschain DOMAIN [--port N] [--json]',
     description: 'Show the full presented TLS certificate chain (leaf → intermediates → root) and validity.'
+  },
+  {
+    command: 'networkinfo',
+    description: 'Displays information about the current network connection, including estimated downlink speed (Mb/s), effective type (slow-2g/2g/3g/4g), round-trip time (ms), Save-Data preference, and connection type (e.g., wifi, cellular). Falls back with a message if the Network Information API is not supported by the browser.'
   }
 ];

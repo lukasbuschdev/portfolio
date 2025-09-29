@@ -8,7 +8,7 @@ import { typeCommand } from '../../types/types';
 export class BatteryService {
   utils = inject(UtilsService);
 
-  battery(command: string, executedCommands: typeCommand[], currentPathString: string, scrollDown: () => void): void {
+  battery(command: string, executedCommands: typeCommand[], currentPathString: string): void {
     executedCommands.push({ command, path: currentPathString });
     const commandIndex = executedCommands.length - 1;
 
@@ -19,14 +19,11 @@ export class BatteryService {
           `Charging:\t\t${battery.charging ? 'yes' : 'no'}\n`;
 
         executedCommands[commandIndex].output = output;
-        scrollDown();
       }).catch(() => {
         executedCommands[commandIndex].output = 'Error retrieving battery info.';
-        scrollDown();
       });
     } else {
       executedCommands[commandIndex].output = 'Battery API not supported in this browser.';
-      scrollDown();
     }
   }
 }

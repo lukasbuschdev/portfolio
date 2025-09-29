@@ -445,5 +445,20 @@ export const EXPLAIN: Record<string, Explain> = {
     ],
     seeAlso: ["ciphers", "whois", "sslcheck"],
     explanation: "When your browser connects to a secure website, the server presents not just its own certificate but usually a chain of certificates leading up to a trusted root. This chain proves the site’s identity and lets your browser verify that it can trust the connection. The `tlschain` command shows you that chain: each certificate’s subject (the entity it belongs to), issuer (the authority that signed it), validity dates, and other details like Subject Alternative Names (SANs) or fingerprints. Beginners can think of it as: “Show me the full passport chain the server presents to prove it’s who it says it is.”"
+  },
+
+  networkinfo: {
+    name: 'networkinfo',
+    synopsis: 'networkinfo',
+    purpose: 'Display details about the current network connection as estimated by the browser.',
+    examples: [
+      { cmd: 'networkinfo', why: 'Check your effective connection type, estimated downlink, and RTT.' }
+    ],
+    notes: [
+      'Reports: Downlink (Mb/s), Effective type (slow-2g/2g/3g/4g), RTT (ms), Save-Data (on/off), and Type (wifi, cellular, etc.).',
+      'Values are approximations provided by the Network Information API and may vary or be unavailable depending on browser/device.',
+      'Not all browsers support this API; on unsupported browsers, a message will be shown.',
+      'Equivalent real CLI: none. This is a browser-only API without a direct Linux/Unix command counterpart.'
+    ]
   }
 };
