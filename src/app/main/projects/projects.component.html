@@ -7,7 +7,7 @@
         @for (project of getProjects(); track $index) {
             <div class="card column gap-20" (click)="openLink(project.link)">
                 <div class="image-container">
-                    <img [src]="project.img">
+                    <img [src]="project.img" alt="project image">
                 </div>
                 <div class="info-container column center gap-20">
                     <h3>{{ project.name }}</h3>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="arrow-container">
-        <img (click)="scroll.goToSection('main', 'contact')" src="img/arrow-single.svg">
+        <img (click)="scroll.goToSection('main', 'contact')" src="img/arrow-single.svg" alt="next section">
     </div>
 </div>
 

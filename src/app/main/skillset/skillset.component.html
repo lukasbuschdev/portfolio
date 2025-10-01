@@ -6,13 +6,13 @@
     <div class="content-container center row gap-40">
         @for (skill of skillset; track $index) {
             <div class="skill column gap-10 center">
-                <img [src]="skill.img">
+                <img [src]="skill.img" [alt]="skill.name || 'skill'">
                 <span>{{ skill.name }}</span>
             </div>
         }
     </div>
 
     <div class="arrow-container">
-        <img (click)="scroll.goToSection('main', 'projects')" src="img/arrow-single.svg">
+        <img (click)="scroll.goToSection('main', 'projects')" src="img/arrow-single.svg" alt="next section">
     </div>
 </div>

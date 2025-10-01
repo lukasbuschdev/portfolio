@@ -1,7 +1,7 @@
 <header class="center">
     <div class="content-container row between align-center">
         <div class="logo">
-            <img (click)="scroll.goToSection('main', 'landing-page')" src="img/logo.svg">
+            <img (click)="scroll.goToSection('main', 'landing-page')" src="img/logo.svg" alt="logo">
         </div>
 
         <div class="row gap-40 section-language-container">
@@ -9,7 +9,7 @@
                 <span (click)="scroll.goToSection('main', 'profile')">{{ 'profile' | translate }}</span>
                 <span (click)="scroll.goToSection('main', 'skillset')">{{ 'skillset' | translate}}</span>
                 <span (click)="scroll.goToSection('main', 'projects')">{{ 'projects' | translate }}</span>
-                <img src="img/menu.svg" (click)="toggleMenu()">
+                <img src="img/menu.svg" (click)="toggleMenu()" alt="menu">
             </div>
     
             <div class="row gap-5 languages">
