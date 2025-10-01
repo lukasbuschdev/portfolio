@@ -9,17 +9,17 @@
         </div>
         <div class="image-container row between">
             <div class="icon-container row gap-15 center">
-                <img (click)="openLink('https://github.com/lukasbuschdev')" src="img/github.svg">
-                <img (click)="scroll.goToSection('main', 'contact', 'name')" src="img/email.svg">
-                <img (click)="openLink('https://www.linkedin.com/in/lukas-busch-4192001b5')" src="img/linkedin.svg">
+                <img (click)="openLink('https://github.com/lukasbuschdev')" src="img/github.svg" alt="github">
+                <img (click)="scroll.goToSection('main', 'contact', 'name')" src="img/email.svg" alt="contact">
+                <img (click)="openLink('https://www.linkedin.com/in/lukas-busch-4192001b5')" src="img/linkedin.svg" alt="linkedin">
             </div>
             <div class="arrow-container center column gap-10">
                 <span (click)="scroll.goToSection('main', 'profile')">{{ 'scroll' | translate }}</span>
-                <img (click)="scroll.goToSection('main', 'profile')" src="img/arrows.svg">
+                <img (click)="scroll.goToSection('main', 'profile')" src="img/arrows.svg" alt="next section">
             </div>
 
             <div class="character-container">
-                <img src="img/character.webp">
+                <img src="img/character.webp" alt="me">
             </div>
         </div>
     </div>
