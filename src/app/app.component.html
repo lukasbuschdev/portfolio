@@ -1,10 +1,8 @@
 <canvas id="canvas"></canvas>
 <div class="column wrapper">
-    @if(router.url !== '/cmd') {
-        <app-header></app-header>
-    }
+    <app-header></app-header>
     <router-outlet></router-outlet>
-    @if(router.url !== '/menu' && router.url !== '/cmd') {
+    @if(router.url !== '/menu') {
         <app-footer></app-footer>
     }
 </div>

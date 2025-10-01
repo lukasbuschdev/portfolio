@@ -21,12 +21,12 @@ export class ProjectsComponent {
     const translations: any = {
       en: [
         {
-          name: 'Interactive Terminal',
-          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Flask',
-          description: 'Real Linux-style CLI in your browser: run 41+ commands (ls, cat, ping, dig etc.), full file navigation, embedded nano editor, chaining & sudo auth, authentic errors and live data.',
+          name: 'Web CLI',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Nginx',
+          description: 'Browser-based CLI with 44+ commands (ls, cat, ping, dig etc.), file system navigation, built-in nano editor, command chaining and sudo support, realistic errors and live system data.',
           img: 'img/terminal.webp',
-          link: 'https://lukasbusch.dev/cmd',
-          github: 'https://github.com/lukasbuschdev/portfolio'
+          link: 'https://lukasbusch.dev/cli',
+          github: 'https://github.com/lukasbuschdev/cli'
         },
         {
           name: 'Expense Tracker',
@@ -71,13 +71,13 @@ export class ProjectsComponent {
       ],
       es: [
         {
-          name: 'Interactive Terminal',
-          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Flask',
-          description: 'Terminal Linux en el navegador: +41  comandos (ls, cat, ping…), navegación de archivos, editor nano, chaining y sudo, errores reales y datos en vivo.',
+          name: 'Web CLI',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Nginx',
+          description: 'CLI en el navegador con más de 44 comandos (ls, cat, ping, dig etc.), navegación de archivos, editor nano integrado, chaining y sudo, errores realistas y datos de sistema en vivo.',
           img: 'img/terminal.webp',
-          link: 'https://lukasbusch.dev/cmd',
-          github: 'https://github.com/lukasbuschdev/portfolio'
-        },        
+          link: 'https://lukasbusch.dev/cli',
+          github: 'https://github.com/lukasbuschdev/cli'
+        },       
         {
           name: 'Expense Tracker',
           technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node.js | Express',
@@ -121,13 +121,13 @@ export class ProjectsComponent {
       ],
       de: [
         {
-          name: 'Interaktives Terminal',
-          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Flask',
-          description: 'Echte Linux-CLI im Browser: 41+ Befehle (ls, cat, ping, dig), vollständige Dateinavigation, integrierter Nano-Editor, Befehlsketten & sudo, authentische Fehlermeldungen & Live-Daten.',
+          name: 'Web CLI',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Nginx',
+          description: 'Linux-ähnliche CLI im Browser mit 44+ Befehlen (ls, cat, ping, dig etc.), Dateisystem-Navigation, integriertem Nano-Editor, Befehlsketten und sudo, realistischen Fehlermeldungen und Live-Systemdaten.',
           img: 'img/terminal.webp',
-          link: 'https://lukasbusch.dev/cmd',
-          github: 'https://github.com/lukasbuschdev/portfolio'
-        },        
+          link: 'https://lukasbusch.dev/cli',
+          github: 'https://github.com/lukasbuschdev/cli'
+        },       
         {
           name: 'Expense Tracker',
           technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node.js | Express',

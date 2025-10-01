@@ -11,6 +11,12 @@ import { TranslatePipe } from '../pipe/translate.pipe';
 export class FooterComponent {
   scroll = inject(ScrollService);
 
+  currentYear: number | undefined = undefined; 
+  
+  ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
+  }
+
   openLink(link: string): void {
     window.open(link, '_blank');
   }

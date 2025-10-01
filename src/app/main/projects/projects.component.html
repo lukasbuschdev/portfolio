@@ -5,7 +5,7 @@
 
     <div class="content-container center row gap-40">
         @for (project of getProjects(); track $index) {
-            <div class="card column gap-20" (click)="project.name.includes('Terminal') ? scroll.goToSection('cmd', 'cmd') : openLink(project.link)">
+            <div class="card column gap-20" (click)="openLink(project.link)">
                 <div class="image-container">
                     <img [src]="project.img">
                 </div>
@@ -18,11 +18,7 @@
                         <span>{{ project.technologies }}</span>
                         <span>{{ project.description }}</span>
                         <div class="btn-container row gap-15 center">
-                            @if(project.name.includes('Terminal')) {
-                                <button (click)="scroll.goToSection('cmd', 'cmd')">Live Test</button>
-                            } @else {
-                                <button (click)="openLink(project.link)">Live Test</button>
-                            }
+                            <button (click)="openLink(project.link)">Live Test</button>
                             <button (click)="openLink(project.github)">Github</button>
                         </div>
                     </div>
