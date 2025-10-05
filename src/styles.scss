@@ -109,11 +109,6 @@ p, a, button {
   justify-content: space-between;
 }
 
-.around {
-  display: flex;
-  justify-content: space-around;
-}
-
 .column {
   display: flex;
   flex-direction: column;
@@ -124,76 +119,39 @@ p, a, button {
   flex-direction: row;
 }
 
-.absolute {
-  position: absolute;
+@function px($value) {
+  @return #{$value}px;
 }
 
-.gap-5 {
-  gap: 5px;
+@for $i from 1 through 10 {
+  .gap-#{$i * 5} {
+    gap: px($i * 5);
+  }
 }
 
-.gap-10 {
-  gap: 10px;
-}
-
-.gap-15 {
-  gap: 15px;
-}
-
-.gap-20 {
-  gap: 20px;
-}
-
-.gap-25 {
-  gap: 25px;
-}
-
-.gap-30 {
-  gap: 30px;
-}
-
-.gap-40 {
-  gap: 40px;
-}
-
-.gap-50 {
-  gap: 40px;
+h1, h2, h3, h4 {
+  font-family: $font;
+  text-align: center;
+  color: $blue;
+  font-weight: 400;
+  line-height: 1;
 }
 
 h1 {
   font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
-  font-weight: 600;
-  font-family: $font;
-  line-height: 0.8;
-  color: $blue;
-  text-align: center;
+  font-weight: 600 !important;
 }
 
 h2 {
   font-size: clamp(1.5rem, 2vw + 1rem, 2.5rem);
-  font-weight: 400;
-  font-family: $font;
-  line-height: 1;
-  color: $blue;
-  text-align: center;
 }
 
 h3 {
   font-size: min(10vmin, 1.5rem);
-  font-weight: 400;
-  font-family: $font;
-  line-height: 1;
-  color: $blue;
-  text-align: center;
 }
 
 h4 {
   font-size: min(9vmin, 1.2rem);
-  font-weight: 400;
-  font-family: $font;
-  line-height: 1;
-  color: $blue;
-  text-align: center;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -209,22 +167,6 @@ input[type="number"] {
 
 input[type="number"] {
     -ms-appearance: none !important;
-}
-
-.fade-in-bottom {
-  opacity: 0;
-  animation: fadeInBottom 500ms ease-out forwards;
-}
-
-@keyframes fadeInBottom {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .hidden {
