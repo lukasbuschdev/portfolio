@@ -183,6 +183,10 @@
     transition: $transition;
 }
 
+.d-none {
+    display: none;
+}
+
 @keyframes spin {
     from {
         --angle: 0deg;

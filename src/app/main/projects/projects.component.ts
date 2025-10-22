@@ -21,6 +21,14 @@ export class ProjectsComponent {
     const translations: any = {
       en: [
         {
+          name: 'Lengo',
+          technologies: 'Angular | TypeScript | SCSS | Node.js | Supabase | Stripe',
+          description: 'Peer-to-peer rental platform (in development) where users can list and rent items locally with secure payments, reservation flow, user ratings and location-based search.',
+          img: 'img/lengo.webp',
+          link: 'https://lengoapp.com',
+          github: ''
+        },
+        {
           name: 'Web CLI',
           technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Nginx',
           description: 'Browser-based CLI with 44+ commands (ls, cat, ping, dig etc.), file system navigation, built-in nano editor, command chaining and sudo support, realistic errors and live system data.',
@@ -63,6 +71,14 @@ export class ProjectsComponent {
       ],
       es: [
         {
+          name: 'Lengo',
+          technologies: 'Angular | TypeScript | SCSS | Node.js | Supabase | Stripe',
+          description: 'Plataforma de alquiler entre personas (en desarrollo) donde los usuarios pueden publicar y rentar artículos localmente con pagos seguros, flujo de reservas, valoraciones y búsqueda por ubicación.',
+          img: 'img/lengo.webp',
+          link: 'https://lengoapp.com',
+          github: ''
+        },
+        {
           name: 'Web CLI',
           technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Nginx',
           description: 'CLI en el navegador con más de 44 comandos (ls, cat, ping, dig etc.), navegación de archivos, editor nano integrado, chaining y sudo, errores realistas y datos de sistema en vivo.',
@@ -104,6 +120,14 @@ export class ProjectsComponent {
         }
       ],
       de: [
+        {
+          name: 'Lengo',
+          technologies: 'Angular | TypeScript | SCSS | Node.js | Supabase | Stripe',
+          description: 'Peer-to-Peer-Mietplattform (in Entwicklung), auf der Nutzer Artikel lokal einstellen und mieten können – mit sicheren Zahlungen, Reservierungsablauf, Bewertungen und standortbasierter Suche.',
+          img: 'img/lengo.webp',
+          link: 'https://lengoapp.com',
+          github: ''
+        },
         {
           name: 'Web CLI',
           technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Nginx',

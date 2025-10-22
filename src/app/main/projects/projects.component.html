@@ -19,7 +19,7 @@
                         <span>{{ project.description }}</span>
                         <div class="btn-container row gap-15 center">
                             <button (click)="openLink(project.link)">Live Test</button>
-                            <button (click)="openLink(project.github)">Github</button>
+                            <button [class.d-none]="project.name === 'Lengo'" (click)="openLink(project.github)">Github</button>
                         </div>
                     </div>
                 </div>
