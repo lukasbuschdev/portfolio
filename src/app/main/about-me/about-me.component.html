@@ -1,5 +1,5 @@
-<div id="profile" class="section-container center">
-    <div class="wrapper column center">
+<section id="profile" class="section-container center">
+    <div class="wrapper column center gap-30">
         <div class="header-container">
             <h2>{{ 'profile' | translate }}</h2>
         </div>
@@ -11,7 +11,7 @@
         </div>
     
         <div class="arrow-container">
-            <img (click)="scroll.goToSection('main', 'skillset')" src="img/arrow-single.svg" alt="next section">
+            <img loading="lazy" (click)="scroll.goToSection('main', 'skillset')" src="img/arrow-single.svg" alt="next section">
         </div>
     </div>
-</div>
+</section>

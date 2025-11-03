@@ -1,4 +1,4 @@
-<div id="contact" class="section-container column center gap-40">
+<section id="contact" class="section-container column center gap-40">
     <div class="header-container">
         <h2>{{ 'contact' | translate }}</h2>
     </div>
@@ -54,9 +54,9 @@
             <div class="column gap-5 center">
                 <div class="accept-container row left gap-10 align-center">
                     @if(!isChecked) {
-                        <img src="img/checkbox-unchecked.svg" (click)="toggleChecked()" alt="checkbox-unchecked">
+                        <img loading="lazy" src="img/checkbox-unchecked.svg" (click)="toggleChecked()" alt="checkbox-unchecked">
                     } @else {
-                        <img src="img/checkbox-checked.svg" (click)="toggleChecked()" alt="checkbox-checked">
+                        <img loading="lazy" src="img/checkbox-checked.svg" (click)="toggleChecked()" alt="checkbox-checked">
                     }
                     <span>{{ 'accept-privacy-policy' | translate }} <span class="link" (click)="scroll.goToSection('privacy-policy', 'privacy-policy')">{{ 'privacy-policy' | translate }}</span>.</span>
                 </div>
@@ -74,6 +74,6 @@
     </div>
 
     <div class="arrow-container row right">
-        <img (click)="scroll.goToSection('main', 'landing-page')" src="img/arrows.svg" alt="back to top">
+        <img loading="lazy" (click)="scroll.goToSection('main', 'landing-page')" src="img/arrows.svg" alt="back to top">
     </div>
-</div>
+</section>
