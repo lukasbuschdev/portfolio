@@ -68,6 +68,7 @@
               "buildTarget": "portfolio:build:production"
             },
             "development": {
+              "hmr": false,
               "buildTarget": "portfolio:build:development"
             }
           },
