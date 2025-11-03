@@ -158,22 +158,6 @@
     }
 }
 
-.arrow-container {
-    padding: 2vh 0;
-
-    img {
-        height: 30px;
-        object-fit: contain;
-        
-        @media (hover: hover) {
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.75);
-            }
-        }
-    }
-}
-
 .line {
     height: 1px;
     width: calc(100% - 30px);

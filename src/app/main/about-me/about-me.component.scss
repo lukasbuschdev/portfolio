@@ -25,22 +25,6 @@
     }
 }
 
-.arrow-container {
-    padding: 2vh 0;
-
-    img {
-        height: 30px;
-        object-fit: contain;
-        
-        @media(hover: hover) {
-            &:hover {
-                cursor: pointer;
-                filter: brightness(0.75);
-            }
-        }
-    }
-}
-
 @media(max-width: 500px) {
     .section-container {
         height: 100vh;

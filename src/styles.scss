@@ -44,7 +44,7 @@
   font-family: 'OCRAbyBT';  // This is the name you'll use in your CSS.
   font-style: normal;
   font-weight: 400;
-  src: local('OCRAbyBT Regular'), url('/media/OCRAbyBT-Regular.ttf') format('truetype');
+  src: url('/media/OCRAbyBT-Regular.woff2') format('woff2');
 }
 
 
@@ -179,6 +179,22 @@ input[type="number"] {
   padding: 10vh 30px;
   min-height: 100vh;
   min-height: 100dvh;
+}
+
+.single-arrow-container {
+  padding: 2vh 0;
+
+  img {
+      height: 50px;
+      object-fit: contain;
+      
+      @media(hover: hover) {
+          &:hover {
+              cursor: pointer;
+              filter: brightness(0.75);
+          }
+      }
+  }
 }
 
 @media(max-width: 600px) {

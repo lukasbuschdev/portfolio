@@ -23,11 +23,11 @@
 
             <div class="arrow-container center column gap-10">
                 <span (click)="scroll.goToSection('main', 'profile')">{{ 'scroll' | translate }}</span>
-                <img (click)="scroll.goToSection('main', 'profile')" src="img/arrows.svg" alt="next section">
+                <img (click)="scroll.goToSection('main', 'profile')" src="img/arrows.png" alt="next section">
             </div>
             
             <div class="character-container">
-                <img src="img/character.webp" alt="me">
+                <img fetchpriority="high" decoding="async" src="img/character.webp" alt="me">
             </div>
         </div>
     </div>
