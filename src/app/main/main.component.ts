@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { AboutMeComponent } from "./about-me/about-me.component";
 import { SkillsetComponent } from "./skillset/skillset.component";
@@ -15,4 +15,21 @@ import { DialogService } from '../services/dialog.service';
 })
 export class MainComponent {
   dialog = inject(DialogService);
+  private preloaded = false;
+  
+  @HostListener('window:scroll')
+  onScroll(): void {
+    if (this.preloaded) return;
+    
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > 300) {
+      this.preloadLazyRoutes();
+      this.preloaded = true;
+    } 
+  }
+
+  private preloadLazyRoutes(): void {
+    import('../privacy-policy/privacy-policy.component');
+    import('../legal-notice/legal-notice.component');
+  }
 }
