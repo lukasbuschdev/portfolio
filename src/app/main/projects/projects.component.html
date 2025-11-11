@@ -5,30 +5,31 @@
 
     <div class="content-container center row gap-40">
         @for (project of getProjects(); track $index) {
-            <div class="card column gap-20" (click)="openLink(project.link)">
-                <div class="image-container">
-                    <img loading="lazy"  [src]="project.img" alt="project image">
-                </div>
-                <div class="info-container column center gap-20">
-                    <h3>{{ project.name }}</h3>
+        <div class="card column gap-20" (click)="openLink(project.link)">
+            <div class="image-container">
+                <img loading="lazy" [src]="project.img" alt="project image">
+            </div>
+            <div class="info-container column center gap-20">
+                <h3>{{ project.name }}</h3>
 
-                    <div class="line"></div>
+                <div class="line"></div>
 
-                    <div class="column gap-20 card-content between">
-                        <span>{{ project.technologies }}</span>
-                        <span>{{ project.description }}</span>
-                        <div class="btn-container row gap-15 center">
-                            <button (click)="openLink(project.link)">Live Test</button>
-                            <button [class.d-none]="project.name === 'Lengo'" (click)="openLink(project.github)">Github</button>
-                        </div>
+                <div class="column gap-20 card-content between">
+                    <span>{{ project.technologies }}</span>
+                    <span>{{ project.description }}</span>
+                    <div class="btn-container row gap-15 center">
+                        <button (click)="openLink(project.link)">Live Test</button>
+                        <button [class.d-none]="project.github === ''"
+                            (click)="openLink(project.github)">Github</button>
                     </div>
                 </div>
             </div>
+        </div>
         }
     </div>
 
     <div class="single-arrow-container">
-        <img loading="lazy" (click)="scroll.goToSection('main', 'contact')" src="img/arrow-single.png" alt="next section">
+        <img loading="lazy" (click)="scroll.goToSection('main', 'contact')" src="img/arrow-single.png"
+            alt="next section">
     </div>
 </section>
-

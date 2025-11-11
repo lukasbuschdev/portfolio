@@ -22,7 +22,7 @@ export class ProjectsComponent {
       en: [
         {
           name: 'Lengo',
-          technologies: 'Angular | TypeScript | SCSS | Node.js | Supabase | Stripe',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Supabase | Stripe',
           description: 'Peer-to-peer rental platform (in development) where users can list and rent items locally with secure payments, reservation flow, user ratings and location-based search.',
           img: 'img/lengo.webp',
           link: 'https://lengoapp.com',
@@ -37,8 +37,16 @@ export class ProjectsComponent {
           github: 'https://github.com/lukasbuschdev/cli'
         },
         {
+          name: 'Neostack',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Supabase | Markdown',
+          description: 'Modern tech blog focused on web development, performance, and SEO. Articles are written in Markdown, dynamically fetched from Supabase, and optimized for SEO and fast static rendering.',
+          img: 'img/neostack.webp',
+          link: 'https://neostack.blog',
+          github: ''
+        },
+        {
           name: 'Expense Tracker',
-          technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node.js | Express',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Express | Supabase',
           description: 'Expense Tracker is a full-stack financial management app. Create an account to access a dynamic dashboard that lets you manage expenses, budgets, and settings in one interface.',
           img: 'img/expensetracker.webp',
           link: 'https://expensetracker.lukasbusch.dev',
@@ -59,20 +67,12 @@ export class ProjectsComponent {
           img: 'img/polloloco.webp',
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
-        },
-        {
-          name: 'Tax Calculator',
-          technologies: 'Angular | HTML | SCSS | REST-API',
-          description: 'Estimate your net take-home pay in Mexico: choose currency and pay frequency, enter your salary, and view monthly and yearly after-tax amounts with real-time exchange rates.',
-          img: 'img/calculator.webp',
-          link: 'https://lukasbusch.dev/Calculator/main',
-          github: 'https://github.com/lukasbuschdev/calculator'
         }
       ],
       es: [
         {
           name: 'Lengo',
-          technologies: 'Angular | TypeScript | SCSS | Node.js | Supabase | Stripe',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Supabase | Stripe',
           description: 'Plataforma de alquiler entre personas (en desarrollo) donde los usuarios pueden publicar y rentar artículos localmente con pagos seguros, flujo de reservas, valoraciones y búsqueda por ubicación.',
           img: 'img/lengo.webp',
           link: 'https://lengoapp.com',
@@ -85,15 +85,23 @@ export class ProjectsComponent {
           img: 'img/terminal.webp',
           link: 'https://lukasbusch.dev/cli',
           github: 'https://github.com/lukasbuschdev/cli'
-        },       
+        },
+        {
+          name: 'Neostack',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Supabase | Markdown',
+          description: 'Blog tecnológico moderno enfocado en desarrollo web, rendimiento y SEO. Los artículos están escritos en Markdown, se cargan dinámicamente desde Supabase y están optimizados para SEO y una carga rápida.',
+          img: 'img/neostack.webp',
+          link: 'https://neostack.blog',
+          github: ''
+        },
         {
           name: 'Expense Tracker',
-          technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node.js | Express',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Express | Supabase',
           description: 'Expense Tracker: gestor financiero full-stack con registro de usuarios, panel con gráficos, control de gastos, presupuestos y categorías en una interfaz intuitiva.',
           img: 'img/expensetracker.webp',
           link: 'https://expensetracker.lukasbusch.dev',
           github: 'https://github.com/lukasbuschdev/tracker'
-        },        
+        },
         {
           name: 'Join',
           technologies: 'JavaScript | HTML | CSS | Firebase',
@@ -109,20 +117,12 @@ export class ProjectsComponent {
           img: 'img/polloloco.webp',
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
-        },
-        {
-          name: 'Calculadora de Impuestos',
-          technologies: 'Angular | HTML | SCSS | API REST',
-          description: 'Calcula tu salario neto en México: selecciona moneda y frecuencia de pago, ingresa tu salario y consulta montos mensuales y anuales después de impuestos con tasas de cambio en tiempo real.',
-          img: 'img/calculator.webp',
-          link: 'https://lukasbusch.dev/Calculator/main',
-          github: 'https://github.com/lukasbuschdev/calculator'
         }
       ],
       de: [
         {
           name: 'Lengo',
-          technologies: 'Angular | TypeScript | SCSS | Node.js | Supabase | Stripe',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Supabase | Stripe',
           description: 'Peer-to-Peer-Mietplattform (in Entwicklung), auf der Nutzer Artikel lokal einstellen und mieten können – mit sicheren Zahlungen, Reservierungsablauf, Bewertungen und standortbasierter Suche.',
           img: 'img/lengo.webp',
           link: 'https://lengoapp.com',
@@ -135,10 +135,18 @@ export class ProjectsComponent {
           img: 'img/terminal.webp',
           link: 'https://lukasbusch.dev/cli',
           github: 'https://github.com/lukasbuschdev/cli'
-        },       
+        },
+        {
+          name: 'Neostack',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Supabase | Markdown',
+          description: 'Moderner Tech-Blog mit Fokus auf Webentwicklung, Performance und SEO. Artikel werden in Markdown verfasst, dynamisch aus Supabase geladen und für SEO sowie schnelle Ladezeiten optimiert.',
+          img: 'img/neostack.webp',
+          link: 'https://neostack.blog',
+          github: ''
+        },
         {
           name: 'Expense Tracker',
-          technologies: 'Angular | TypeScript | HTML | SCSS | Supabase | Node.js | Express',
+          technologies: 'Angular | TypeScript | SCSS | HTML | Node.js | Express | Supabase',
           description: 'Full-Stack-Finanzverwaltung im Browser: Konto erstellen, um ein dynamisches Dashboard mit Grafiken zu nutzen, verwalte Ausgaben, Budgets & Kategorien und passe Einstellungen in einer intuitiven UI an.',
           img: 'img/expensetracker.webp',
           link: 'https://expensetracker.lukasbusch.dev',
@@ -159,14 +167,6 @@ export class ProjectsComponent {
           img: 'img/polloloco.webp',
           link: 'https://lukasbusch.dev/PolloLoco/index.html',
           github: 'https://github.com/lukasbuschdev/ElPolloLoco'
-        },
-        {
-          name: 'Steuerrechner',
-          technologies: 'Angular | HTML | SCSS | REST-API',
-          description: 'Berechne dein Nettogehalt in Mexiko: wähle Währung und Zahlungsfrequenz, gib dein Gehalt ein und erhalte monatliche und jährliche Beträge nach Steuern mit Echtzeit-Wechselkursen.',
-          img: 'img/calculator.webp',
-          link: 'https://lukasbusch.dev/Calculator/main',
-          github: 'https://github.com/lukasbuschdev/calculator'
         }
       ]
     };

@@ -45,12 +45,16 @@ export class SkillsetComponent {
       img: 'img/supabase.svg'
     },
     {
-      name: 'Firebase',
-      img: 'img/firebase.svg'
+      name: 'SQLite',
+      img: 'img/sqlite.svg'
     },
     {
       name: 'GIT',
       img: 'img/git.svg'
+    },
+    {
+      name: 'Linux',
+      img: 'img/linux.png'
     },
     {
       name: 'Material Design',
